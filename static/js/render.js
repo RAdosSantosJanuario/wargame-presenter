@@ -6,6 +6,7 @@ import { h, md } from './util.js';
 import { icon } from './icons.js';
 import { mediaUrl, attrMap, fmtDelta, deltaTone } from './model.js';
 import { renderChart, chartAttrs } from './charts.js';
+import { renderNetwork } from './network.js';
 
 const CH_ICON = { email: 'mail', phone: 'phone', chat: 'chat', sms: 'sms', news: 'news', social: 'social', alert: 'alert', memo: 'memo' };
 const FROM_KEY = { phone: 'inj.caller', news: 'inj.source', social: 'inj.account', alert: 'inj.system' };
@@ -121,6 +122,10 @@ function elementContent(el, page, ctx) {
     case 'inject': return injectEl(el, ctx);
     case 'chart': return chartEl(el, ctx);
     case 'choices': return choicesEl(page, ctx);
+    case 'network': return h('div', {
+      class: 'net',
+      html: renderNetwork(el, { lang: ctx.lang, aspect: (Number(el.w) * 16) / (Math.max(1, Number(el.h)) * 9), data: ctx.data }),
+    });
     default: return null;
   }
 }

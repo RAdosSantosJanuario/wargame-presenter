@@ -113,7 +113,7 @@ export async function presentView(root, id, query) {
     const page = session.page;
     const c = ctx();
     for (const el of page.elements) {
-      if (el.kind !== 'choices' && el.kind !== 'chart') continue;
+      if (!['choices', 'chart', 'network'].includes(el.kind)) continue;
       const old = stage.querySelector(`:scope > .el[data-id="${CSS.escape(el.id)}"]`);
       if (!old) continue;
       const fresh = renderElement(el, page, c);

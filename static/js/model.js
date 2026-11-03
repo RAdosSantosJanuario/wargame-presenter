@@ -86,11 +86,34 @@ export function newElement(kind, partial = {}) {
     },
     chart: { x: 6, y: 17, w: 88, h: 76, chart: 'bars', attrs: [], includeHidden: false },
     choices: { x: 4, y: 16, w: 92, h: 79 },
+    network: kind === 'network' ? { x: 4, y: 16, w: 92, h: 78, ...defaultNetwork() } : null,
   };
   return { ...base, ...clone(byKind[kind] || {}), ...clone(partial) };
 }
 
-export const PAGE_TEMPLATES = ['title', 'text', 'inject', 'image', 'decision', 'results', 'debrief', 'blank'];
+// A small starter network so a new map is never empty.
+// Node x/y = centre in % of the element, w = width in % of the element.
+export function defaultNetwork() {
+  const node = (label, sub, icon, x, y, status = 'normal', w = 17) => ({ id: uid('n-'), label, sub, icon, x, y, w, status, states: [] });
+  const link = (a, b, style = 'normal') => ({ id: uid('l-'), from: a.id, to: b.id, style, label: L(), states: [] });
+  const inet = node(L('Internet', 'Internet'), L(), 'internet', 11, 52, 'normal', 14);
+  const fw = node(L('Firewall', 'Firewall'), L('Perimeter', 'Perimeter'), 'firewall', 31, 52);
+  const dc = node(L('Domain Controller', 'Domain Controller'), L('Active Directory', 'Active Directory'), 'server', 59, 33, 'suspicious', 19);
+  const fs = node(L('File server', 'Fileserver'), L('Departments', 'Abteilungen'), 'database', 59, 53, 'normal', 19);
+  const bk = node(L('Backup', 'Backup'), L('Nightly', 'Nächtlich'), 'backup', 59, 73, 'normal', 19);
+  const cl = node(L('Clients', 'Clients'), L('Office laptops', 'Büro-Laptops'), 'client', 87, 53, 'normal', 17);
+  return {
+    title: L('Company network', 'Firmennetzwerk'),
+    subtitle: L('Situation overview', 'Lageübersicht'),
+    frame: true,
+    legend: true,
+    zones: [{ id: uid('z-'), label: L('Datacenter', 'Rechenzentrum'), x: 46.5, y: 21, w: 25, h: 64 }],
+    nodes: [inet, fw, dc, fs, bk, cl],
+    links: [link(inet, fw, 'attack'), link(fw, dc, 'attack'), link(fw, fs), link(fs, bk), link(dc, cl, 'suspicious')],
+  };
+}
+
+export const PAGE_TEMPLATES = ['title', 'text', 'inject', 'image', 'network', 'decision', 'results', 'debrief', 'blank'];
 
 export function newPage(template = 'text') {
   const page = {
@@ -140,6 +163,10 @@ export function newPage(template = 'text') {
       page.timer = 300;
       page.elements = [newElement('choices')];
       page.decision = newDecision();
+      break;
+    case 'network':
+      page.title = L('Network situation', 'Netzwerklage');
+      page.elements = [newElement('network')];
       break;
     case 'results':
       page.title = L('Situation report', 'Lagebild');
@@ -372,6 +399,13 @@ export function bilingualFields(wg) {
       if (e.kind === 'text') add(e, 'text', et, 'text');
       if (e.kind === 'image') add(e, 'caption', et, 'caption');
       if (e.kind === 'inject') for (const k of ['from', 'to', 'subject', 'body']) add(e, k, et, k);
+      if (e.kind === 'network') {
+        add(e, 'title', et, 'netTitle');
+        add(e, 'subtitle', et, 'subtitle');
+        for (const n of e.nodes || []) { add(n, 'label', et, 'node', true); add(n, 'sub', et, 'node'); }
+        for (const z of e.zones || []) add(z, 'label', et, 'zone');
+        for (const l of e.links || []) add(l, 'label', et, 'netLink');
+      }
     }
     if (p.type === 'decision' && p.decision) {
       add(p.decision, 'prompt', target, 'prompt');
@@ -472,6 +506,17 @@ export function checkWargame(wg) {
     for (const r of p.condition?.rules || []) {
       if (r.type === 'choice' && !choiceIds.has(r.choice)) add('error', 'chk.condChoice', { page }, target);
       if (r.type !== 'choice' && !attrs[r.attr]) add('error', 'chk.condAttr', { page }, target);
+    }
+    for (const e of p.elements || []) {
+      if (e.kind !== 'network') continue;
+      const et = { ...target, element: e.id };
+      const nodeIds = new Set((e.nodes || []).map((n) => n.id));
+      if ((e.links || []).some((l) => !nodeIds.has(l.from) || !nodeIds.has(l.to))) add('warn', 'chk.netLink', { page }, et);
+      const states = [...(e.nodes || []), ...(e.links || [])].flatMap((x) => x.states || []);
+      for (const r of states.flatMap((s) => s.condition?.rules || [])) {
+        if (r.type === 'choice' && !choiceIds.has(r.choice)) add('error', 'chk.netCondChoice', { page }, et);
+        if (r.type !== 'choice' && !attrs[r.attr]) add('error', 'chk.netCondAttr', { page }, et);
+      }
     }
   }
   return issues;

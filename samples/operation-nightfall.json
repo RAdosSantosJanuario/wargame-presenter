@@ -1074,8 +1074,8 @@
         },
         "showTitle": true,
         "notes": {
-          "en": "Let the team read the values. Ask: which value worries you most? Mention that the attack path sketch is a first assessment and may still be wrong.",
-          "de": "Lassen Sie die Gruppe die Werte lesen. Fragen Sie: Welcher Wert bereitet Ihnen die größten Sorgen? Erwähnen Sie, dass die Skizze eine erste Einschätzung ist und noch falsch sein kann."
+          "en": "Let the team read the values. Ask: which value worries you most? Mention that the attack path sketch is a first assessment and may still be wrong. The network map follows decisions 1 and 2: isolating, shutting down, monitoring or cutting the uplink each change it.",
+          "de": "Lassen Sie die Gruppe die Werte lesen. Fragen Sie: Welcher Wert bereitet Ihnen die größten Sorgen? Erwähnen Sie, dass die Skizze eine erste Einschätzung ist und noch falsch sein kann. Die Netzwerkkarte folgt den Entscheidungen 1 und 2: Isolieren, Abschalten, Beobachten oder Kappen der Anbindung verändern sie."
         },
         "timer": 0,
         "condition": null,
@@ -1094,19 +1094,949 @@
           },
           {
             "id": "e-sitrep1-map",
-            "kind": "image",
+            "kind": "network",
             "x": 52,
             "y": 16,
             "w": 44,
             "h": 46,
             "reveal": 0,
-            "src": "network-map.svg",
-            "fit": "contain",
-            "caption": {
-              "en": "Attack path – first assessment",
-              "de": "Angriffsweg – erste Einschätzung"
+            "title": {
+              "en": "NordWerk Logistik · IT",
+              "de": "NordWerk Logistik · IT"
             },
-            "frame": true
+            "subtitle": {
+              "en": "Mon 12:00 · attack path",
+              "de": "Mo 12:00 · Angriffsweg"
+            },
+            "frame": true,
+            "legend": true,
+            "zones": [
+              {
+                "id": "z-entry",
+                "label": {
+                  "en": "Entry point",
+                  "de": "Einfallstor"
+                },
+                "x": 1.5,
+                "y": 31,
+                "w": 21,
+                "h": 18
+              },
+              {
+                "id": "z-hq",
+                "label": {
+                  "en": "HQ Hamburg · datacenter",
+                  "de": "Zentrale Hamburg · RZ"
+                },
+                "x": 41,
+                "y": 15.5,
+                "w": 24,
+                "h": 67
+              },
+              {
+                "id": "z-sites",
+                "label": {
+                  "en": "Warehouses",
+                  "de": "Lagerstandorte"
+                },
+                "x": 75,
+                "y": 12.5,
+                "w": 20,
+                "h": 71
+              }
+            ],
+            "nodes": [
+              {
+                "id": "n-vpn",
+                "label": {
+                  "en": "Provider VPN",
+                  "de": "Dienstleister-VPN"
+                },
+                "sub": {
+                  "en": "no MFA",
+                  "de": "ohne MFA"
+                },
+                "icon": "vpn",
+                "x": 12,
+                "y": 40,
+                "w": 20,
+                "status": "compromised",
+                "states": []
+              },
+              {
+                "id": "n-fw",
+                "label": {
+                  "en": "Firewall",
+                  "de": "Firewall"
+                },
+                "sub": {
+                  "en": "",
+                  "de": ""
+                },
+                "icon": "firewall",
+                "x": 31,
+                "y": 40,
+                "w": 13,
+                "status": "normal",
+                "states": []
+              },
+              {
+                "id": "n-portal",
+                "label": {
+                  "en": "Customer portal",
+                  "de": "Kundenportal"
+                },
+                "sub": {
+                  "en": "NordWerk Connect",
+                  "de": "NordWerk Connect"
+                },
+                "icon": "app",
+                "x": 31,
+                "y": 70,
+                "w": 19,
+                "status": "suspicious",
+                "states": [
+                  {
+                    "value": "offline",
+                    "condition": {
+                      "mode": "any",
+                      "rules": [
+                        {
+                          "type": "choice",
+                          "choice": "c-shutdown-all",
+                          "op": "chosen"
+                        },
+                        {
+                          "type": "choice",
+                          "choice": "c-cut-uplink",
+                          "op": "chosen"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "n-dc",
+                "label": {
+                  "en": "Domain Controller",
+                  "de": "Domain Controller"
+                },
+                "sub": {
+                  "en": "Active Directory",
+                  "de": "Active Directory"
+                },
+                "icon": "server",
+                "x": 53,
+                "y": 24.5,
+                "w": 21,
+                "status": "compromised",
+                "states": [
+                  {
+                    "value": "offline",
+                    "condition": {
+                      "mode": "any",
+                      "rules": [
+                        {
+                          "type": "choice",
+                          "choice": "c-shutdown-all",
+                          "op": "chosen"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "n-esxi",
+                "label": {
+                  "en": "ESXi",
+                  "de": "ESXi"
+                },
+                "sub": {
+                  "en": "42 VMs",
+                  "de": "42 VMs"
+                },
+                "icon": "server",
+                "x": 53,
+                "y": 37,
+                "w": 21,
+                "status": "encrypted",
+                "states": [
+                  {
+                    "value": "offline",
+                    "condition": {
+                      "mode": "any",
+                      "rules": [
+                        {
+                          "type": "choice",
+                          "choice": "c-shutdown-all",
+                          "op": "chosen"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "n-fs",
+                "label": {
+                  "en": "File server",
+                  "de": "Fileserver"
+                },
+                "sub": {
+                  "en": "NW-FS-01 / NW-FS-02",
+                  "de": "NW-FS-01 / NW-FS-02"
+                },
+                "icon": "database",
+                "x": 53,
+                "y": 49.5,
+                "w": 21,
+                "status": "encrypted",
+                "states": [
+                  {
+                    "value": "offline",
+                    "condition": {
+                      "mode": "any",
+                      "rules": [
+                        {
+                          "type": "choice",
+                          "choice": "c-shutdown-all",
+                          "op": "chosen"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "n-wms",
+                "label": {
+                  "en": "WMS-DB",
+                  "de": "WMS-DB"
+                },
+                "sub": {
+                  "en": "SQL · WMS",
+                  "de": "SQL · WMS"
+                },
+                "icon": "database",
+                "x": 53,
+                "y": 62,
+                "w": 21,
+                "status": "encrypted",
+                "states": [
+                  {
+                    "value": "offline",
+                    "condition": {
+                      "mode": "any",
+                      "rules": [
+                        {
+                          "type": "choice",
+                          "choice": "c-shutdown-all",
+                          "op": "chosen"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "n-backup",
+                "label": {
+                  "en": "Backup",
+                  "de": "Backup"
+                },
+                "sub": {
+                  "en": "Tapes: integrity?",
+                  "de": "Bänder: Integrität?"
+                },
+                "icon": "backup",
+                "x": 53,
+                "y": 74.5,
+                "w": 21,
+                "status": "suspicious",
+                "states": [
+                  {
+                    "value": "offline",
+                    "condition": {
+                      "mode": "any",
+                      "rules": [
+                        {
+                          "type": "choice",
+                          "choice": "c-shutdown-all",
+                          "op": "chosen"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "n-ham",
+                "label": {
+                  "en": "Hamburg",
+                  "de": "Hamburg"
+                },
+                "sub": {
+                  "en": "",
+                  "de": ""
+                },
+                "icon": "site",
+                "x": 85,
+                "y": 20,
+                "w": 17,
+                "status": "encrypted",
+                "states": [
+                  {
+                    "value": "offline",
+                    "condition": {
+                      "mode": "any",
+                      "rules": [
+                        {
+                          "type": "choice",
+                          "choice": "c-shutdown-all",
+                          "op": "chosen"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "n-bre",
+                "label": {
+                  "en": "Bremen",
+                  "de": "Bremen"
+                },
+                "sub": {
+                  "en": "",
+                  "de": ""
+                },
+                "icon": "site",
+                "x": 85,
+                "y": 31.5,
+                "w": 17,
+                "status": "encrypted",
+                "states": [
+                  {
+                    "value": "isolated",
+                    "condition": {
+                      "mode": "any",
+                      "rules": [
+                        {
+                          "type": "choice",
+                          "choice": "c-isolate-segment",
+                          "op": "chosen"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "value": "offline",
+                    "condition": {
+                      "mode": "any",
+                      "rules": [
+                        {
+                          "type": "choice",
+                          "choice": "c-shutdown-all",
+                          "op": "chosen"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "n-han",
+                "label": {
+                  "en": "Hannover",
+                  "de": "Hannover"
+                },
+                "sub": {
+                  "en": "",
+                  "de": ""
+                },
+                "icon": "site",
+                "x": 85,
+                "y": 43,
+                "w": 17,
+                "status": "suspicious",
+                "states": [
+                  {
+                    "value": "encrypted",
+                    "condition": {
+                      "mode": "any",
+                      "rules": [
+                        {
+                          "type": "choice",
+                          "choice": "c-monitor-quietly",
+                          "op": "chosen"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "value": "offline",
+                    "condition": {
+                      "mode": "any",
+                      "rules": [
+                        {
+                          "type": "choice",
+                          "choice": "c-shutdown-all",
+                          "op": "chosen"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "n-dor",
+                "label": {
+                  "en": "Dortmund",
+                  "de": "Dortmund"
+                },
+                "sub": {
+                  "en": "",
+                  "de": ""
+                },
+                "icon": "site",
+                "x": 85,
+                "y": 54.5,
+                "w": 17,
+                "status": "suspicious",
+                "states": [
+                  {
+                    "value": "encrypted",
+                    "condition": {
+                      "mode": "any",
+                      "rules": [
+                        {
+                          "type": "choice",
+                          "choice": "c-monitor-quietly",
+                          "op": "chosen"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "value": "offline",
+                    "condition": {
+                      "mode": "any",
+                      "rules": [
+                        {
+                          "type": "choice",
+                          "choice": "c-shutdown-all",
+                          "op": "chosen"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "n-lei",
+                "label": {
+                  "en": "Leipzig",
+                  "de": "Leipzig"
+                },
+                "sub": {
+                  "en": "",
+                  "de": ""
+                },
+                "icon": "site",
+                "x": 85,
+                "y": 66,
+                "w": 17,
+                "status": "unknown",
+                "states": [
+                  {
+                    "value": "clean",
+                    "condition": {
+                      "mode": "any",
+                      "rules": [
+                        {
+                          "type": "choice",
+                          "choice": "c-ir-retainer",
+                          "op": "chosen"
+                        },
+                        {
+                          "type": "choice",
+                          "choice": "c-insurance-hotline",
+                          "op": "chosen"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "value": "suspicious",
+                    "condition": {
+                      "mode": "any",
+                      "rules": [
+                        {
+                          "type": "choice",
+                          "choice": "c-monitor-quietly",
+                          "op": "chosen"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "value": "offline",
+                    "condition": {
+                      "mode": "any",
+                      "rules": [
+                        {
+                          "type": "choice",
+                          "choice": "c-shutdown-all",
+                          "op": "chosen"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "n-poz",
+                "label": {
+                  "en": "Poznań",
+                  "de": "Poznań"
+                },
+                "sub": {
+                  "en": "",
+                  "de": ""
+                },
+                "icon": "site",
+                "x": 85,
+                "y": 77.5,
+                "w": 17,
+                "status": "unknown",
+                "states": [
+                  {
+                    "value": "clean",
+                    "condition": {
+                      "mode": "any",
+                      "rules": [
+                        {
+                          "type": "choice",
+                          "choice": "c-ir-retainer",
+                          "op": "chosen"
+                        },
+                        {
+                          "type": "choice",
+                          "choice": "c-insurance-hotline",
+                          "op": "chosen"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "value": "offline",
+                    "condition": {
+                      "mode": "any",
+                      "rules": [
+                        {
+                          "type": "choice",
+                          "choice": "c-shutdown-all",
+                          "op": "chosen"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ],
+            "links": [
+              {
+                "id": "l-vpn-fw",
+                "from": "n-vpn",
+                "to": "n-fw",
+                "style": "attack",
+                "label": {
+                  "en": "",
+                  "de": ""
+                },
+                "states": [
+                  {
+                    "value": "blocked",
+                    "condition": {
+                      "mode": "any",
+                      "rules": [
+                        {
+                          "type": "choice",
+                          "choice": "c-cut-uplink",
+                          "op": "chosen"
+                        },
+                        {
+                          "type": "choice",
+                          "choice": "c-shutdown-all",
+                          "op": "chosen"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "l-fw-dc",
+                "from": "n-fw",
+                "to": "n-dc",
+                "style": "attack",
+                "label": {
+                  "en": "",
+                  "de": ""
+                },
+                "states": [
+                  {
+                    "value": "blocked",
+                    "condition": {
+                      "mode": "any",
+                      "rules": [
+                        {
+                          "type": "choice",
+                          "choice": "c-shutdown-all",
+                          "op": "chosen"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "l-fw-portal",
+                "from": "n-fw",
+                "to": "n-portal",
+                "style": "normal",
+                "label": {
+                  "en": "",
+                  "de": ""
+                },
+                "states": [
+                  {
+                    "value": "blocked",
+                    "condition": {
+                      "mode": "any",
+                      "rules": [
+                        {
+                          "type": "choice",
+                          "choice": "c-cut-uplink",
+                          "op": "chosen"
+                        },
+                        {
+                          "type": "choice",
+                          "choice": "c-shutdown-all",
+                          "op": "chosen"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "l-dc-esxi",
+                "from": "n-dc",
+                "to": "n-esxi",
+                "style": "attack",
+                "label": {
+                  "en": "",
+                  "de": ""
+                },
+                "states": [
+                  {
+                    "value": "blocked",
+                    "condition": {
+                      "mode": "any",
+                      "rules": [
+                        {
+                          "type": "choice",
+                          "choice": "c-shutdown-all",
+                          "op": "chosen"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "l-esxi-fs",
+                "from": "n-esxi",
+                "to": "n-fs",
+                "style": "attack",
+                "label": {
+                  "en": "",
+                  "de": ""
+                },
+                "states": [
+                  {
+                    "value": "blocked",
+                    "condition": {
+                      "mode": "any",
+                      "rules": [
+                        {
+                          "type": "choice",
+                          "choice": "c-shutdown-all",
+                          "op": "chosen"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "l-fs-wms",
+                "from": "n-fs",
+                "to": "n-wms",
+                "style": "attack",
+                "label": {
+                  "en": "",
+                  "de": ""
+                },
+                "states": [
+                  {
+                    "value": "blocked",
+                    "condition": {
+                      "mode": "any",
+                      "rules": [
+                        {
+                          "type": "choice",
+                          "choice": "c-shutdown-all",
+                          "op": "chosen"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "l-wms-backup",
+                "from": "n-wms",
+                "to": "n-backup",
+                "style": "normal",
+                "label": {
+                  "en": "",
+                  "de": ""
+                },
+                "states": [
+                  {
+                    "value": "blocked",
+                    "condition": {
+                      "mode": "any",
+                      "rules": [
+                        {
+                          "type": "choice",
+                          "choice": "c-shutdown-all",
+                          "op": "chosen"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "l-wms-ham",
+                "from": "n-wms",
+                "to": "n-ham",
+                "style": "attack",
+                "label": {
+                  "en": "",
+                  "de": ""
+                },
+                "states": [
+                  {
+                    "value": "blocked",
+                    "condition": {
+                      "mode": "any",
+                      "rules": [
+                        {
+                          "type": "choice",
+                          "choice": "c-shutdown-all",
+                          "op": "chosen"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "l-wms-bre",
+                "from": "n-wms",
+                "to": "n-bre",
+                "style": "attack",
+                "label": {
+                  "en": "",
+                  "de": ""
+                },
+                "states": [
+                  {
+                    "value": "blocked",
+                    "condition": {
+                      "mode": "any",
+                      "rules": [
+                        {
+                          "type": "choice",
+                          "choice": "c-isolate-segment",
+                          "op": "chosen"
+                        },
+                        {
+                          "type": "choice",
+                          "choice": "c-shutdown-all",
+                          "op": "chosen"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "l-wms-han",
+                "from": "n-wms",
+                "to": "n-han",
+                "style": "suspicious",
+                "label": {
+                  "en": "",
+                  "de": ""
+                },
+                "states": [
+                  {
+                    "value": "blocked",
+                    "condition": {
+                      "mode": "any",
+                      "rules": [
+                        {
+                          "type": "choice",
+                          "choice": "c-isolate-segment",
+                          "op": "chosen"
+                        },
+                        {
+                          "type": "choice",
+                          "choice": "c-shutdown-all",
+                          "op": "chosen"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "value": "attack",
+                    "condition": {
+                      "mode": "any",
+                      "rules": [
+                        {
+                          "type": "choice",
+                          "choice": "c-monitor-quietly",
+                          "op": "chosen"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "l-wms-dor",
+                "from": "n-wms",
+                "to": "n-dor",
+                "style": "suspicious",
+                "label": {
+                  "en": "",
+                  "de": ""
+                },
+                "states": [
+                  {
+                    "value": "blocked",
+                    "condition": {
+                      "mode": "any",
+                      "rules": [
+                        {
+                          "type": "choice",
+                          "choice": "c-isolate-segment",
+                          "op": "chosen"
+                        },
+                        {
+                          "type": "choice",
+                          "choice": "c-shutdown-all",
+                          "op": "chosen"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "value": "attack",
+                    "condition": {
+                      "mode": "any",
+                      "rules": [
+                        {
+                          "type": "choice",
+                          "choice": "c-monitor-quietly",
+                          "op": "chosen"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "l-wms-lei",
+                "from": "n-wms",
+                "to": "n-lei",
+                "style": "normal",
+                "label": {
+                  "en": "",
+                  "de": ""
+                },
+                "states": [
+                  {
+                    "value": "blocked",
+                    "condition": {
+                      "mode": "any",
+                      "rules": [
+                        {
+                          "type": "choice",
+                          "choice": "c-shutdown-all",
+                          "op": "chosen"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "value": "suspicious",
+                    "condition": {
+                      "mode": "any",
+                      "rules": [
+                        {
+                          "type": "choice",
+                          "choice": "c-monitor-quietly",
+                          "op": "chosen"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "l-wms-poz",
+                "from": "n-wms",
+                "to": "n-poz",
+                "style": "normal",
+                "label": {
+                  "en": "",
+                  "de": ""
+                },
+                "states": [
+                  {
+                    "value": "blocked",
+                    "condition": {
+                      "mode": "any",
+                      "rules": [
+                        {
+                          "type": "choice",
+                          "choice": "c-shutdown-all",
+                          "op": "chosen"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
           },
           {
             "id": "e-sitrep1-facts",
@@ -2408,7 +3338,6 @@
   },
   "media": {
     "ransom-note.svg": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAwIiBoZWlnaHQ9IjkwMCIgdmlld0JveD0iMCAwIDE2MDAgOTAwIj4KICA8ZGVmcz4KICAgIDxyYWRpYWxHcmFkaWVudCBpZD0iYmciIGN4PSI1MCUiIGN5PSI0MCUiIHI9Ijc1JSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMzYTA3MDciLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDcwMzAzIi8+CiAgICA8L3JhZGlhbEdyYWRpZW50PgogICAgPHBhdHRlcm4gaWQ9InNjYW4iIHdpZHRoPSI2IiBoZWlnaHQ9IjYiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICA8cmVjdCB3aWR0aD0iNiIgaGVpZ2h0PSIzIiBmaWxsPSIjZmZmZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDMiLz4KICAgIDwvcGF0dGVybj4KICA8L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjE2MDAiIGhlaWdodD0iOTAwIiBmaWxsPSJ1cmwoI2JnKSIvPgoKICA8IS0tIHRlcm1pbmFsIHdpbmRvdyAtLT4KICA8cmVjdCB4PSI3MCIgeT0iNTAiIHdpZHRoPSIxNDYwIiBoZWlnaHQ9IjgwMCIgcng9IjEyIiBmaWxsPSIjMGMwYTBhIiBzdHJva2U9IiM3YTE1MTUiIHN0cm9rZS13aWR0aD0iMyIvPgogIDxwYXRoIGQ9Ik03MCA2MiBhMTIgMTIgMCAwIDEgMTIgLTEyIGgxNDM2IGExMiAxMiAwIDAgMSAxMiAxMiB2MzggaC0xNDYwIHoiIGZpbGw9IiMxYzE3MTciLz4KICA8Y2lyY2xlIGN4PSIxMDQiIGN5PSI3NSIgcj0iOCIgZmlsbD0iI2ZmNWY1NiIvPgogIDxjaXJjbGUgY3g9IjEzMiIgY3k9Ijc1IiByPSI4IiBmaWxsPSIjZmZiZDJlIi8+CiAgPGNpcmNsZSBjeD0iMTYwIiBjeT0iNzUiIHI9IjgiIGZpbGw9IiMyN2M5M2YiLz4KICA8dGV4dCB4PSI4MDAiIHk9IjgzIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjIyIiBmaWxsPSIjOWI4ZjhmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5WRVNQRVJfUkVBRE1FLnR4dDwvdGV4dD4KCiAgPCEtLSBlbWJsZW0gLS0+CiAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoODAwLDE3MCkiPgogICAgPHBvbHlnb24gcG9pbnRzPSIwLC01MCA0NCwtMjUgNDQsMjUgMCw1MCAtNDQsMjUgLTQ0LC0yNSIgZmlsbD0iIzFhMDYwNiIgc3Ryb2tlPSIjZmYzYjNiIiBzdHJva2Utd2lkdGg9IjQiLz4KICAgIDxwYXRoIGQ9Ik0tMjAsLTIwIEwwLDIyIEwyMCwtMjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmM2IzYiIgc3Ryb2tlLXdpZHRoPSI4IiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8L2c+CiAgPHRleHQgeD0iODAwIiB5PSIyNTIiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiNmZjZiNmIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGxldHRlci1zcGFjaW5nPSIxMiI+R1JFWSBWRVNQRVI8L3RleHQ+CgogIDwhLS0gaGVhZGxpbmUgLS0+CiAgPHRleHQgeD0iODAwIiB5PSIzMjAiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iNjIiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjZmYzYjNiIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBsZXR0ZXItc3BhY2luZz0iNCI+WU9VUiBGSUxFUyBBUkUgRU5DUllQVEVEPC90ZXh0PgogIDx0ZXh0IHg9IjgwMCIgeT0iMzY2IiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjM0IiBmaWxsPSIjZmY5YTlhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBsZXR0ZXItc3BhY2luZz0iMiI+SUhSRSBEQVRFSUVOIFNJTkQgVkVSU0NITMOcU1NFTFQ8L3RleHQ+CiAgPGxpbmUgeDE9IjE1MCIgeTE9IjM5MiIgeDI9IjE0NTAiIHkyPSIzOTIiIHN0cm9rZT0iIzVhMTIxMiIgc3Ryb2tlLXdpZHRoPSIyIi8+CgogIDwhLS0gYm9keSAtLT4KICA8ZyBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjI2IiBmaWxsPSIjZDlkMmQyIj4KICAgIDx0ZXh0IHg9IjE1MCIgeT0iNDM2Ij4mZ3Q7IEFsbCBzZXJ2ZXJzLCBWTXMgYW5kIGJhY2t1cHMgb2YgTk9SRFdFUksgTE9HSVNUSUsgR01CSCBhcmUgZW5jcnlwdGVkLjwvdGV4dD4KICAgIDx0ZXh0IHg9IjE1MCIgeT0iNDc0Ij4mZ3Q7IFdlIGhhdmUgZG93bmxvYWRlZCA0ODAgR0Igb2YgeW91ciBkYXRhOiBIUiwgZmluYW5jZSwgY3VzdG9tZXJzLjwvdGV4dD4KICAgIDx0ZXh0IHg9IjE1MCIgeT0iNTEyIj4mZ3Q7IERvIG5vdCByZW5hbWUgZmlsZXMuIERvIG5vdCBjb250YWN0IHBvbGljZSBvciByZWNvdmVyeSBjb21wYW5pZXMuPC90ZXh0PgogICAgPHRleHQgeD0iMTUwIiB5PSI1NTAiPiZndDsgRm9sbG93IHRoZSBpbnN0cnVjdGlvbnMgYmVsb3cgb3IgbG9zZSBldmVyeXRoaW5nLjwvdGV4dD4KICA8L2c+CgogIDwhLS0gcHJpY2UgYm94IC0tPgogIDxyZWN0IHg9IjE1MCIgeT0iNTgyIiB3aWR0aD0iNjIwIiBoZWlnaHQ9IjE4MCIgZmlsbD0iIzE3MDYwNiIgc3Ryb2tlPSIjZmYzYjNiIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8dGV4dCB4PSIxODAiIHk9IjYyNiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iI2ZmOGE4YSIgbGV0dGVyLXNwYWNpbmc9IjIiPlBSSUNFIC8gUFJFSVM8L3RleHQ+CiAgPHRleHQgeD0iMTgwIiB5PSI2OTYiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iNTYiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjZmZmZmZmIj4yLDUwMCwwMDAgVVNEPC90ZXh0PgogIDx0ZXh0IHg9IjE4MCIgeT0iNzQwIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjIyIiBmaWxsPSIjYjhhYWFhIj5wYXlhYmxlIGluIEJpdGNvaW4gKEJUQyk8L3RleHQ+CgogIDwhLS0gY291bnRkb3duIGJveCAtLT4KICA8cmVjdCB4PSI4MzAiIHk9IjU4MiIgd2lkdGg9IjYyMCIgaGVpZ2h0PSIxODAiIGZpbGw9IiMxNzA2MDYiIHN0cm9rZT0iI2ZmM2IzYiIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPHRleHQgeD0iODYwIiB5PSI2MjYiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiNmZjhhOGEiIGxldHRlci1zcGFjaW5nPSIyIj5USU1FIExFRlQgLyBSRVNUWkVJVDwvdGV4dD4KICA8dGV4dCB4PSI4NjAiIHk9IjcwNCIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSI3MiIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiNmZjNiM2IiPjcxOjU5OjEyPC90ZXh0PgogIDx0ZXh0IHg9Ijg2MCIgeT0iNzQwIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjIyIiBmaWxsPSIjYjhhYWFhIj50aGVuOiBwcmljZSB4MiArIGFsbCBkYXRhIHB1Ymxpc2hlZDwvdGV4dD4KCiAgPCEtLSBmb290ZXIgLS0+CiAgPHRleHQgeD0iODAwIiB5PSI4MTIiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMjIiIGZpbGw9IiM4ZjgzODMiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkNPTlRBQ1Q6IHZlc3BlcnE3eDRtMmtkLi4ubGFudGVybi5vbmlvbiAgwrcgIFlPVVIgSUQ6IE5XLTEyMDAtQTdGMzwvdGV4dD4KCiAgPHJlY3QgeD0iNzAiIHk9IjUwIiB3aWR0aD0iMTQ2MCIgaGVpZ2h0PSI4MDAiIHJ4PSIxMiIgZmlsbD0idXJsKCNzY2FuKSIvPgo8L3N2Zz4K",
-    "network-map.svg": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAwIiBoZWlnaHQ9IjkwMCIgdmlld0JveD0iMCAwIDE2MDAgOTAwIj4KICA8ZGVmcz4KICAgIDxwYXR0ZXJuIGlkPSJncmlkIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICA8cGF0aCBkPSJNNDAgMCBIMCBWNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzE4MjMyZiIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgICA8L3BhdHRlcm4+CiAgICA8bWFya2VyIGlkPSJhcnJvdyIgdmlld0JveD0iMCAwIDEwIDEwIiByZWZYPSI4IiByZWZZPSI1IiBtYXJrZXJXaWR0aD0iNiIgbWFya2VySGVpZ2h0PSI2IiBvcmllbnQ9ImF1dG8iPgogICAgICA8cGF0aCBkPSJNMCAwIEwxMCA1IEwwIDEwIHoiIGZpbGw9IiNmZjRkNGQiLz4KICAgIDwvbWFya2VyPgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTYwMCIgaGVpZ2h0PSI5MDAiIGZpbGw9IiMwZDE0MWQiLz4KICA8cmVjdCB3aWR0aD0iMTYwMCIgaGVpZ2h0PSI5MDAiIGZpbGw9InVybCgjZ3JpZCkiLz4KCiAgPCEtLSBoZWFkaW5nIC0tPgogIDx0ZXh0IHg9IjYwIiB5PSI3MiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyOCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiNjOWQ2ZTMiIGxldHRlci1zcGFjaW5nPSIyIj5OT1JEV0VSSyBMT0dJU1RJSyDCtyBJVDwvdGV4dD4KICA8dGV4dCB4PSI2MCIgeT0iMTA2IiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjIwIiBmaWxsPSIjN2Y5M2E4Ij5Nb24gLyBNbyAxMjowMCDCtyBhdHRhY2sgcGF0aCAvIEFuZ3JpZmZzd2VnPC90ZXh0PgoKICA8IS0tIEhRIGRhdGFjZW50ZXIgZnJhbWUgLS0+CiAgPHRleHQgeD0iNjgwIiB5PSIxMzAiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM3ZjkzYTgiIGxldHRlci1zcGFjaW5nPSIxIj5IUSBIQU1CVVJHIMK3IERBVEFDRU5URVIgLyBSWjwvdGV4dD4KICA8cmVjdCB4PSI2ODAiIHk9IjE0NSIgd2lkdGg9IjQwMCIgaGVpZ2h0PSI2MTAiIHJ4PSIxNCIgZmlsbD0iIzEwMTkyMyIgc3Ryb2tlPSIjM2E0YTVjIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1kYXNoYXJyYXk9IjggNiIvPgoKICA8IS0tIFdBTiBsaW5rcyBIUSAtPiB3YXJlaG91c2VzIC0tPgogIDxnIHN0cm9rZS13aWR0aD0iMyIgZmlsbD0ibm9uZSI+CiAgICA8bGluZSB4MT0iMTA4MCIgeTE9IjQ1NSIgeDI9IjEyMDAiIHkyPSIxOTAiIHN0cm9rZT0iI2ZmNGQ0ZCIgc3Ryb2tlLWRhc2hhcnJheT0iMTAgNyIgbWFya2VyLWVuZD0idXJsKCNhcnJvdykiLz4KICAgIDxsaW5lIHgxPSIxMDgwIiB5MT0iNDU1IiB4Mj0iMTIwMCIgeTI9IjI5NSIgc3Ryb2tlPSIjZmY0ZDRkIiBzdHJva2UtZGFzaGFycmF5PSIxMCA3IiBtYXJrZXItZW5kPSJ1cmwoI2Fycm93KSIvPgogICAgPGxpbmUgeDE9IjEwODAiIHkxPSI0NTUiIHgyPSIxMjAwIiB5Mj0iNDAwIiBzdHJva2U9IiM4YTZhMWMiLz4KICAgIDxsaW5lIHgxPSIxMDgwIiB5MT0iNDU1IiB4Mj0iMTIwMCIgeTI9IjUwNSIgc3Ryb2tlPSIjOGE2YTFjIi8+CiAgICA8bGluZSB4MT0iMTA4MCIgeTE9IjQ1NSIgeDI9IjEyMDAiIHkyPSI2MTAiIHN0cm9rZT0iIzNhNGE1YyIvPgogICAgPGxpbmUgeDE9IjEwODAiIHkxPSI0NTUiIHgyPSIxMjAwIiB5Mj0iNzE1IiBzdHJva2U9IiMzYTRhNWMiLz4KICA8L2c+CgogIDwhLS0gZmlyZXdhbGwgLT4gcG9ydGFsIC0tPgogIDxsaW5lIHgxPSI0OTAiIHkxPSI0MjAiIHgyPSI1MDAiIHkyPSI1OTAiIHN0cm9rZT0iIzNhNGE1YyIgc3Ryb2tlLXdpZHRoPSIzIi8+CgogIDwhLS0gYXR0YWNrIHBhdGggLS0+CiAgPGcgc3Ryb2tlPSIjZmY0ZDRkIiBzdHJva2Utd2lkdGg9IjQiIGZpbGw9Im5vbmUiIHN0cm9rZS1kYXNoYXJyYXk9IjEyIDgiPgogICAgPGxpbmUgeDE9IjMyMCIgeTE9IjM4MCIgeDI9IjM5MiIgeTI9IjM4MCIgbWFya2VyLWVuZD0idXJsKCNhcnJvdykiLz4KICAgIDxwYXRoIGQ9Ik01ODAgMzgwIEMgNjUwIDM4MCwgNjUwIDI0MywgNzEyIDI0MyIgbWFya2VyLWVuZD0idXJsKCNhcnJvdykiLz4KICAgIDxwYXRoIGQ9Ik03MjAgMjcyIEMgNjk0IDI3MiwgNjk0IDM1MywgNzE0IDM1MyIgbWFya2VyLWVuZD0idXJsKCNhcnJvdykiLz4KICAgIDxwYXRoIGQ9Ik03MjAgMjcyIEMgNjg4IDI3MiwgNjg4IDQ2MywgNzE0IDQ2MyIgbWFya2VyLWVuZD0idXJsKCNhcnJvdykiLz4KICAgIDxwYXRoIGQ9Ik03MjAgMjcyIEMgNjg0IDI3MiwgNjg0IDU3MywgNzE0IDU3MyIgbWFya2VyLWVuZD0idXJsKCNhcnJvdykiLz4KICA8L2c+CgogIDwhLS0gZW50cnk6IHByb3ZpZGVyIFZQTiAtLT4KICA8dGV4dCB4PSI2MCIgeT0iMzE2IiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjE4IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iI2ZmNGQ0ZCIgbGV0dGVyLXNwYWNpbmc9IjEiPkVOVFJZIC8gRUlORkFMTFNUT1I8L3RleHQ+CiAgPHJlY3QgeD0iNjAiIHk9IjMzMCIgd2lkdGg9IjI2MCIgaGVpZ2h0PSIxMDAiIHJ4PSIxMCIgZmlsbD0iIzNhMTQxNiIgc3Ryb2tlPSIjZmY0ZDRkIiBzdHJva2Utd2lkdGg9IjMiLz4KICA8dGV4dCB4PSI4NCIgeT0iMzcwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIzMCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiNlNmVkZjMiPlZQTjwvdGV4dD4KICA8dGV4dCB4PSI4NCIgeT0iMzk4IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOCIgZmlsbD0iI2M4YjBiMCI+cHJvdmlkZXIgLyBEaWVuc3RsZWlzdGVyPC90ZXh0PgogIDx0ZXh0IHg9Ijg0IiB5PSI0MjAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE2IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iI2ZmN2E3YSI+bm8gTUZBIC8gb2huZSBNRkE8L3RleHQ+CgogIDwhLS0gZmlyZXdhbGwgLS0+CiAgPHJlY3QgeD0iNDAwIiB5PSIzNDAiIHdpZHRoPSIxODAiIGhlaWdodD0iODAiIHJ4PSIxMCIgZmlsbD0iIzE4MjEyYyIgc3Ryb2tlPSIjNWQ2YjdhIiBzdHJva2Utd2lkdGg9IjMiLz4KICA8dGV4dCB4PSI0OTAiIHk9IjM4OCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjQiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjZTZlZGYzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5GaXJld2FsbDwvdGV4dD4KCiAgPCEtLSBjdXN0b21lciBwb3J0YWwgLS0+CiAgPHJlY3QgeD0iMzgwIiB5PSI1OTAiIHdpZHRoPSIyNDAiIGhlaWdodD0iMTAwIiByeD0iNDAiIGZpbGw9IiMzMzI3MGEiIHN0cm9rZT0iI2ZmYjAwMCIgc3Ryb2tlLXdpZHRoPSIzIi8+CiAgPHRleHQgeD0iNTAwIiB5PSI2MzQiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjI2IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iI2U2ZWRmMyIgdGV4dC1hbmNob3I9Im1pZGRsZSI+UG9ydGFsPC90ZXh0PgogIDx0ZXh0IHg9IjUwMCIgeT0iNjY0IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOCIgZmlsbD0iI2M5Yjc4YSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+Tm9yZFdlcmsgQ29ubmVjdDwvdGV4dD4KCiAgPCEtLSBIUSBkYXRhY2VudGVyIG5vZGVzIC0tPgogIDxnIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIj4KICAgIDxyZWN0IHg9IjcyMCIgeT0iMjAwIiB3aWR0aD0iMzIwIiBoZWlnaHQ9Ijg2IiByeD0iMTAiIGZpbGw9IiMzYTE0MTYiIHN0cm9rZT0iI2ZmNGQ0ZCIgc3Ryb2tlLXdpZHRoPSIzIi8+CiAgICA8dGV4dCB4PSI3NDUiIHk9IjIzOCIgZm9udC1zaXplPSIyNCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiNlNmVkZjMiPkRvbWFpbiBDb250cm9sbGVyPC90ZXh0PgogICAgPHRleHQgeD0iNzQ1IiB5PSIyNjYiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiNjOGIwYjAiPkFjdGl2ZSBEaXJlY3Rvcnk8L3RleHQ+CiAgICA8Y2lyY2xlIGN4PSIxMDEwIiBjeT0iMjQzIiByPSI5IiBmaWxsPSIjZmY0ZDRkIi8+CgogICAgPHJlY3QgeD0iNzIwIiB5PSIzMTAiIHdpZHRoPSIzMjAiIGhlaWdodD0iODYiIHJ4PSIxMCIgZmlsbD0iIzNhMTQxNiIgc3Ryb2tlPSIjZmY0ZDRkIiBzdHJva2Utd2lkdGg9IjMiLz4KICAgIDx0ZXh0IHg9Ijc0NSIgeT0iMzQ4IiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iI2U2ZWRmMyI+RVNYaTwvdGV4dD4KICAgIDx0ZXh0IHg9Ijc0NSIgeT0iMzc2IiBmb250LXNpemU9IjE4IiBmaWxsPSIjYzhiMGIwIj40MiBWTXM8L3RleHQ+CiAgICA8Y2lyY2xlIGN4PSIxMDEwIiBjeT0iMzUzIiByPSI5IiBmaWxsPSIjZmY0ZDRkIi8+CgogICAgPHJlY3QgeD0iNzIwIiB5PSI0MjAiIHdpZHRoPSIzMjAiIGhlaWdodD0iODYiIHJ4PSIxMCIgZmlsbD0iIzNhMTQxNiIgc3Ryb2tlPSIjZmY0ZDRkIiBzdHJva2Utd2lkdGg9IjMiLz4KICAgIDx0ZXh0IHg9Ijc0NSIgeT0iNDU4IiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iI2U2ZWRmMyI+RmlsZXNlcnZlcjwvdGV4dD4KICAgIDx0ZXh0IHg9Ijc0NSIgeT0iNDg2IiBmb250LXNpemU9IjE4IiBmaWxsPSIjYzhiMGIwIj5OVy1GUy0wMSAvIE5XLUZTLTAyPC90ZXh0PgogICAgPGNpcmNsZSBjeD0iMTAxMCIgY3k9IjQ2MyIgcj0iOSIgZmlsbD0iI2ZmNGQ0ZCIvPgoKICAgIDxyZWN0IHg9IjcyMCIgeT0iNTMwIiB3aWR0aD0iMzIwIiBoZWlnaHQ9Ijg2IiByeD0iMTAiIGZpbGw9IiMzYTE0MTYiIHN0cm9rZT0iI2ZmNGQ0ZCIgc3Ryb2tlLXdpZHRoPSIzIi8+CiAgICA8dGV4dCB4PSI3NDUiIHk9IjU2OCIgZm9udC1zaXplPSIyNCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiNlNmVkZjMiPldNUy1EQjwvdGV4dD4KICAgIDx0ZXh0IHg9Ijc0NSIgeT0iNTk2IiBmb250LXNpemU9IjE4IiBmaWxsPSIjYzhiMGIwIj5TUUw8L3RleHQ+CiAgICA8Y2lyY2xlIGN4PSIxMDEwIiBjeT0iNTczIiByPSI5IiBmaWxsPSIjZmY0ZDRkIi8+CgogICAgPHJlY3QgeD0iNzIwIiB5PSI2NDAiIHdpZHRoPSIzMjAiIGhlaWdodD0iODYiIHJ4PSIxMCIgZmlsbD0iIzMzMjcwYSIgc3Ryb2tlPSIjZmZiMDAwIiBzdHJva2Utd2lkdGg9IjMiLz4KICAgIDx0ZXh0IHg9Ijc0NSIgeT0iNjc4IiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iI2U2ZWRmMyI+QmFja3VwPC90ZXh0PgogICAgPHRleHQgeD0iNzQ1IiB5PSI3MDYiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiNjOWI3OGEiPnRhcGVzIC8gQsOkbmRlcjogPzwvdGV4dD4KICAgIDxjaXJjbGUgY3g9IjEwMTAiIGN5PSI2ODMiIHI9IjkiIGZpbGw9IiNmZmIwMDAiLz4KICA8L2c+CgogIDwhLS0gd2FyZWhvdXNlcyAtLT4KICA8ZyBmb250LWZhbWlseT0ic2Fucy1zZXJpZiI+CiAgICA8cmVjdCB4PSIxMjAwIiB5PSIxNTAiIHdpZHRoPSIzMzAiIGhlaWdodD0iODAiIHJ4PSIxMCIgZmlsbD0iIzNhMTQxNiIgc3Ryb2tlPSIjZmY0ZDRkIiBzdHJva2Utd2lkdGg9IjMiLz4KICAgIDx0ZXh0IHg9IjEyMjUiIHk9IjE4NiIgZm9udC1zaXplPSIyNCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiNlNmVkZjMiPkhhbWJ1cmc8L3RleHQ+CiAgICA8dGV4dCB4PSIxMjI1IiB5PSIyMTQiIGZvbnQtc2l6ZT0iMTciIGZpbGw9IiNjOGIwYjAiPldNUyDCtyBMYWdlciAvIHdhcmVob3VzZTwvdGV4dD4KICAgIDxjaXJjbGUgY3g9IjE1MDAiIGN5PSIxOTAiIHI9IjkiIGZpbGw9IiNmZjRkNGQiLz4KCiAgICA8cmVjdCB4PSIxMjAwIiB5PSIyNTUiIHdpZHRoPSIzMzAiIGhlaWdodD0iODAiIHJ4PSIxMCIgZmlsbD0iIzNhMTQxNiIgc3Ryb2tlPSIjZmY0ZDRkIiBzdHJva2Utd2lkdGg9IjMiLz4KICAgIDx0ZXh0IHg9IjEyMjUiIHk9IjI5MSIgZm9udC1zaXplPSIyNCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiNlNmVkZjMiPkJyZW1lbjwvdGV4dD4KICAgIDx0ZXh0IHg9IjEyMjUiIHk9IjMxOSIgZm9udC1zaXplPSIxNyIgZmlsbD0iI2M4YjBiMCI+V01TIMK3IExhZ2VyIC8gd2FyZWhvdXNlPC90ZXh0PgogICAgPGNpcmNsZSBjeD0iMTUwMCIgY3k9IjI5NSIgcj0iOSIgZmlsbD0iI2ZmNGQ0ZCIvPgoKICAgIDxyZWN0IHg9IjEyMDAiIHk9IjM2MCIgd2lkdGg9IjMzMCIgaGVpZ2h0PSI4MCIgcng9IjEwIiBmaWxsPSIjMzMyNzBhIiBzdHJva2U9IiNmZmIwMDAiIHN0cm9rZS13aWR0aD0iMyIvPgogICAgPHRleHQgeD0iMTIyNSIgeT0iMzk2IiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iI2U2ZWRmMyI+SGFubm92ZXI8L3RleHQ+CiAgICA8dGV4dCB4PSIxMjI1IiB5PSI0MjQiIGZvbnQtc2l6ZT0iMTciIGZpbGw9IiNjOWI3OGEiPldNUyDCtyBMYWdlciAvIHdhcmVob3VzZTwvdGV4dD4KICAgIDxjaXJjbGUgY3g9IjE1MDAiIGN5PSI0MDAiIHI9IjkiIGZpbGw9IiNmZmIwMDAiLz4KCiAgICA8cmVjdCB4PSIxMjAwIiB5PSI0NjUiIHdpZHRoPSIzMzAiIGhlaWdodD0iODAiIHJ4PSIxMCIgZmlsbD0iIzMzMjcwYSIgc3Ryb2tlPSIjZmZiMDAwIiBzdHJva2Utd2lkdGg9IjMiLz4KICAgIDx0ZXh0IHg9IjEyMjUiIHk9IjUwMSIgZm9udC1zaXplPSIyNCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiNlNmVkZjMiPkRvcnRtdW5kPC90ZXh0PgogICAgPHRleHQgeD0iMTIyNSIgeT0iNTI5IiBmb250LXNpemU9IjE3IiBmaWxsPSIjYzliNzhhIj5XTVMgwrcgTGFnZXIgLyB3YXJlaG91c2U8L3RleHQ+CiAgICA8Y2lyY2xlIGN4PSIxNTAwIiBjeT0iNTA1IiByPSI5IiBmaWxsPSIjZmZiMDAwIi8+CgogICAgPHJlY3QgeD0iMTIwMCIgeT0iNTcwIiB3aWR0aD0iMzMwIiBoZWlnaHQ9IjgwIiByeD0iMTAiIGZpbGw9IiMxODIxMmMiIHN0cm9rZT0iIzVkNmI3YSIgc3Ryb2tlLXdpZHRoPSIzIi8+CiAgICA8dGV4dCB4PSIxMjI1IiB5PSI2MDYiIGZvbnQtc2l6ZT0iMjQiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjZTZlZGYzIj5MZWlwemlnPC90ZXh0PgogICAgPHRleHQgeD0iMTIyNSIgeT0iNjM0IiBmb250LXNpemU9IjE3IiBmaWxsPSIjOWZiMGMwIj5XTVMgwrcgTGFnZXIgLyB3YXJlaG91c2U8L3RleHQ+CiAgICA8Y2lyY2xlIGN4PSIxNTAwIiBjeT0iNjEwIiByPSI5IiBmaWxsPSIjNWQ2YjdhIi8+CgogICAgPHJlY3QgeD0iMTIwMCIgeT0iNjc1IiB3aWR0aD0iMzMwIiBoZWlnaHQ9IjgwIiByeD0iMTAiIGZpbGw9IiMxODIxMmMiIHN0cm9rZT0iIzVkNmI3YSIgc3Ryb2tlLXdpZHRoPSIzIi8+CiAgICA8dGV4dCB4PSIxMjI1IiB5PSI3MTEiIGZvbnQtc2l6ZT0iMjQiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjZTZlZGYzIj5Qb3puYcWEPC90ZXh0PgogICAgPHRleHQgeD0iMTIyNSIgeT0iNzM5IiBmb250LXNpemU9IjE3IiBmaWxsPSIjOWZiMGMwIj5XTVMgwrcgTGFnZXIgLyB3YXJlaG91c2U8L3RleHQ+CiAgICA8Y2lyY2xlIGN4PSIxNTAwIiBjeT0iNzE1IiByPSI5IiBmaWxsPSIjNWQ2YjdhIi8+CiAgPC9nPgoKICA8IS0tIGxlZ2VuZCAtLT4KICA8ZyBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMCIgZmlsbD0iI2M5ZDZlMyI+CiAgICA8cmVjdCB4PSI2MCIgeT0iODEyIiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHJ4PSI0IiBmaWxsPSIjM2ExNDE2IiBzdHJva2U9IiNmZjRkNGQiIHN0cm9rZS13aWR0aD0iMyIvPgogICAgPHRleHQgeD0iOTYiIHk9IjgzMiI+ZW5jcnlwdGVkIC8gdmVyc2NobMO8c3NlbHQ8L3RleHQ+CiAgICA8cmVjdCB4PSI0MjAiIHk9IjgxMiIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiByeD0iNCIgZmlsbD0iIzMzMjcwYSIgc3Ryb2tlPSIjZmZiMDAwIiBzdHJva2Utd2lkdGg9IjMiLz4KICAgIDx0ZXh0IHg9IjQ1NiIgeT0iODMyIj5zdXNwaWNpb3VzIC8gdmVyZMOkY2h0aWc8L3RleHQ+CiAgICA8cmVjdCB4PSI3ODAiIHk9IjgxMiIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiByeD0iNCIgZmlsbD0iIzE4MjEyYyIgc3Ryb2tlPSIjNWQ2YjdhIiBzdHJva2Utd2lkdGg9IjMiLz4KICAgIDx0ZXh0IHg9IjgxNiIgeT0iODMyIj51bmtub3duIC8gdW5rbGFyPC90ZXh0PgogICAgPGxpbmUgeDE9IjEwODAiIHkxPSI4MjQiIHgyPSIxMTUwIiB5Mj0iODI0IiBzdHJva2U9IiNmZjRkNGQiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWRhc2hhcnJheT0iMTIgOCIgbWFya2VyLWVuZD0idXJsKCNhcnJvdykiLz4KICAgIDx0ZXh0IHg9IjExNjYiIHk9IjgzMiI+YXR0YWNrIHBhdGggLyBBbmdyaWZmc3dlZzwvdGV4dD4KICA8L2c+Cjwvc3ZnPgo=",
     "leak-site.svg": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAwIiBoZWlnaHQ9IjkwMCIgdmlld0JveD0iMCAwIDE2MDAgOTAwIj4KICA8cmVjdCB3aWR0aD0iMTYwMCIgaGVpZ2h0PSI5MDAiIGZpbGw9IiMwYjBiMGUiLz4KCiAgPCEtLSBoZWFkZXIgLS0+CiAgPHJlY3Qgd2lkdGg9IjE2MDAiIGhlaWdodD0iOTAiIGZpbGw9IiMxNDE0MTgiLz4KICA8cmVjdCB5PSI5MCIgd2lkdGg9IjE2MDAiIGhlaWdodD0iMyIgZmlsbD0iI2IzMWQxZCIvPgogIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDc4LDQ1KSI+CiAgICA8cG9seWdvbiBwb2ludHM9IjAsLTI0IDIxLC0xMiAyMSwxMiAwLDI0IC0yMSwxMiAtMjEsLTEyIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZjNiM2IiIHN0cm9rZS13aWR0aD0iMyIvPgogICAgPHBhdGggZD0iTS0xMCwtMTAgTDAsMTEgTDEwLC0xMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmYzYjNiIiBzdHJva2Utd2lkdGg9IjQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDwvZz4KICA8dGV4dCB4PSIxMTgiIHk9IjU3IiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjM0IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iI2ZmM2IzYiIgbGV0dGVyLXNwYWNpbmc9IjMiPkdSRVkgVkVTUEVSPC90ZXh0PgogIDx0ZXh0IHg9IjM4MCIgeT0iNTciIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMzQiIGZpbGw9IiM3Nzc3N2YiPsK3IExFQUtTPC90ZXh0PgogIDx0ZXh0IHg9IjE1NDAiIHk9IjU1IiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjE4IiBmaWxsPSIjOGE4YTk0IiB0ZXh0LWFuY2hvcj0iZW5kIiBsZXR0ZXItc3BhY2luZz0iMiI+TkVXUyAgICBWSUNUSU1TICAgIFJVTEVTICAgIENPTlRBQ1Q8L3RleHQ+CgogIDwhLS0gbWFpbiB2aWN0aW0gY2FyZCAtLT4KICA8cmVjdCB4PSI2MCIgeT0iMTMwIiB3aWR0aD0iOTgwIiBoZWlnaHQ9IjYzMCIgcng9IjEwIiBmaWxsPSIjMTUxNTFiIiBzdHJva2U9IiMyYTJhMzMiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxyZWN0IHg9IjkwIiB5PSIxNTAiIHdpZHRoPSI3OCIgaGVpZ2h0PSIzMCIgcng9IjE1IiBmaWxsPSIjYjMxZDFkIi8+CiAgPHRleHQgeD0iMTI5IiB5PSIxNzEiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE2IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iI2ZmZmZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TkVXPC90ZXh0PgogIDx0ZXh0IHg9IjkwIiB5PSIyMzgiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjUyIiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iI2YyZjJmNSI+Tm9yZFdlcmsgTG9naXN0aWsgR21iSDwvdGV4dD4KICA8dGV4dCB4PSI5MCIgeT0iMjgwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMiIgZmlsbD0iIzhhOGE5NCI+SGFtYnVyZywgREUgIMK3ICBsb2dpc3RpY3MgJmFtcDsgd2FyZWhvdXNpbmcgIMK3ICAxLDIwMCBlbXBsb3llZXM8L3RleHQ+CgogIDx0ZXh0IHg9IjkwIiB5PSIzNDQiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMjAiIGZpbGw9IiNmZjVjNWMiIGxldHRlci1zcGFjaW5nPSIzIj5GVUxMIFBVQkxJQ0FUSU9OIElOPC90ZXh0PgogIDx0ZXh0IHg9IjkwIiB5PSI0MTYiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iNjQiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjZjJmMmY1Ij4wNGQgMjNoIDEybSAwN3M8L3RleHQ+CgogIDxyZWN0IHg9IjkwIiB5PSI0NDYiIHdpZHRoPSI5MjAiIGhlaWdodD0iMTgiIHJ4PSI5IiBmaWxsPSIjMmEyYTMzIi8+CiAgPHJlY3QgeD0iOTAiIHk9IjQ0NiIgd2lkdGg9IjQwIiBoZWlnaHQ9IjE4IiByeD0iOSIgZmlsbD0iI2ZmM2IzYiIvPgogIDx0ZXh0IHg9IjkwIiB5PSI0OTgiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMjAiIGZpbGw9IiM4YThhOTQiPnB1Ymxpc2hlZDogMiUgKHNhbXBsZSkgIMK3ICB0b3RhbDogNDgwIEdCPC90ZXh0PgoKICA8cmVjdCB4PSI5MCIgeT0iNTIyIiB3aWR0aD0iOTIwIiBoZWlnaHQ9IjIxMCIgcng9IjYiIGZpbGw9IiMwZTBlMTIiIHN0cm9rZT0iIzI0MjQyYyIvPgogIDxnIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMjAiPgogICAgPHRleHQgeD0iMTE0IiB5PSI1NjAiIGZpbGw9IiNmZjdhN2EiPlt4XSAvSFIvR2VoYWx0c2FicmVjaG51bmdfMjAyNi0wOS54bHN4PC90ZXh0PgogICAgPHRleHQgeD0iOTg2IiB5PSI1NjAiIGZpbGw9IiNmZjdhN2EiIHRleHQtYW5jaG9yPSJlbmQiPjEyIE1CPC90ZXh0PgogICAgPHRleHQgeD0iMTE0IiB5PSI1OTgiIGZpbGw9IiNmZjdhN2EiPlt4XSAvSFIvQXVzd2Vpc2tvcGllbl9TY2FuLnppcDwvdGV4dD4KICAgIDx0ZXh0IHg9Ijk4NiIgeT0iNTk4IiBmaWxsPSIjZmY3YTdhIiB0ZXh0LWFuY2hvcj0iZW5kIj4xLjQgR0I8L3RleHQ+CiAgICA8dGV4dCB4PSIxMTQiIHk9IjYzNiIgZmlsbD0iI2E1YTViMCI+WyBdIC9GaW5hbmNlL0Jhbmt2ZXJiaW5kdW5nZW5fTGllZmVyYW50ZW4uY3N2PC90ZXh0PgogICAgPHRleHQgeD0iOTg2IiB5PSI2MzYiIGZpbGw9IiNhNWE1YjAiIHRleHQtYW5jaG9yPSJlbmQiPjMgTUI8L3RleHQ+CiAgICA8dGV4dCB4PSIxMTQiIHk9IjY3NCIgZmlsbD0iI2E1YTViMCI+WyBdIC9TYWxlcy9LdW5kZW52ZXJ0cmFlZ2UvUmFobWVudmVydHJhZWdlLnppcDwvdGV4dD4KICAgIDx0ZXh0IHg9Ijk4NiIgeT0iNjc0IiBmaWxsPSIjYTVhNWIwIiB0ZXh0LWFuY2hvcj0iZW5kIj44NjAgTUI8L3RleHQ+CiAgICA8dGV4dCB4PSIxMTQiIHk9IjcxMiIgZmlsbD0iI2E1YTViMCI+WyBdIC9JVC9ud2Nvbm5lY3RfdXNlcnNfZHVtcC5zcWw8L3RleHQ+CiAgICA8dGV4dCB4PSI5ODYiIHk9IjcxMiIgZmlsbD0iI2E1YTViMCIgdGV4dC1hbmNob3I9ImVuZCI+OSBHQjwvdGV4dD4KICA8L2c+CgogIDwhLS0gb3RoZXIgdmljdGltcyAoY2Vuc29yZWQpIC0tPgogIDx0ZXh0IHg9IjEwODAiIHk9IjE2MCIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyMCIgZmlsbD0iIzhhOGE5NCIgbGV0dGVyLXNwYWNpbmc9IjMiPk9USEVSIFZJQ1RJTVM8L3RleHQ+CiAgPGc+CiAgICA8cmVjdCB4PSIxMDgwIiB5PSIxODAiIHdpZHRoPSI0NjAiIGhlaWdodD0iMTAwIiByeD0iOCIgZmlsbD0iIzE1MTUxYiIgc3Ryb2tlPSIjMmEyYTMzIi8+CiAgICA8cmVjdCB4PSIxMTA1IiB5PSIyMDUiIHdpZHRoPSIyNTAiIGhlaWdodD0iMjIiIHJ4PSI0IiBmaWxsPSIjMzQzNDNlIi8+CiAgICA8cmVjdCB4PSIxMTA1IiB5PSIyNDAiIHdpZHRoPSIxNjAiIGhlaWdodD0iMTQiIHJ4PSI0IiBmaWxsPSIjMjYyNjJlIi8+CiAgICA8cmVjdCB4PSIxNDA1IiB5PSIyMTIiIHdpZHRoPSIxMTIiIGhlaWdodD0iMzAiIHJ4PSI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZjNiM2IiIHN0cm9rZS13aWR0aD0iMiIvPgogICAgPHRleHQgeD0iMTQ2MSIgeT0iMjMzIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjE1IiBmaWxsPSIjZmY1YzVjIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5QVUJMSVNIRUQ8L3RleHQ+CgogICAgPHJlY3QgeD0iMTA4MCIgeT0iMjk1IiB3aWR0aD0iNDYwIiBoZWlnaHQ9IjEwMCIgcng9IjgiIGZpbGw9IiMxNTE1MWIiIHN0cm9rZT0iIzJhMmEzMyIvPgogICAgPHJlY3QgeD0iMTEwNSIgeT0iMzIwIiB3aWR0aD0iMjEwIiBoZWlnaHQ9IjIyIiByeD0iNCIgZmlsbD0iIzM0MzQzZSIvPgogICAgPHJlY3QgeD0iMTEwNSIgeT0iMzU1IiB3aWR0aD0iMTkwIiBoZWlnaHQ9IjE0IiByeD0iNCIgZmlsbD0iIzI2MjYyZSIvPgogICAgPHRleHQgeD0iMTUxNyIgeT0iMzQ4IiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjIyIiBmaWxsPSIjZmZiMDAwIiB0ZXh0LWFuY2hvcj0iZW5kIj4wMmQgMTFoPC90ZXh0PgoKICAgIDxyZWN0IHg9IjEwODAiIHk9IjQxMCIgd2lkdGg9IjQ2MCIgaGVpZ2h0PSIxMDAiIHJ4PSI4IiBmaWxsPSIjMTUxNTFiIiBzdHJva2U9IiMyYTJhMzMiLz4KICAgIDxyZWN0IHg9IjExMDUiIHk9IjQzNSIgd2lkdGg9IjI4MCIgaGVpZ2h0PSIyMiIgcng9IjQiIGZpbGw9IiMzNDM0M2UiLz4KICAgIDxyZWN0IHg9IjExMDUiIHk9IjQ3MCIgd2lkdGg9IjEzMCIgaGVpZ2h0PSIxNCIgcng9IjQiIGZpbGw9IiMyNjI2MmUiLz4KICAgIDxyZWN0IHg9IjE0MDUiIHk9IjQ0MiIgd2lkdGg9IjExMiIgaGVpZ2h0PSIzMCIgcng9IjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmM2IzYiIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgICA8dGV4dCB4PSIxNDYxIiB5PSI0NjMiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTUiIGZpbGw9IiNmZjVjNWMiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlBVQkxJU0hFRDwvdGV4dD4KCiAgICA8cmVjdCB4PSIxMDgwIiB5PSI1MjUiIHdpZHRoPSI0NjAiIGhlaWdodD0iMTAwIiByeD0iOCIgZmlsbD0iIzE1MTUxYiIgc3Ryb2tlPSIjMmEyYTMzIi8+CiAgICA8cmVjdCB4PSIxMTA1IiB5PSI1NTAiIHdpZHRoPSIyMzAiIGhlaWdodD0iMjIiIHJ4PSI0IiBmaWxsPSIjMzQzNDNlIi8+CiAgICA8cmVjdCB4PSIxMTA1IiB5PSI1ODUiIHdpZHRoPSIxNzAiIGhlaWdodD0iMTQiIHJ4PSI0IiBmaWxsPSIjMjYyNjJlIi8+CiAgICA8dGV4dCB4PSIxNTE3IiB5PSI1NzgiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMjIiIGZpbGw9IiNmZmIwMDAiIHRleHQtYW5jaG9yPSJlbmQiPjA2ZCAwMmg8L3RleHQ+CgogICAgPHJlY3QgeD0iMTA4MCIgeT0iNjQwIiB3aWR0aD0iNDYwIiBoZWlnaHQ9IjEwMCIgcng9IjgiIGZpbGw9IiMxNTE1MWIiIHN0cm9rZT0iIzJhMmEzMyIvPgogICAgPHJlY3QgeD0iMTEwNSIgeT0iNjY1IiB3aWR0aD0iMTkwIiBoZWlnaHQ9IjIyIiByeD0iNCIgZmlsbD0iIzM0MzQzZSIvPgogICAgPHJlY3QgeD0iMTEwNSIgeT0iNzAwIiB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE0IiByeD0iNCIgZmlsbD0iIzI2MjYyZSIvPgogICAgPHJlY3QgeD0iMTQwNSIgeT0iNjcyIiB3aWR0aD0iMTEyIiBoZWlnaHQ9IjMwIiByeD0iNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmYzYjNiIiBzdHJva2Utd2lkdGg9IjIiLz4KICAgIDx0ZXh0IHg9IjE0NjEiIHk9IjY5MyIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNSIgZmlsbD0iI2ZmNWM1YyIgdGV4dC1hbmNob3I9Im1pZGRsZSI+UFVCTElTSEVEPC90ZXh0PgogIDwvZz4KCiAgPCEtLSBmb290ZXIgLS0+CiAgPHJlY3QgeT0iODAwIiB3aWR0aD0iMTYwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiMxMDEwMTQiLz4KICA8dGV4dCB4PSI2MCIgeT0iODU2IiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjIwIiBmaWxsPSIjNzc3NzdmIj5Db250YWN0IHVzIGJlZm9yZSB0aGUgdGltZXIgZW5kcy4gWW91ciBkYXRhIOKAkyB5b3VyIGNob2ljZS48L3RleHQ+CiAgPHRleHQgeD0iMTU0MCIgeT0iODU2IiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjIwIiBmaWxsPSIjNTU1NTVkIiB0ZXh0LWFuY2hvcj0iZW5kIj5ncmV5dmVzcGVyLi4ub25pb248L3RleHQ+Cjwvc3ZnPgo="
   }
 }

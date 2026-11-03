@@ -11,9 +11,11 @@ import { renderStage, stageFit, fitText } from '../render.js';
 import { brand, langSwitch } from './common.js';
 import { biField, field, row, section, textInput, numInput, selectInput, checkbox, segmented, colorInput } from './fields.js';
 import { attributesTab, settingsTab, checkTab, choiceLibraryDialog } from './editor-tabs.js';
+import { conditionEditor } from './condition.js';
+import { openNetworkEditor } from './network-editor.js';
 
-const TPL_ICON = { title: 'title', text: 'type', inject: 'mail', image: 'image', decision: 'choices', results: 'gauge', debrief: 'timeline', blank: 'blank' };
-const KIND_ICON = { text: 'type', image: 'image', inject: 'mail', chart: 'chart', choices: 'choices' };
+const TPL_ICON = { title: 'title', text: 'type', inject: 'mail', image: 'image', network: 'network', decision: 'choices', results: 'gauge', debrief: 'timeline', blank: 'blank' };
+const KIND_ICON = { text: 'type', image: 'image', inject: 'mail', chart: 'chart', network: 'network', choices: 'choices' };
 const CHART_ICON = { bars: 'chart', gauges: 'gauge', radar: 'radar', timeline: 'timeline', cards: 'grid', deltas: 'table', log: 'list' };
 const TABS = [['pages', 'layers'], ['attributes', 'sliders'], ['settings', 'monitor'], ['check', 'check']];
 
@@ -56,10 +58,56 @@ export async function editorView(root, id, query) {
     }
   }
 
+  // ---------- undo / redo (Ctrl+Z, Ctrl+Y / Ctrl+Shift+Z) ----------
+  // Snapshots of the whole wargame. Quick successive edits (typing, nudging)
+  // are grouped into one step.
+  const hist = { stack: [JSON.stringify(wg)], index: 0 };
+  const record = debounce(() => {
+    const snap = JSON.stringify(wg);
+    if (snap === hist.stack[hist.index]) return;
+    hist.stack = hist.stack.slice(0, hist.index + 1);
+    hist.stack.push(snap);
+    if (hist.stack.length > 200) hist.stack.shift();
+    hist.index = hist.stack.length - 1;
+    updateUndoButtons();
+  }, 450);
+
+  function updateUndoButtons() {
+    if (!els.undo) return;
+    els.undo.disabled = !(hist.index > 0 || record.pending());
+    els.redo.disabled = !(hist.index < hist.stack.length - 1) || record.pending();
+  }
+
+  function restore(index) {
+    hist.index = index;
+    const data = JSON.parse(hist.stack[index]);
+    for (const k of Object.keys(wg)) delete wg[k];
+    Object.assign(wg, data);
+    if (!wg.pages.some((p) => p.id === ed.pageId)) ed.pageId = wg.pages[0]?.id || null;
+    if (!page()?.elements.some((e) => e.id === ed.elId)) ed.elId = null;
+    setStatus('dirty');
+    save();
+    if (els.title) els.title.textContent = tr(wg.meta.title) || t('lib.untitled');
+    renderBody();
+    updateUndoButtons();
+  }
+
+  function undo() {
+    record.flush();
+    if (hist.index > 0) restore(hist.index - 1);
+  }
+
+  function redo() {
+    record.flush();
+    if (hist.index < hist.stack.length - 1) restore(hist.index + 1);
+  }
+
   const thumbLater = debounce((pid) => updateThumb(pid), 350);
   function changed({ stage = true, thumb = true, list = false } = {}) {
     setStatus('dirty');
     save();
+    record();
+    updateUndoButtons();
     if (ed.tab !== 'pages') return;
     if (stage) renderStageArea();
     if (list) renderPageList();
@@ -98,6 +146,9 @@ export async function editorView(root, id, query) {
         els.title = h('b', null, tr(wg.meta.title) || t('lib.untitled'))),
       els.tabs,
       h('div', { class: 'topbar-actions' },
+        h('div', { class: 'undo-group' },
+          els.undo = h('button', { type: 'button', class: 'icon-btn', title: t('ed.undo'), onClick: undo }, icon('undo')),
+          els.redo = h('button', { type: 'button', class: 'icon-btn', title: t('ed.redo'), onClick: redo }, icon('redo'))),
         els.status,
         h('button', { class: 'btn', onClick: exportWargame, title: t('lib.export') }, icon('download'), h('span', { class: 'hide-sm' }, t('lib.export'))),
         h('button', { class: 'btn primary', onClick: present }, icon('play'), t('lib.present')),
@@ -105,6 +156,7 @@ export async function editorView(root, id, query) {
     els.body = h('div', { class: 'ed-body' });
     root.append(h('div', { class: 'editor' }, top, els.body));
     setStatus(ed.status);
+    updateUndoButtons();
     renderBody();
   }
 
@@ -330,7 +382,7 @@ export async function editorView(root, id, query) {
       h('div', { class: 'ed-tools' },
         h('div', { class: 'tool-group' },
           h('span', { class: 'kicker' }, t('ed.add')),
-          addEl('text'), addEl('image'), addEl('inject'), addEl('chart'),
+          addEl('text'), addEl('image'), addEl('inject'), addEl('chart'), addEl('network'),
           p.type === 'decision' && !p.elements.some((e) => e.kind === 'choices') ? addEl('choices') : null),
         h('div', { class: 'tool-group' },
           h('span', { class: 'kicker' }, t('ed.preview')),
@@ -365,7 +417,7 @@ export async function editorView(root, id, query) {
       const el = p.elements.find((x) => x.id === node.dataset.id);
       if (!el) continue;
       node.addEventListener('pointerdown', (e) => startDrag(e, el, node, 'move'));
-      node.addEventListener('dblclick', () => els.inspector.querySelector('textarea, input[type=text]')?.focus());
+      node.addEventListener('dblclick', () => (el.kind === 'network' ? openNet(el) : els.inspector.querySelector('textarea, input[type=text]')?.focus()));
       if (Number(el.reveal) > 0) node.append(h('span', { class: 'reveal-badge', title: t('ed.reveal') }, `+${el.reveal}`));
       if (el.id === ed.elId) decorateSelected(node, el);
     }
@@ -550,7 +602,7 @@ export async function editorView(root, id, query) {
         field(t('ed.timer'), row(
           numInput(p.timer ? round(p.timer / 60, 2) : '', (v) => { p.timer = Math.max(0, Math.round((v || 0) * 60)); changed({ stage: false }); }, { min: 0, step: 0.5, placeholder: '0', allowEmpty: true }),
           h('span', { class: 'unit' }, t('ed.minutes'))), t('ed.timerHint')),
-        conditionEditor(p),
+        conditionEditor(wg, p, 'condition', () => changed({ stage: false, list: true })),
       ], { icon: icon('branch'), open: !!(p.condition?.rules?.length || p.timer) }),
       section(t('ed.background'), backgroundEditor(p), { icon: icon('image'), open: !!(p.background?.color || p.background?.image) }));
   }
@@ -681,44 +733,6 @@ export async function editorView(root, id, query) {
     return card;
   }
 
-  function conditionEditor(p) {
-    const wrap = h('div', { class: 'cond' });
-    const choiceOptions = () => allChoices(wg).map(({ page: pg, choice }) => [choice.id, `${wg.pages.indexOf(pg) + 1}. ${tr(choice.label) || choice.id}`]);
-    const newRule = () => (wg.attributes[0]
-      ? { type: 'attr', attr: wg.attributes[0].id, op: '<', value: 50 }
-      : { type: 'choice', choice: allChoices(wg)[0]?.choice.id || '', op: 'chosen' });
-    const upd = () => changed({ stage: false, list: true });
-    const render = () => {
-      clear(wrap);
-      const cond = p.condition;
-      wrap.append(h('div', { class: 'sub-head' }, icon('filter'), h('span', null, t('ed.condition'))));
-      if (!cond || !cond.rules?.length) {
-        wrap.append(h('p', { class: 'hint' }, t('ed.condNone')),
-          h('button', { class: 'btn sm', onClick: () => { p.condition = { mode: 'all', rules: [newRule()] }; render(); upd(); } }, icon('plus'), t('ed.addCondition')));
-        return;
-      }
-      wrap.append(h('p', { class: 'hint' }, t('ed.condShowIf')),
-        segmented([['all', t('ed.cond.all')], ['any', t('ed.cond.any')]], cond.mode || 'all', (v) => { cond.mode = v; upd(); }));
-      cond.rules.forEach((r, i) => {
-        const typeSel = selectInput([['attr', t('ed.rule.attr')], ['choice', t('ed.rule.choice')]], r.type === 'choice' ? 'choice' : 'attr', (v) => {
-          cond.rules[i] = v === 'choice' ? { type: 'choice', choice: choiceOptions()[0]?.[0] || '', op: 'chosen' } : { type: 'attr', attr: wg.attributes[0]?.id || '', op: '<', value: 50 };
-          render(); upd();
-        });
-        const parts = r.type === 'choice'
-          ? [selectInput(choiceOptions(), r.choice, (v) => { r.choice = v; upd(); }, { cls: 'grow' }),
-            selectInput([['chosen', t('ed.rule.chosen')], ['notChosen', t('ed.rule.notChosen')]], r.op || 'chosen', (v) => { r.op = v; upd(); })]
-          : [selectInput(wg.attributes.map((a) => [a.id, `${a.icon || ''} ${tr(a.name)}`.trim()]), r.attr, (v) => { r.attr = v; upd(); }, { cls: 'grow' }),
-            selectInput(OPS.map((o) => [o, o]), r.op || '<', (v) => { r.op = v; upd(); }, { cls: 'op' }),
-            numInput(r.value ?? 0, (v) => { r.value = v; upd(); }, { cls: 'val' })];
-        wrap.append(h('div', { class: 'rule' }, typeSel, parts,
-          iconBtn('x', t('ed.delete'), () => { cond.rules.splice(i, 1); if (!cond.rules.length) p.condition = null; render(); upd(); })));
-      });
-      wrap.append(h('button', { class: 'btn sm', onClick: () => { cond.rules.push(newRule()); render(); upd(); } }, icon('plus'), t('ed.addRule')));
-    };
-    render();
-    return wrap;
-  }
-
   function backgroundEditor(p) {
     const bg = p.background;
     const dim = h('input', { type: 'range', min: '0', max: '0.95', step: '0.05' });
@@ -742,7 +756,7 @@ export async function editorView(root, id, query) {
       return h('label', { class: 'pos-field' }, h('span', null, k.toUpperCase()), inp);
     });
     const kindPanel = {
-      text: textPanel, image: imagePanel, inject: injectPanel, chart: chartPanel, choices: choicesPanel,
+      text: textPanel, image: imagePanel, inject: injectPanel, chart: chartPanel, network: networkPanel, choices: choicesPanel,
     }[el.kind];
     return h('div', { class: 'insp-body' },
       h('div', { class: 'insp-actions' },
@@ -814,6 +828,23 @@ export async function editorView(root, id, query) {
       field(t('ed.chartAttrs'), attrList, t('ed.chartAttrsHint')),
       checkbox(t('ed.includeHidden'), el.includeHidden, (v) => { el.includeHidden = v; changed(); }, { hint: t('ed.includeHiddenHint') }),
     ], { icon: icon('chart') });
+  }
+
+  function openNet(el) {
+    return openNetworkEditor({ wg, el, lang: ed.previewLang, previewData: previewData(), onChange: () => changed() })
+      .then(() => renderInspector());
+  }
+
+  function networkPanel(el) {
+    return section(t('kind.network'), [
+      h('button', { type: 'button', class: 'btn primary', onClick: () => openNet(el) }, icon('network'), t('net.open')),
+      h('p', { class: 'hint' }, t('net.stats', { nodes: (el.nodes || []).length, links: (el.links || []).length, zones: (el.zones || []).length })),
+      biField(el, 'title', { label: t('ed.title'), onChange: () => changed() }),
+      biField(el, 'subtitle', { label: t('net.subtitle'), onChange: () => changed() }),
+      checkbox(t('net.frame'), el.frame !== false, (v) => { el.frame = v; changed(); }),
+      checkbox(t('net.legend'), el.legend !== false, (v) => { el.legend = v; changed(); }),
+      h('p', { class: 'hint' }, t('net.panelHint')),
+    ], { icon: icon('network') });
   }
 
   function choicesPanel(el, p) {
@@ -921,6 +952,15 @@ export async function editorView(root, id, query) {
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
       e.preventDefault();
       saveNow().then(() => toast(t('ed.status.saved'), 'ok', 1200));
+      return;
+    }
+    if ((e.ctrlKey || e.metaKey) && !e.altKey && ['z', 'y'].includes(e.key.toLowerCase())) {
+      const f = document.activeElement;
+      // inside a text field the browser's own undo handles the typing
+      if (f && (['INPUT', 'TEXTAREA'].includes(f.tagName) || f.isContentEditable) && f.type !== 'checkbox' && f.type !== 'range' && f.type !== 'color') return;
+      e.preventDefault();
+      if (e.key.toLowerCase() === 'y' || e.shiftKey) redo();
+      else undo();
       return;
     }
     if (ed.tab !== 'pages') return;

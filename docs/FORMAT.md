@@ -100,10 +100,51 @@ the stage width.
 | `image`   | `src` (file name in the media folder, or a URL), `fit: contain/cover`, `caption`, `frame: true/false` |
 | `inject`  | `channel: email/phone/chat/sms/news/social/alert/memo`, `severity: info/warning/critical`, `time`, `from`, `to`, `subject`, `body` (markdown-lite) |
 | `chart`   | `chart: bars/gauges/radar/timeline/deltas/cards/log`, `attrs: []` (empty = all), `includeHidden: false` |
+| `network` | network map, see below |
 | `choices` | renders the decision of the page (decision pages only) |
 
 Markdown-lite: `**bold**`, `*italic*`, `` `code` ``, `==highlight==`, `# Heading`, `## Subheading`,
 lines starting with `- ` (bullets) or `1. ` (numbered).
+
+### Network map
+
+A live map of systems, connections and zones. Inside the element, positions are percentages of the
+element's own width/height. Node `x`/`y` is the **centre** of the node, `w` its width; zones use the
+top-left corner plus `w`/`h`.
+
+```json
+{
+  "id": "e-map", "kind": "network", "x": 52, "y": 16, "w": 44, "h": 46, "reveal": 0,
+  "title":    {"en": "NordWerk Logistik · IT", "de": "NordWerk Logistik · IT"},
+  "subtitle": {"en": "Mon 12:00 · attack path", "de": "Mo 12:00 · Angriffsweg"},
+  "frame": true,                // dark/light panel with grid
+  "legend": true,               // legend of the statuses and line styles in use
+  "zones": [
+    {"id": "z-hq", "label": {"en": "HQ datacenter", "de": "Zentrale RZ"}, "x": 41, "y": 15.5, "w": 24, "h": 67}
+  ],
+  "nodes": [
+    {
+      "id": "n-bre", "icon": "site", "x": 85, "y": 31.5, "w": 17,
+      "label": {"en": "Bremen", "de": "Bremen"}, "sub": {"en": "", "de": ""},
+      "status": "encrypted",
+      "states": [
+        {"value": "isolated", "condition": {"mode": "any", "rules": [{"type": "choice", "choice": "c-isolate-segment", "op": "chosen"}]}}
+      ]
+    }
+  ],
+  "links": [
+    {"id": "l-wms-bre", "from": "n-wms", "to": "n-bre", "style": "attack", "label": {"en": "", "de": ""},
+     "states": [{"value": "blocked", "condition": {"mode": "any", "rules": [{"type": "choice", "choice": "c-isolate-segment", "op": "chosen"}]}}]}
+  ]
+}
+```
+
+- Node `status`: `normal`, `clean`, `unknown`, `suspicious`, `compromised`, `encrypted`, `isolated`, `offline`.
+- Link `style`: `normal`, `attack` (animated red arrow), `suspicious` (amber arrow), `blocked` (with ×).
+- Node `icon`: `server`, `database`, `firewall`, `cloud`, `internet`, `client`, `workstation`, `user`,
+  `vpn`, `site`, `backup`, `router`, `app`, `mail`, `phone`, `mobile`, `security`.
+- `states` change a node's status or a link's style during the exercise. The first state whose
+  `condition` matches wins (same rules as page conditions); otherwise `status` / `style` is used.
 
 ## Decision
 

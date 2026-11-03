@@ -51,8 +51,8 @@ On Windows you can also double-click **`start.bat`**. Your browser opens at
 <http://127.0.0.1:8765>.
 
 On first start the sample scenario **Operation Nightfall** is imported: a ransomware attack on a
-fictional German logistics company, with 18 pages, 6 decisions, branching, dice rolls and a hidden
-"data exposure" score. Press **Present** to try it, or **Edit** to see how it is built.
+fictional German logistics company, with 18 pages, 6 decisions, branching, dice rolls, a live
+network map and a hidden "data exposure" score. Press **Present** to try it, or **Edit** to see how it is built.
 
 | Option | Default | Meaning |
 | --- | --- | --- |
@@ -106,6 +106,19 @@ fictional German logistics company, with 18 pages, 6 decisions, branching, dice 
 
 ![Attribute editor with classification levels](docs/screenshots/attributes.png)
 
+### Network maps that react to decisions
+
+- **Live network map element.** Place systems (server, firewall, VPN, site, backup …) with a status,
+  connect them, and group them in zones such as *HQ datacenter* or *warehouses*.
+- **Statuses and lines.** Systems can be operational, clean, unknown, suspicious, compromised,
+  encrypted, isolated or offline. Connections can be normal, an animated **attack path**,
+  suspicious traffic, or blocked. The legend is generated automatically.
+- **It follows the exercise.** Each system and connection can change during the game with the same
+  rules as conditional pages. Example: *Bremen becomes "isolated" and its WAN link "blocked" when the
+  room chose "Isolate affected segments"*.
+- **Visual editor.** Drag systems and zones, Shift+click to connect, and preview the map at the start
+  or after the decisions.
+
 ### Charts and debrief
 
 - **Seven chart types** you can place on any slide: bars with level bands, gauges, radar (start vs.
@@ -115,16 +128,19 @@ fictional German logistics company, with 18 pages, 6 decisions, branching, dice 
   every decision with its outcome, dice roll and before/after values. Printable as PDF, exportable
   as JSON.
 
-| Situation report slide | After-action review |
+| Situation report with live network map | After-action review |
 | --- | --- |
-| ![Situation report with bar chart](docs/screenshots/sitrep.png) | ![Debrief page](docs/screenshots/debrief.png) |
+| ![Situation report with bar chart and network map](docs/screenshots/sitrep.png) | ![Debrief page](docs/screenshots/debrief.png) |
 
 ### Authoring
 
 - **Free-form slide editor.** Drag elements anywhere and resize them with handles. Arrow keys nudge,
   **Ctrl+D** duplicates, and images can be pasted (**Ctrl+V**) or dropped straight onto the slide.
+- **Undo everything.** **Ctrl+Z** undoes and **Ctrl+Y** redoes any change in the editor, including in
+  the network editor (buttons in the top bar too).
 - **Element types:** text (simple markdown), images, **injects** styled as e-mail, phone call, chat,
-  SMS, news article, social media post, SIEM/EDR alert or memo, charts, and option cards.
+  SMS, news article, social media post, SIEM/EDR alert or memo, network maps, charts, and option
+  cards.
 - **Text that fits.** Text that is too long for its box shrinks automatically, so the German version
   fits as well as the English one.
 - **Libraries.** 34 typical incident-response options (isolate segments, pay the ransom, notify the
@@ -167,6 +183,11 @@ fictional German logistics company, with 18 pages, 6 decisions, branching, dice 
 
 On a decision page, **Next** first asks for a decision. Pressing it a second time skips the decision.
 
+In the editor: **Ctrl+Z** / **Ctrl+Y** undo and redo, **Ctrl+S** saves immediately (it also saves
+automatically), **Del** deletes the selected element, **Ctrl+D** duplicates it, arrow keys nudge it
+(**Shift** = bigger steps), **PgUp/PgDn** switch pages. In the network editor, **C** toggles connect
+mode.
+
 ## Building a scenario
 
 A wargame has three parts, each with its own tab in the editor:
@@ -174,7 +195,7 @@ A wargame has three parts, each with its own tab in the editor:
 - **Pages:** the slides. Add a page from a template (title, text, inject, image, decision,
   situation report, debrief, blank), then add or move elements on it. The inspector on the right
   edits the selected page or element. Every text field has an **EN** and a **DE** line; a missing
-  translation is highlighted.
+  translation is highlighted. Double-click a network map to open the network editor.
 - **Attributes:** what decisions change, and how each value is classified.
 - **Settings:** title, description, theme, accent color, start language and marking strip.
 
