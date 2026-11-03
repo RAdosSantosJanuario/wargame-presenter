@@ -1,0 +1,2414 @@
+{
+  "format": "wargame-export",
+  "version": 1,
+  "exportedAt": "2026-11-03T10:00:00Z",
+  "wargame": {
+    "schema": 1,
+    "id": "nightfall1",
+    "meta": {
+      "title": {
+        "en": "Operation Nightfall",
+        "de": "Operation Nightfall"
+      },
+      "subtitle": {
+        "en": "Ransomware at NordWerk Logistik GmbH",
+        "de": "Ransomware bei der NordWerk Logistik GmbH"
+      },
+      "description": {
+        "en": "A 90-minute ransomware tabletop for crisis teams: a mid-sized Hamburg logistics company is hit on a Monday morning. Six decisions, reporting deadlines, a ransom demand and a hidden data leak.",
+        "de": "Ein 90-minütiges Ransomware-Planspiel für Krisenstäbe: Ein mittelständischer Hamburger Logistiker wird an einem Montagmorgen getroffen. Sechs Entscheidungen, Meldefristen, eine Lösegeldforderung und ein verborgener Datenabfluss."
+      },
+      "author": "Wargame Presenter (sample)",
+      "created": "2026-11-03T10:00:00Z",
+      "updated": "2026-11-03T10:00:00Z"
+    },
+    "settings": {
+      "theme": "dark",
+      "accent": "#ffb000",
+      "language": "de",
+      "hud": true,
+      "banner": {
+        "en": "EXERCISE · EXERCISE · EXERCISE",
+        "de": "ÜBUNG · ÜBUNG · ÜBUNG"
+      }
+    },
+    "attributes": [
+      {
+        "id": "containment",
+        "icon": "🛡️",
+        "name": {
+          "en": "Containment",
+          "de": "Eindämmung"
+        },
+        "description": {
+          "en": "How well the attacker is under control",
+          "de": "Wie gut der Angreifer unter Kontrolle ist"
+        },
+        "unit": "%",
+        "min": 0,
+        "max": 100,
+        "start": 10,
+        "better": "higher",
+        "hidden": false,
+        "levels": [
+          {
+            "upTo": 25,
+            "severity": "critical",
+            "label": {
+              "en": "Out of control",
+              "de": "Außer Kontrolle"
+            }
+          },
+          {
+            "upTo": 50,
+            "severity": "bad",
+            "label": {
+              "en": "Spreading",
+              "de": "Breitet sich aus"
+            }
+          },
+          {
+            "upTo": 75,
+            "severity": "warning",
+            "label": {
+              "en": "Partly contained",
+              "de": "Teilweise eingedämmt"
+            }
+          },
+          {
+            "upTo": 100,
+            "severity": "good",
+            "label": {
+              "en": "Under control",
+              "de": "Unter Kontrolle"
+            }
+          }
+        ]
+      },
+      {
+        "id": "operations",
+        "icon": "🏭",
+        "name": {
+          "en": "Operations",
+          "de": "Betrieb"
+        },
+        "description": {
+          "en": "Business continuity: warehouses, trucks, customer portal",
+          "de": "Geschäftsfortführung: Lager, Lkw, Kundenportal"
+        },
+        "unit": "%",
+        "min": 0,
+        "max": 100,
+        "start": 100,
+        "better": "higher",
+        "hidden": false,
+        "levels": [
+          {
+            "upTo": 25,
+            "severity": "critical",
+            "label": {
+              "en": "Standstill",
+              "de": "Stillstand"
+            }
+          },
+          {
+            "upTo": 55,
+            "severity": "bad",
+            "label": {
+              "en": "Emergency operations",
+              "de": "Notbetrieb"
+            }
+          },
+          {
+            "upTo": 85,
+            "severity": "warning",
+            "label": {
+              "en": "Restricted",
+              "de": "Eingeschränkt"
+            }
+          },
+          {
+            "upTo": 100,
+            "severity": "good",
+            "label": {
+              "en": "Normal operations",
+              "de": "Normalbetrieb"
+            }
+          }
+        ]
+      },
+      {
+        "id": "reputation",
+        "icon": "⭐",
+        "name": {
+          "en": "Reputation",
+          "de": "Reputation"
+        },
+        "description": {
+          "en": "Trust of customers, staff and the public",
+          "de": "Vertrauen von Kunden, Belegschaft und Öffentlichkeit"
+        },
+        "unit": "",
+        "min": 0,
+        "max": 100,
+        "start": 80,
+        "better": "higher",
+        "hidden": false,
+        "levels": [
+          {
+            "upTo": 30,
+            "severity": "critical",
+            "label": {
+              "en": "Trust lost",
+              "de": "Vertrauen verloren"
+            }
+          },
+          {
+            "upTo": 50,
+            "severity": "bad",
+            "label": {
+              "en": "Badly damaged",
+              "de": "Schwer beschädigt"
+            }
+          },
+          {
+            "upTo": 75,
+            "severity": "warning",
+            "label": {
+              "en": "Under scrutiny",
+              "de": "Unter Beobachtung"
+            }
+          },
+          {
+            "upTo": 100,
+            "severity": "good",
+            "label": {
+              "en": "Trusted",
+              "de": "Vertrauenswürdig"
+            }
+          }
+        ]
+      },
+      {
+        "id": "resources",
+        "icon": "💶",
+        "name": {
+          "en": "Resources",
+          "de": "Ressourcen"
+        },
+        "description": {
+          "en": "Remaining budget and staff capacity",
+          "de": "Verbleibendes Budget und personelle Kapazität"
+        },
+        "unit": "%",
+        "min": 0,
+        "max": 100,
+        "start": 100,
+        "better": "higher",
+        "hidden": false,
+        "levels": [
+          {
+            "upTo": 20,
+            "severity": "critical",
+            "label": {
+              "en": "Exhausted",
+              "de": "Erschöpft"
+            }
+          },
+          {
+            "upTo": 45,
+            "severity": "bad",
+            "label": {
+              "en": "Scarce",
+              "de": "Knapp"
+            }
+          },
+          {
+            "upTo": 75,
+            "severity": "warning",
+            "label": {
+              "en": "Stretched",
+              "de": "Angespannt"
+            }
+          },
+          {
+            "upTo": 100,
+            "severity": "good",
+            "label": {
+              "en": "Sufficient",
+              "de": "Ausreichend"
+            }
+          }
+        ]
+      },
+      {
+        "id": "effort",
+        "icon": "🔥",
+        "name": {
+          "en": "Team strain",
+          "de": "Belastung"
+        },
+        "description": {
+          "en": "How hard the response is on the crisis team",
+          "de": "Wie stark die Bewältigung das Krisenteam fordert"
+        },
+        "unit": "",
+        "min": 0,
+        "max": 100,
+        "start": 10,
+        "better": "lower",
+        "hidden": false,
+        "levels": [
+          {
+            "upTo": 25,
+            "severity": "good",
+            "label": {
+              "en": "Manageable",
+              "de": "Beherrschbar"
+            }
+          },
+          {
+            "upTo": 50,
+            "severity": "warning",
+            "label": {
+              "en": "Demanding",
+              "de": "Fordernd"
+            }
+          },
+          {
+            "upTo": 75,
+            "severity": "bad",
+            "label": {
+              "en": "Overloaded",
+              "de": "Überlastet"
+            }
+          },
+          {
+            "upTo": 100,
+            "severity": "critical",
+            "label": {
+              "en": "Burnout risk",
+              "de": "Burnout-Gefahr"
+            }
+          }
+        ]
+      },
+      {
+        "id": "compliance",
+        "icon": "⚖️",
+        "name": {
+          "en": "Compliance risk",
+          "de": "Compliance-Risiko"
+        },
+        "description": {
+          "en": "Regulatory and legal risk (DSGVO, NIS2, sanctions)",
+          "de": "Regulatorisches und rechtliches Risiko (DSGVO, NIS2, Sanktionen)"
+        },
+        "unit": "",
+        "min": 0,
+        "max": 100,
+        "start": 0,
+        "better": "lower",
+        "hidden": false,
+        "levels": [
+          {
+            "upTo": 15,
+            "severity": "good",
+            "label": {
+              "en": "Compliant",
+              "de": "Regelkonform"
+            }
+          },
+          {
+            "upTo": 40,
+            "severity": "warning",
+            "label": {
+              "en": "Minor gaps",
+              "de": "Kleinere Lücken"
+            }
+          },
+          {
+            "upTo": 70,
+            "severity": "bad",
+            "label": {
+              "en": "Violations likely",
+              "de": "Verstöße wahrscheinlich"
+            }
+          },
+          {
+            "upTo": 100,
+            "severity": "critical",
+            "label": {
+              "en": "Fines imminent",
+              "de": "Bußgelder drohen"
+            }
+          }
+        ]
+      },
+      {
+        "id": "exposure",
+        "icon": "🕵️",
+        "name": {
+          "en": "Data exposure",
+          "de": "Datenabfluss"
+        },
+        "description": {
+          "en": "How much data the attacker has stolen or published",
+          "de": "Wie viele Daten der Angreifer gestohlen oder veröffentlicht hat"
+        },
+        "unit": "",
+        "min": 0,
+        "max": 100,
+        "start": 20,
+        "better": "lower",
+        "hidden": true,
+        "levels": [
+          {
+            "upTo": 10,
+            "severity": "good",
+            "label": {
+              "en": "Minimal",
+              "de": "Geringfügig"
+            }
+          },
+          {
+            "upTo": 35,
+            "severity": "warning",
+            "label": {
+              "en": "Limited exfiltration",
+              "de": "Begrenzter Abfluss"
+            }
+          },
+          {
+            "upTo": 65,
+            "severity": "bad",
+            "label": {
+              "en": "Significant data theft",
+              "de": "Erheblicher Datendiebstahl"
+            }
+          },
+          {
+            "upTo": 100,
+            "severity": "critical",
+            "label": {
+              "en": "Mass data breach",
+              "de": "Massives Datenleck"
+            }
+          }
+        ]
+      }
+    ],
+    "pages": [
+      {
+        "id": "p-title",
+        "type": "content",
+        "title": {
+          "en": "Operation Nightfall",
+          "de": "Operation Nightfall"
+        },
+        "showTitle": false,
+        "notes": {
+          "en": "Welcome the room and set the tone: this is a safe space to make mistakes. Explain that you will click the team's decisions and that the bar at the bottom shows the company's state.",
+          "de": "Begrüßen Sie die Runde und setzen Sie den Ton: Hier darf man Fehler machen. Erklären Sie, dass Sie die Entscheidungen der Gruppe einklicken und die Leiste unten den Zustand des Unternehmens zeigt."
+        },
+        "timer": 0,
+        "condition": null,
+        "elements": [
+          {
+            "id": "e-title-tag",
+            "kind": "text",
+            "x": 4,
+            "y": 20,
+            "w": 92,
+            "h": 6,
+            "reveal": 0,
+            "text": {
+              "en": "SCENARIO BRIEFING · TLP:CLEAR",
+              "de": "SZENARIO-BRIEFING · TLP:CLEAR"
+            },
+            "style": {
+              "size": "s",
+              "align": "center",
+              "valign": "middle",
+              "font": "mono",
+              "box": "none",
+              "color": ""
+            }
+          },
+          {
+            "id": "e-title-main",
+            "kind": "text",
+            "x": 4,
+            "y": 30,
+            "w": 92,
+            "h": 20,
+            "reveal": 0,
+            "text": {
+              "en": "OPERATION NIGHTFALL",
+              "de": "OPERATION NIGHTFALL"
+            },
+            "style": {
+              "size": "xxl",
+              "align": "center",
+              "valign": "middle",
+              "font": "display",
+              "box": "none",
+              "color": ""
+            }
+          },
+          {
+            "id": "e-title-sub",
+            "kind": "text",
+            "x": 4,
+            "y": 52,
+            "w": 92,
+            "h": 10,
+            "reveal": 0,
+            "text": {
+              "en": "Ransomware at NordWerk Logistik GmbH",
+              "de": "Ransomware bei der NordWerk Logistik GmbH"
+            },
+            "style": {
+              "size": "l",
+              "align": "center",
+              "valign": "middle",
+              "font": "sans",
+              "box": "none",
+              "color": ""
+            }
+          },
+          {
+            "id": "e-title-meta",
+            "kind": "text",
+            "x": 4,
+            "y": 82,
+            "w": 92,
+            "h": 6,
+            "reveal": 0,
+            "text": {
+              "en": "Crisis team tabletop · approx. 90 minutes",
+              "de": "Krisenstabsübung · ca. 90 Minuten"
+            },
+            "style": {
+              "size": "s",
+              "align": "center",
+              "valign": "middle",
+              "font": "mono",
+              "box": "none",
+              "color": ""
+            }
+          }
+        ]
+      },
+      {
+        "id": "p-briefing",
+        "type": "content",
+        "title": {
+          "en": "Briefing: NordWerk Logistik GmbH",
+          "de": "Lagebriefing: NordWerk Logistik GmbH"
+        },
+        "showTitle": true,
+        "notes": {
+          "en": "Keep it under five minutes. Optionally assign roles (CEO, CISO, IT lead, Legal, Comms, HR). Point out that one value stays hidden until the debrief.",
+          "de": "Maximal fünf Minuten. Optional Rollen verteilen (Geschäftsführung, CISO, IT-Leitung, Recht, Kommunikation, Personal). Weisen Sie darauf hin, dass ein Wert bis zur Nachbesprechung verborgen bleibt."
+        },
+        "timer": 0,
+        "condition": null,
+        "elements": [
+          {
+            "id": "e-brief-company",
+            "kind": "text",
+            "x": 4,
+            "y": 16,
+            "w": 44,
+            "h": 44,
+            "reveal": 0,
+            "text": {
+              "en": "## The company\n- Logistics provider, HQ in Hamburg\n- 1,200 employees, 6 warehouses (DE/PL)\n- 24/7 operations, 400 trucks per day\n- Customer portal *NordWerk Connect*\n- NIS2: “important entity”",
+              "de": "## Das Unternehmen\n- Logistikdienstleister, Sitz in Hamburg\n- 1.200 Beschäftigte, 6 Lager (DE/PL)\n- 24/7-Betrieb, 400 Lkw pro Tag\n- Kundenportal *NordWerk Connect*\n- NIS2: „wichtige Einrichtung“"
+            },
+            "style": {
+              "size": "m",
+              "align": "left",
+              "valign": "top",
+              "font": "sans",
+              "box": "card",
+              "color": ""
+            }
+          },
+          {
+            "id": "e-brief-role",
+            "kind": "text",
+            "x": 4,
+            "y": 64,
+            "w": 44,
+            "h": 30,
+            "reveal": 0,
+            "text": {
+              "en": "## Your role\nYou are NordWerk's **crisis team**. It is Monday, 06:12 – and the phones start ringing.",
+              "de": "## Ihre Rolle\nSie sind der **Krisenstab** von NordWerk. Es ist Montag, 06:12 Uhr – und die Telefone klingeln."
+            },
+            "style": {
+              "size": "m",
+              "align": "left",
+              "valign": "top",
+              "font": "sans",
+              "box": "accent",
+              "color": ""
+            }
+          },
+          {
+            "id": "e-brief-rules",
+            "kind": "text",
+            "x": 52,
+            "y": 16,
+            "w": 44,
+            "h": 78,
+            "reveal": 0,
+            "text": {
+              "en": "## Rules of the game\n- Discuss openly – there are no wrong answers\n- The facilitator records your decisions\n- Every option has a price\n- Some outcomes depend on luck 🎲\n- Not every value is visible during play\n- Timeboxes keep the pressure realistic",
+              "de": "## Spielregeln\n- Offen diskutieren – es gibt keine falschen Antworten\n- Die Moderation erfasst Ihre Entscheidungen\n- Jede Option hat ihren Preis\n- Manche Ergebnisse hängen vom Glück ab 🎲\n- Nicht jeder Wert ist während des Spiels sichtbar\n- Zeitvorgaben sorgen für realistischen Druck"
+            },
+            "style": {
+              "size": "m",
+              "align": "left",
+              "valign": "top",
+              "font": "sans",
+              "box": "card",
+              "color": ""
+            }
+          }
+        ]
+      },
+      {
+        "id": "p-first-alerts",
+        "type": "content",
+        "title": {
+          "en": "Mon 06:12 – Alerts at dawn",
+          "de": "Mo 06:12 – Alarm im Morgengrauen"
+        },
+        "showTitle": true,
+        "notes": {
+          "en": "Reveal the injects one by one. Ask: who is in charge right now? Who has the authority to take systems offline at 06:30 in the morning?",
+          "de": "Blenden Sie die Meldungen nacheinander ein. Fragen Sie: Wer hat jetzt die Leitung? Wer darf um 06:30 Uhr Systeme vom Netz nehmen?"
+        },
+        "timer": 0,
+        "condition": null,
+        "elements": [
+          {
+            "id": "e-alert-edr",
+            "kind": "inject",
+            "x": 4,
+            "y": 16,
+            "w": 46,
+            "h": 52,
+            "reveal": 0,
+            "channel": "alert",
+            "severity": "critical",
+            "time": "06:12",
+            "from": {
+              "en": "EDR console",
+              "de": "EDR-Konsole"
+            },
+            "to": {
+              "en": "IT on-call",
+              "de": "IT-Bereitschaft"
+            },
+            "subject": {
+              "en": "CRITICAL – ransomware behaviour detected",
+              "de": "KRITISCH – Ransomware-Verhalten erkannt"
+            },
+            "body": {
+              "en": "- Host `NW-FS-02` (file server)\n- Process `svcupd.exe` renamed **3,412 files** to `*.vesper` in 4 minutes\n- Same pattern on **17 more hosts**\n- Automatic isolation: ==failed (agent tampered with)==",
+              "de": "- Host `NW-FS-02` (Fileserver)\n- Prozess `svcupd.exe` hat **3.412 Dateien** in 4 Minuten in `*.vesper` umbenannt\n- Gleiches Muster auf **17 weiteren Hosts**\n- Automatische Isolierung: ==fehlgeschlagen (Agent manipuliert)=="
+            }
+          },
+          {
+            "id": "e-alert-status",
+            "kind": "text",
+            "x": 4,
+            "y": 72,
+            "w": 46,
+            "h": 22,
+            "reveal": 0,
+            "text": {
+              "en": "**Monday, 06:12.** Within 20 minutes the crisis team is on a bridge call. Nobody knows yet how far the attack has spread.",
+              "de": "**Montag, 06:12 Uhr.** Binnen 20 Minuten ist der Krisenstab in einer Telefonkonferenz. Noch weiß niemand, wie weit sich der Angriff ausgebreitet hat."
+            },
+            "style": {
+              "size": "s",
+              "align": "left",
+              "valign": "top",
+              "font": "sans",
+              "box": "card",
+              "color": ""
+            }
+          },
+          {
+            "id": "e-alert-chat",
+            "kind": "inject",
+            "x": 54,
+            "y": 16,
+            "w": 42,
+            "h": 38,
+            "reveal": 1,
+            "channel": "chat",
+            "severity": "warning",
+            "time": "06:19",
+            "from": {
+              "en": "Jonas Petersen (IT on-call)",
+              "de": "Jonas Petersen (IT-Bereitschaft)"
+            },
+            "to": {
+              "en": "Crisis team",
+              "de": "Krisenstab"
+            },
+            "subject": {
+              "en": "Channel #it-ops",
+              "de": "Kanal #it-ops"
+            },
+            "body": {
+              "en": "vCenter login fails, the domain admin password no longer works?! 😳\nHalf of the VMs show “inaccessible”. Should I start pulling cables??",
+              "de": "vCenter-Login geht nicht, das Domain-Admin-Passwort funktioniert nicht mehr?! 😳\nDie Hälfte der VMs ist „nicht erreichbar“. Soll ich Kabel ziehen??"
+            }
+          },
+          {
+            "id": "e-alert-phone",
+            "kind": "inject",
+            "x": 54,
+            "y": 58,
+            "w": 42,
+            "h": 36,
+            "reveal": 2,
+            "channel": "phone",
+            "severity": "warning",
+            "time": "06:27",
+            "from": {
+              "en": "Bremen warehouse – shift lead",
+              "de": "Lager Bremen – Schichtleitung"
+            },
+            "to": {
+              "en": "IT hotline",
+              "de": "IT-Hotline"
+            },
+            "subject": {
+              "en": "Incoming call",
+              "de": "Eingehender Anruf"
+            },
+            "body": {
+              "en": "Scanners can't reach the WMS, no labels are printing. **38 trucks** are waiting at the gates – the first drivers are getting angry. What do we do?",
+              "de": "Die Scanner erreichen das WMS nicht, es werden keine Etiketten gedruckt. **38 Lkw** warten an den Toren – die ersten Fahrer werden ungeduldig. Was sollen wir tun?"
+            }
+          }
+        ]
+      },
+      {
+        "id": "p-d-first-response",
+        "type": "decision",
+        "title": {
+          "en": "Decision 1: First response",
+          "de": "Entscheidung 1: Erstreaktion"
+        },
+        "showTitle": true,
+        "notes": {
+          "en": "The effects are visible on the cards here to teach the mechanics. Look for whether the team weighs evidence preservation and business impact, not just stopping the spread.",
+          "de": "Die Auswirkungen sind hier auf den Karten sichtbar, um die Mechanik zu zeigen. Achten Sie darauf, ob die Gruppe neben der Ausbreitung auch Beweissicherung und Geschäftsauswirkungen abwägt."
+        },
+        "timer": 300,
+        "condition": null,
+        "elements": [
+          {
+            "id": "e-d1-choices",
+            "kind": "choices",
+            "x": 4,
+            "y": 16,
+            "w": 92,
+            "h": 78,
+            "reveal": 0
+          }
+        ],
+        "decision": {
+          "prompt": {
+            "en": "Mon 06:30 – Encryption is spreading. What is your first move?",
+            "de": "Mo 06:30 – Die Verschlüsselung breitet sich aus. Was ist Ihr erster Schritt?"
+          },
+          "mode": "single",
+          "min": 1,
+          "max": 1,
+          "showEffects": "always",
+          "choices": [
+            {
+              "id": "c-isolate-segment",
+              "icon": "🔌",
+              "label": {
+                "en": "Isolate affected segments",
+                "de": "Betroffene Segmente isolieren"
+              },
+              "description": {
+                "en": "Cut off the server VLAN and the Bremen site; the other sites keep running.",
+                "de": "Server-VLAN und Standort Bremen abtrennen; die übrigen Standorte laufen weiter."
+              },
+              "effects": {
+                "containment": 20,
+                "operations": -25,
+                "effort": 10,
+                "reputation": -5
+              },
+              "outcome": {
+                "en": "The spread slows down considerably. Bremen and the file servers are offline – the other sites keep shipping.",
+                "de": "Die Ausbreitung verlangsamt sich deutlich. Bremen und die Fileserver sind offline – die übrigen Standorte liefern weiter."
+              },
+              "chance": 100,
+              "goto": ""
+            },
+            {
+              "id": "c-shutdown-all",
+              "icon": "⛔",
+              "label": {
+                "en": "Shut down everything",
+                "de": "Alles herunterfahren"
+              },
+              "description": {
+                "en": "Power off all servers and clients company-wide. Maximum safety, total standstill.",
+                "de": "Alle Server und Clients unternehmensweit abschalten. Maximale Sicherheit, totaler Stillstand."
+              },
+              "effects": {
+                "containment": 30,
+                "operations": -30,
+                "reputation": -10,
+                "effort": 15
+              },
+              "outcome": {
+                "en": "Encryption stops immediately – but so does NordWerk. No warehouse can ship, and volatile evidence in memory is lost.",
+                "de": "Die Verschlüsselung stoppt sofort – NordWerk aber auch. Kein Lager kann ausliefern, flüchtige Spuren im Arbeitsspeicher sind verloren."
+              },
+              "chance": 100,
+              "goto": ""
+            },
+            {
+              "id": "c-monitor-quietly",
+              "icon": "👁️",
+              "label": {
+                "en": "Monitor quietly",
+                "de": "Verdeckt beobachten"
+              },
+              "description": {
+                "en": "Observe the attacker for a few hours to understand tools and scope before acting.",
+                "de": "Den Angreifer einige Stunden beobachten, um Werkzeuge und Ausmaß zu verstehen."
+              },
+              "effects": {
+                "containment": -10,
+                "operations": -20,
+                "exposure": 20,
+                "compliance": 10,
+                "effort": -5
+              },
+              "outcome": {
+                "en": "You map the attacker's command servers – while they keep encrypting and quietly copy more data.",
+                "de": "Sie identifizieren die Steuerungsserver des Angreifers – während er weiter verschlüsselt und unbemerkt Daten kopiert."
+              },
+              "chance": 100,
+              "goto": ""
+            },
+            {
+              "id": "c-cut-uplink",
+              "icon": "🌐",
+              "label": {
+                "en": "Pull the internet uplink",
+                "de": "Internetanbindung kappen"
+              },
+              "description": {
+                "en": "Disconnect all external lines. Stops remote control and data theft – cloud and portal go dark.",
+                "de": "Alle externen Leitungen trennen. Stoppt Fernsteuerung und Datenabfluss – Cloud und Portal sind weg."
+              },
+              "effects": {
+                "containment": 15,
+                "exposure": -5,
+                "operations": -25,
+                "reputation": -10
+              },
+              "outcome": {
+                "en": "The attacker loses remote control and the data outflow stops. Encryption already running continues locally; portal and e-mail are offline.",
+                "de": "Der Angreifer verliert die Fernsteuerung, der Datenabfluss stoppt. Bereits laufende Verschlüsselung geht lokal weiter; Portal und E-Mail sind offline."
+              },
+              "chance": 100,
+              "goto": ""
+            }
+          ]
+        }
+      },
+      {
+        "id": "p-ransom-note",
+        "type": "content",
+        "title": {
+          "en": "Mon 07:45 – The ransom note",
+          "de": "Mo 07:45 – Die Erpressernachricht"
+        },
+        "showTitle": true,
+        "notes": {
+          "en": "Let the room react to the note. Ask: is the data theft claim credible? What does “no police” do to your decision-making?",
+          "de": "Lassen Sie die Gruppe auf die Nachricht reagieren. Fragen Sie: Ist die Behauptung des Datendiebstahls glaubwürdig? Was macht „keine Polizei“ mit Ihrer Entscheidungsfindung?"
+        },
+        "timer": 0,
+        "condition": null,
+        "elements": [
+          {
+            "id": "e-note-img",
+            "kind": "image",
+            "x": 4,
+            "y": 16,
+            "w": 54,
+            "h": 60,
+            "reveal": 0,
+            "src": "ransom-note.svg",
+            "fit": "contain",
+            "caption": {
+              "en": "Screen on every encrypted workstation",
+              "de": "Bildschirm auf jedem verschlüsselten Arbeitsplatz"
+            },
+            "frame": true
+          },
+          {
+            "id": "e-note-email",
+            "kind": "inject",
+            "x": 62,
+            "y": 16,
+            "w": 34,
+            "h": 60,
+            "reveal": 1,
+            "channel": "email",
+            "severity": "critical",
+            "time": "07:45",
+            "from": {
+              "en": "Grey Vesper (anonymous)",
+              "de": "Grey Vesper (anonym)"
+            },
+            "to": {
+              "en": "Dr. Katrin Möller, CEO",
+              "de": "Dr. Katrin Möller, Geschäftsführerin"
+            },
+            "subject": {
+              "en": "Your network belongs to us",
+              "de": "Ihr Netzwerk gehört uns"
+            },
+            "body": {
+              "en": "We encrypted your servers and copied **480 GB** of your data – HR, finance, customers.\nPrice: **2.5 million USD** in Bitcoin.\nYou have **72 hours**. Then the price doubles and we publish everything.\nNo police. No games.",
+              "de": "Wir haben Ihre Server verschlüsselt und **480 GB** Ihrer Daten kopiert – Personal, Finanzen, Kunden.\nPreis: **2,5 Mio. USD** in Bitcoin.\nSie haben **72 Stunden**. Danach verdoppelt sich der Preis und wir veröffentlichen alles.\nKeine Polizei. Keine Spielchen."
+            }
+          },
+          {
+            "id": "e-note-strip",
+            "kind": "text",
+            "x": 4,
+            "y": 80,
+            "w": 92,
+            "h": 14,
+            "reveal": 2,
+            "text": {
+              "en": "All printers in the six warehouses are printing the note – staff are posting photos online.",
+              "de": "Alle Drucker in den sechs Lagern drucken die Nachricht aus – Beschäftigte posten Fotos im Netz."
+            },
+            "style": {
+              "size": "m",
+              "align": "left",
+              "valign": "middle",
+              "font": "sans",
+              "box": "warning",
+              "color": ""
+            }
+          }
+        ]
+      },
+      {
+        "id": "p-d-help",
+        "type": "decision",
+        "title": {
+          "en": "Decision 2: Getting help",
+          "de": "Entscheidung 2: Unterstützung holen"
+        },
+        "showTitle": true,
+        "notes": {
+          "en": "The insurance option involves a dice roll – policy conditions matter. Follow-up: do we actually know our retainer contract and the insurer's hotline number?",
+          "de": "Bei der Versicherung wird gewürfelt – die Vertragsbedingungen zählen. Nachfrage: Kennen wir unseren Retainer-Vertrag und die Hotline-Nummer der Versicherung wirklich?"
+        },
+        "timer": 300,
+        "condition": null,
+        "elements": [
+          {
+            "id": "e-d2-choices",
+            "kind": "choices",
+            "x": 4,
+            "y": 16,
+            "w": 92,
+            "h": 78,
+            "reveal": 0
+          }
+        ],
+        "decision": {
+          "prompt": {
+            "en": "Mon 08:30 – Your IT team is overwhelmed. Who do you bring in?",
+            "de": "Mo 08:30 – Ihr IT-Team ist überlastet. Wen holen Sie dazu?"
+          },
+          "mode": "single",
+          "min": 1,
+          "max": 1,
+          "showEffects": "after",
+          "choices": [
+            {
+              "id": "c-ir-retainer",
+              "icon": "🚒",
+              "label": {
+                "en": "Activate the IR retainer",
+                "de": "IR-Dienstleister aktivieren"
+              },
+              "description": {
+                "en": "Your contracted incident response firm is on site in four hours – at premium rates.",
+                "de": "Ihr vertraglich gebundener Incident-Response-Dienstleister ist in vier Stunden vor Ort – zu Premiumpreisen."
+              },
+              "effects": {
+                "containment": 15,
+                "resources": -20,
+                "effort": -10,
+                "exposure": -5
+              },
+              "outcome": {
+                "en": "Experienced responders take over forensics and containment. Your people can breathe – the bill will be large.",
+                "de": "Erfahrene Responder übernehmen Forensik und Eindämmung. Ihr Team kann durchatmen – die Rechnung wird hoch."
+              },
+              "chance": 100,
+              "goto": ""
+            },
+            {
+              "id": "c-insurance-hotline",
+              "icon": "📞",
+              "label": {
+                "en": "Call the cyber insurance hotline",
+                "de": "Hotline der Cyberversicherung anrufen"
+              },
+              "description": {
+                "en": "The insurer sends a panel IR firm and covers costs – if the policy conditions are met.",
+                "de": "Der Versicherer schickt einen Partner-Dienstleister und trägt die Kosten – sofern die Bedingungen erfüllt sind."
+              },
+              "effects": {
+                "containment": 10,
+                "resources": 5,
+                "effort": 5
+              },
+              "outcome": {
+                "en": "Coverage confirmed. A panel IR team arrives at noon and the insurer pays – in return for extensive reporting.",
+                "de": "Deckung bestätigt. Ein Partner-Team trifft mittags ein, der Versicherer zahlt – gegen umfangreiche Berichtspflichten."
+              },
+              "chance": 70,
+              "goto": "",
+              "fail": {
+                "effects": {
+                  "containment": 5,
+                  "resources": -15,
+                  "effort": 10,
+                  "compliance": 5
+                },
+                "outcome": {
+                  "en": "The insurer questions coverage: MFA on the VPN was not enforced as declared. Help arrives late – and may not be paid for.",
+                  "de": "Der Versicherer zweifelt die Deckung an: MFA am VPN war nicht wie angegeben aktiv. Hilfe kommt spät – und wird womöglich nicht bezahlt."
+                },
+                "goto": ""
+              }
+            },
+            {
+              "id": "c-internal-only",
+              "icon": "🛠️",
+              "label": {
+                "en": "Handle it internally",
+                "de": "Intern bewältigen"
+              },
+              "description": {
+                "en": "Keep control and save money: your own IT team runs the response.",
+                "de": "Kontrolle behalten und Geld sparen: Ihr eigenes IT-Team übernimmt die Bewältigung."
+              },
+              "effects": {
+                "containment": 5,
+                "resources": -5,
+                "effort": 25,
+                "compliance": 10,
+                "exposure": 5
+              },
+              "outcome": {
+                "en": "Your admins work through the night without forensic experience. Evidence gets overwritten, fatigue sets in.",
+                "de": "Ihre Admins arbeiten die Nacht durch – ohne forensische Erfahrung. Spuren werden überschrieben, die Erschöpfung wächst."
+              },
+              "chance": 100,
+              "goto": ""
+            },
+            {
+              "id": "c-ask-bsi",
+              "icon": "🏛️",
+              "label": {
+                "en": "Contact the BSI",
+                "de": "Das BSI kontaktieren"
+              },
+              "description": {
+                "en": "Get advice, indicators and a list of qualified response providers – but no on-site team.",
+                "de": "Beratung, Indikatoren und eine Liste qualifizierter Dienstleister erhalten – aber kein Team vor Ort."
+              },
+              "effects": {
+                "containment": 10,
+                "compliance": -5,
+                "effort": 5
+              },
+              "outcome": {
+                "en": "The BSI shares indicators from similar attacks and recommends qualified providers. The hands-on work remains yours.",
+                "de": "Das BSI teilt Indikatoren aus ähnlichen Angriffen und empfiehlt qualifizierte Dienstleister. Die eigentliche Arbeit bleibt bei Ihnen."
+              },
+              "chance": 100,
+              "goto": ""
+            }
+          ]
+        }
+      },
+      {
+        "id": "p-sitrep-1",
+        "type": "content",
+        "title": {
+          "en": "Situation report – Mon 12:00",
+          "de": "Lagebild – Mo 12:00"
+        },
+        "showTitle": true,
+        "notes": {
+          "en": "Let the team read the values. Ask: which value worries you most? Mention that the attack path sketch is a first assessment and may still be wrong.",
+          "de": "Lassen Sie die Gruppe die Werte lesen. Fragen Sie: Welcher Wert bereitet Ihnen die größten Sorgen? Erwähnen Sie, dass die Skizze eine erste Einschätzung ist und noch falsch sein kann."
+        },
+        "timer": 0,
+        "condition": null,
+        "elements": [
+          {
+            "id": "e-sitrep1-bars",
+            "kind": "chart",
+            "x": 4,
+            "y": 16,
+            "w": 44,
+            "h": 78,
+            "reveal": 0,
+            "chart": "bars",
+            "attrs": [],
+            "includeHidden": false
+          },
+          {
+            "id": "e-sitrep1-map",
+            "kind": "image",
+            "x": 52,
+            "y": 16,
+            "w": 44,
+            "h": 46,
+            "reveal": 0,
+            "src": "network-map.svg",
+            "fit": "contain",
+            "caption": {
+              "en": "Attack path – first assessment",
+              "de": "Angriffsweg – erste Einschätzung"
+            },
+            "frame": true
+          },
+          {
+            "id": "e-sitrep1-facts",
+            "kind": "text",
+            "x": 52,
+            "y": 66,
+            "w": 44,
+            "h": 28,
+            "reveal": 0,
+            "text": {
+              "en": "## What we know\n- Entry point: service provider VPN account without MFA\n- Hundreds of systems encrypted, AD affected\n- Offline tapes from Saturday: integrity ==unverified==\n- Demand: 2.5 m USD, deadline Thu 07:45",
+              "de": "## Was wir wissen\n- Einfallstor: VPN-Konto eines Dienstleisters ohne MFA\n- Hunderte Systeme verschlüsselt, AD betroffen\n- Offline-Bänder vom Samstag: Integrität ==ungeprüft==\n- Forderung: 2,5 Mio. USD, Frist Do 07:45"
+            },
+            "style": {
+              "size": "s",
+              "align": "left",
+              "valign": "top",
+              "font": "sans",
+              "box": "card",
+              "color": ""
+            }
+          }
+        ]
+      },
+      {
+        "id": "p-pressure",
+        "type": "content",
+        "title": {
+          "en": "Mon 14:00 – Pressure from outside",
+          "de": "Mo 14:00 – Druck von außen"
+        },
+        "showTitle": true,
+        "notes": {
+          "en": "The CEO memo sets up the ransom decision. Watch whether the team challenges the assumption that paying means being back online tomorrow.",
+          "de": "Das Memo der Geschäftsführerin bereitet die Lösegeldentscheidung vor. Achten Sie darauf, ob die Gruppe die Annahme hinterfragt, dass Zahlen den Betrieb bis morgen wiederherstellt."
+        },
+        "timer": 0,
+        "condition": null,
+        "elements": [
+          {
+            "id": "e-press-news",
+            "kind": "inject",
+            "x": 4,
+            "y": 16,
+            "w": 46,
+            "h": 46,
+            "reveal": 0,
+            "channel": "news",
+            "severity": "warning",
+            "time": "13:52",
+            "from": {
+              "en": "Hanse-Kurier (online)",
+              "de": "Hanse-Kurier (online)"
+            },
+            "to": {
+              "en": "Online edition",
+              "de": "Online-Ausgabe"
+            },
+            "subject": {
+              "en": "Cyberattack paralyses Hamburg logistics firm",
+              "de": "Cyberangriff legt Hamburger Logistiker lahm"
+            },
+            "body": {
+              "en": "Since this morning, trucks have been backing up at NordWerk sites. The company has not yet commented. Retailers fear gaps on their shelves.",
+              "de": "Seit dem Morgen stauen sich Lkw an den NordWerk-Standorten. Das Unternehmen hat sich bisher nicht geäußert. Händler befürchten Lücken in den Regalen."
+            }
+          },
+          {
+            "id": "e-press-social",
+            "kind": "inject",
+            "x": 4,
+            "y": 66,
+            "w": 46,
+            "h": 28,
+            "reveal": 1,
+            "channel": "social",
+            "severity": "warning",
+            "time": "13:58",
+            "from": {
+              "en": "@trucker_jens",
+              "de": "@trucker_jens"
+            },
+            "to": {
+              "en": "Public",
+              "de": "Öffentlich"
+            },
+            "subject": {
+              "en": "#NordWerk",
+              "de": "#NordWerk"
+            },
+            "body": {
+              "en": "7 hours waiting at NordWerk Bremen. Nobody tells us anything. Their “ransom note” is in every drivers' chat group 👀",
+              "de": "7 Stunden Wartezeit bei NordWerk Bremen. Keiner sagt uns was. Deren „Erpresserbrief“ geht in allen Fahrer-Chatgruppen rum 👀"
+            }
+          },
+          {
+            "id": "e-press-ceo",
+            "kind": "inject",
+            "x": 54,
+            "y": 16,
+            "w": 42,
+            "h": 78,
+            "reveal": 2,
+            "channel": "memo",
+            "severity": "critical",
+            "time": "14:05",
+            "from": {
+              "en": "Dr. Katrin Möller, CEO",
+              "de": "Dr. Katrin Möller, Geschäftsführerin"
+            },
+            "to": {
+              "en": "Crisis team",
+              "de": "Krisenstab"
+            },
+            "subject": {
+              "en": "Decision needed by 15:00",
+              "de": "Entscheidung bis 15:00 Uhr"
+            },
+            "body": {
+              "en": "Our three largest customers are threatening to switch carriers. Every day of standstill costs us around **€1.8 million**.\n\nWhy can't we simply pay and be back up and running tomorrow?\n\nI need a clear recommendation from you – today.",
+              "de": "Unsere drei größten Kunden drohen mit dem Wechsel zu anderen Spediteuren. Jeder Tag Stillstand kostet uns rund **1,8 Mio. €**.\n\nWarum zahlen wir nicht einfach und sind morgen wieder arbeitsfähig?\n\nIch brauche heute eine klare Empfehlung von Ihnen."
+            }
+          }
+        ]
+      },
+      {
+        "id": "p-d-ransom",
+        "type": "decision",
+        "title": {
+          "en": "Decision 3: The ransom demand",
+          "de": "Entscheidung 3: Die Lösegeldforderung"
+        },
+        "showTitle": true,
+        "notes": {
+          "en": "Give this decision time. Paying jumps straight to the decryptor page; negotiating involves a dice roll. Ask: who decides – and does the company have a policy on ransom payments?",
+          "de": "Geben Sie dieser Entscheidung Zeit. Zahlen springt direkt zur Decryptor-Seite, beim Verhandeln wird gewürfelt. Fragen Sie: Wer entscheidet – und gibt es eine Richtlinie zu Lösegeldzahlungen?"
+        },
+        "timer": 600,
+        "condition": null,
+        "elements": [
+          {
+            "id": "e-d3-choices",
+            "kind": "choices",
+            "x": 4,
+            "y": 16,
+            "w": 92,
+            "h": 78,
+            "reveal": 0
+          }
+        ],
+        "decision": {
+          "prompt": {
+            "en": "Mon 15:00 – Grey Vesper demands 2.5 million USD. What do you recommend to the CEO?",
+            "de": "Mo 15:00 – Grey Vesper fordert 2,5 Mio. USD. Was empfehlen Sie der Geschäftsführung?"
+          },
+          "mode": "single",
+          "min": 1,
+          "max": 1,
+          "showEffects": "after",
+          "choices": [
+            {
+              "id": "c-pay-ransom",
+              "icon": "💰",
+              "label": {
+                "en": "Pay the ransom",
+                "de": "Lösegeld zahlen"
+              },
+              "description": {
+                "en": "Pay via a crypto broker and hope for a working decryptor.",
+                "de": "Über einen Krypto-Broker zahlen und auf einen funktionierenden Decryptor hoffen."
+              },
+              "effects": {
+                "resources": -30,
+                "operations": 5,
+                "reputation": -15,
+                "compliance": 20
+              },
+              "outcome": {
+                "en": "After a sanctions check and a nerve-racking transfer, the gang confirms payment and sends a decryptor.",
+                "de": "Nach Sanktionsprüfung und nervenaufreibender Überweisung bestätigt die Gruppe den Eingang und schickt einen Decryptor."
+              },
+              "chance": 100,
+              "goto": "p-decryptor-fails"
+            },
+            {
+              "id": "c-negotiate",
+              "icon": "🤝",
+              "label": {
+                "en": "Negotiate to buy time",
+                "de": "Verhandeln, um Zeit zu gewinnen"
+              },
+              "description": {
+                "en": "Open the chat, demand proof and haggle – while the team restores in the background.",
+                "de": "Den Chat eröffnen, Beweise fordern und feilschen – während im Hintergrund wiederhergestellt wird."
+              },
+              "effects": {
+                "containment": 10,
+                "effort": 10,
+                "resources": -5
+              },
+              "outcome": {
+                "en": "The gang extends the deadline and sends a file list as “proof”. You gain 48 valuable hours.",
+                "de": "Die Gruppe verlängert die Frist und schickt eine Dateiliste als „Beweis“. Sie gewinnen 48 wertvolle Stunden."
+              },
+              "chance": 60,
+              "goto": "",
+              "fail": {
+                "effects": {
+                  "exposure": 25,
+                  "reputation": -10,
+                  "effort": 10
+                },
+                "outcome": {
+                  "en": "The gang sees through the stalling and publishes a first sample on its leak site: payroll data of 200 employees.",
+                  "de": "Die Gruppe durchschaut die Hinhaltetaktik und stellt eine erste Probe auf ihre Leak-Seite: Gehaltsdaten von 200 Beschäftigten."
+                },
+                "goto": ""
+              }
+            },
+            {
+              "id": "c-refuse-restore",
+              "icon": "🗄️",
+              "label": {
+                "en": "Refuse and restore from backup",
+                "de": "Ablehnen und aus Backups wiederherstellen"
+              },
+              "description": {
+                "en": "No deals with criminals. Bet on the offline tapes from Saturday.",
+                "de": "Keine Geschäfte mit Kriminellen. Setzen auf die Offline-Bänder vom Samstag."
+              },
+              "effects": {
+                "operations": -15,
+                "resources": -10,
+                "effort": 15,
+                "reputation": 5,
+                "exposure": 15
+              },
+              "outcome": {
+                "en": "A clear stance – but recovery will take days, and the gang will now try to raise the pressure.",
+                "de": "Eine klare Haltung – doch die Wiederherstellung dauert Tage, und die Gruppe wird den Druck nun erhöhen."
+              },
+              "chance": 100,
+              "goto": ""
+            },
+            {
+              "id": "c-pay-deletion",
+              "icon": "🧾",
+              "label": {
+                "en": "Pay only for data deletion",
+                "de": "Nur für die Datenlöschung zahlen"
+              },
+              "description": {
+                "en": "Restore from backup, but pay a reduced sum so the stolen data is “deleted”.",
+                "de": "Aus Backups wiederherstellen, aber eine reduzierte Summe zahlen, damit die Daten „gelöscht“ werden."
+              },
+              "effects": {
+                "resources": -20,
+                "operations": -10,
+                "exposure": -5,
+                "compliance": 15,
+                "reputation": -5
+              },
+              "outcome": {
+                "en": "The gang sends a “deletion certificate”. Whether the data is really gone, nobody can verify.",
+                "de": "Die Gruppe schickt ein „Löschzertifikat“. Ob die Daten wirklich weg sind, kann niemand prüfen."
+              },
+              "chance": 100,
+              "goto": ""
+            }
+          ]
+        }
+      },
+      {
+        "id": "p-leak-site",
+        "type": "content",
+        "title": {
+          "en": "Mon 19:30 – NordWerk on the leak site",
+          "de": "Mo 19:30 – NordWerk auf der Leak-Seite"
+        },
+        "showTitle": true,
+        "notes": {
+          "en": "Only shown if the team refused to pay, monitored quietly or let data exposure rise. Ask: does this change the DSGVO assessment? Who must be informed now?",
+          "de": "Erscheint nur, wenn die Gruppe die Zahlung abgelehnt, verdeckt beobachtet oder den Datenabfluss hat steigen lassen. Fragen Sie: Ändert das die DSGVO-Bewertung? Wer muss jetzt informiert werden?"
+        },
+        "timer": 0,
+        "condition": {
+          "mode": "any",
+          "rules": [
+            {
+              "type": "choice",
+              "choice": "c-refuse-restore",
+              "op": "chosen"
+            },
+            {
+              "type": "choice",
+              "choice": "c-monitor-quietly",
+              "op": "chosen"
+            },
+            {
+              "type": "attr",
+              "attr": "exposure",
+              "op": ">",
+              "value": 25
+            }
+          ]
+        },
+        "elements": [
+          {
+            "id": "e-leak-img",
+            "kind": "image",
+            "x": 4,
+            "y": 16,
+            "w": 54,
+            "h": 60,
+            "reveal": 0,
+            "src": "leak-site.svg",
+            "fit": "contain",
+            "caption": {
+              "en": "Grey Vesper's leak site in the Tor network",
+              "de": "Leak-Seite von Grey Vesper im Tor-Netzwerk"
+            },
+            "frame": true
+          },
+          {
+            "id": "e-leak-social",
+            "kind": "inject",
+            "x": 62,
+            "y": 16,
+            "w": 34,
+            "h": 46,
+            "reveal": 1,
+            "channel": "social",
+            "severity": "critical",
+            "time": "19:41",
+            "from": {
+              "en": "@leakmonitor_de",
+              "de": "@leakmonitor_de"
+            },
+            "to": {
+              "en": "Public",
+              "de": "Öffentlich"
+            },
+            "subject": {
+              "en": "#ransomware #NordWerk",
+              "de": "#ransomware #NordWerk"
+            },
+            "body": {
+              "en": "New victim on the Grey Vesper leak site: **NordWerk Logistik GmbH** (DE). 480 GB claimed, the sample includes HR files and customer contracts. Countdown: 5 days.",
+              "de": "Neues Opfer auf der Leak-Seite von Grey Vesper: **NordWerk Logistik GmbH** (DE). 480 GB behauptet, die Probe enthält Personalakten und Kundenverträge. Countdown: 5 Tage."
+            }
+          },
+          {
+            "id": "e-leak-check",
+            "kind": "text",
+            "x": 62,
+            "y": 66,
+            "w": 34,
+            "h": 28,
+            "reveal": 2,
+            "text": {
+              "en": "## First check\nThe sample contains **ID card copies, bank details** and customer contracts – it is genuine.",
+              "de": "## Erste Prüfung\nDie Probe enthält **Ausweiskopien, Bankdaten** und Kundenverträge – sie ist echt."
+            },
+            "style": {
+              "size": "s",
+              "align": "left",
+              "valign": "top",
+              "font": "sans",
+              "box": "critical",
+              "color": ""
+            }
+          }
+        ]
+      },
+      {
+        "id": "p-decryptor-fails",
+        "type": "content",
+        "title": {
+          "en": "Mon 22:10 – The decryptor",
+          "de": "Mo 22:10 – Der Decryptor"
+        },
+        "showTitle": true,
+        "notes": {
+          "en": "Only reached by paying the ransom (jump target of that choice). Discuss what the payment actually bought – and that there is no guarantee the stolen data is deleted.",
+          "de": "Nur nach Zahlung des Lösegelds erreichbar (Sprungziel dieser Option). Besprechen Sie, was die Zahlung tatsächlich gebracht hat – und dass es keine Garantie für die Löschung der Daten gibt."
+        },
+        "timer": 0,
+        "condition": {
+          "mode": "all",
+          "rules": [
+            {
+              "type": "choice",
+              "choice": "c-pay-ransom",
+              "op": "chosen"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "id": "e-decr-chat",
+            "kind": "inject",
+            "x": 4,
+            "y": 16,
+            "w": 50,
+            "h": 78,
+            "reveal": 0,
+            "channel": "chat",
+            "severity": "critical",
+            "time": "22:10",
+            "from": {
+              "en": "Jonas Petersen (IT)",
+              "de": "Jonas Petersen (IT)"
+            },
+            "to": {
+              "en": "Crisis team",
+              "de": "Krisenstab"
+            },
+            "subject": {
+              "en": "Channel #recovery",
+              "de": "Kanal #recovery"
+            },
+            "body": {
+              "en": "Decryptor test results:\n- Small files: works 👍\n- Files over 4 GB: **crashes**\n- ESXi VMs and WMS database: **corrupt** after decryption\n\nEstimate: ~40 % of our servers can't be recovered this way 😩",
+              "de": "Testergebnisse Decryptor:\n- Kleine Dateien: funktioniert 👍\n- Dateien über 4 GB: **stürzt ab**\n- ESXi-VMs und WMS-Datenbank: nach Entschlüsselung **beschädigt**\n\nSchätzung: ca. 40 % unserer Server lassen sich so nicht retten 😩"
+            }
+          },
+          {
+            "id": "e-decr-offer",
+            "kind": "inject",
+            "x": 58,
+            "y": 16,
+            "w": 38,
+            "h": 40,
+            "reveal": 1,
+            "channel": "email",
+            "severity": "warning",
+            "time": "22:31",
+            "from": {
+              "en": "Grey Vesper (anonymous)",
+              "de": "Grey Vesper (anonym)"
+            },
+            "to": {
+              "en": "Dr. Katrin Möller, CEO",
+              "de": "Dr. Katrin Möller, Geschäftsführerin"
+            },
+            "subject": {
+              "en": "Premium support",
+              "de": "Premium-Support"
+            },
+            "body": {
+              "en": "Problems with large files are known. For another **300,000 USD** our “technical team” will help you personally 😉",
+              "de": "Probleme mit großen Dateien sind bekannt. Für weitere **300.000 USD** hilft Ihnen unser „Technik-Team“ persönlich 😉"
+            }
+          },
+          {
+            "id": "e-decr-lesson",
+            "kind": "text",
+            "x": 58,
+            "y": 60,
+            "w": 38,
+            "h": 34,
+            "reveal": 2,
+            "text": {
+              "en": "## Reality check\nPaying is no shortcut: decryptors are often slow, buggy and incomplete. And nobody can guarantee the stolen data is deleted.",
+              "de": "## Realitätscheck\nZahlen ist keine Abkürzung: Decryptoren sind oft langsam, fehlerhaft und unvollständig. Und niemand garantiert, dass die gestohlenen Daten gelöscht sind."
+            },
+            "style": {
+              "size": "s",
+              "align": "left",
+              "valign": "top",
+              "font": "sans",
+              "box": "warning",
+              "color": ""
+            }
+          }
+        ]
+      },
+      {
+        "id": "p-d-notifications",
+        "type": "decision",
+        "title": {
+          "en": "Decision 4: Reporting obligations",
+          "de": "Entscheidung 4: Meldepflichten"
+        },
+        "showTitle": true,
+        "notes": {
+          "en": "All four are needed eventually – the limit of two simulates scarce legal capacity tonight. A well-informed team files the NIS2 early warning (24 h) first.",
+          "de": "Langfristig sind alle vier nötig – die Begrenzung auf zwei simuliert knappe Kapazität in der Rechtsabteilung heute Nacht. Ein gut informiertes Team reicht zuerst die NIS2-Frühwarnung (24 h) ein."
+        },
+        "timer": 300,
+        "condition": null,
+        "elements": [
+          {
+            "id": "e-d4-choices",
+            "kind": "choices",
+            "x": 4,
+            "y": 16,
+            "w": 64,
+            "h": 78,
+            "reveal": 0
+          },
+          {
+            "id": "e-d4-deadlines",
+            "kind": "text",
+            "x": 71,
+            "y": 16,
+            "w": 25,
+            "h": 78,
+            "reveal": 0,
+            "text": {
+              "en": "## Deadlines\n- **NIS2 early warning** to the BSI: 24 h → ==Tue 06:12==\n- **NIS2 incident report**: 72 h\n- **DSGVO** (Art. 33): 72 h → Thu 06:12\n- **Criminal complaint**: no deadline – but evidence ages fast",
+              "de": "## Fristen\n- **NIS2-Frühwarnung** an das BSI: 24 h → ==Di 06:12==\n- **NIS2-Meldung**: 72 h\n- **DSGVO** (Art. 33): 72 h → Do 06:12\n- **Strafanzeige**: keine Frist – aber Spuren altern schnell"
+            },
+            "style": {
+              "size": "s",
+              "align": "left",
+              "valign": "top",
+              "font": "sans",
+              "box": "warning",
+              "color": ""
+            }
+          }
+        ],
+        "decision": {
+          "prompt": {
+            "en": "Mon 22:45 – Legal can finalise two filings tonight. Which go out first?",
+            "de": "Mo 22:45 – Die Rechtsabteilung schafft heute Nacht zwei Meldungen. Welche gehen zuerst raus?"
+          },
+          "mode": "multiple",
+          "min": 1,
+          "max": 2,
+          "showEffects": "after",
+          "choices": [
+            {
+              "id": "c-nis2-warning",
+              "icon": "📨",
+              "label": {
+                "en": "NIS2 early warning to the BSI",
+                "de": "NIS2-Frühwarnung an das BSI"
+              },
+              "description": {
+                "en": "Mandatory within 24 hours: a short notice that a significant incident is under way.",
+                "de": "Pflicht binnen 24 Stunden: Kurzmeldung, dass ein erheblicher Sicherheitsvorfall vorliegt."
+              },
+              "effects": {
+                "compliance": -10,
+                "containment": 5,
+                "effort": 5
+              },
+              "outcome": {
+                "en": "The early warning is filed on time. The BSI shares fresh Grey Vesper indicators and warns others in the sector.",
+                "de": "Die Frühwarnung geht fristgerecht ein. Das BSI teilt aktuelle Indikatoren zu Grey Vesper und warnt andere in der Branche."
+              },
+              "chance": 100,
+              "goto": ""
+            },
+            {
+              "id": "c-notify-dpa",
+              "icon": "🔏",
+              "label": {
+                "en": "Notify the data protection authority",
+                "de": "Datenschutzbehörde informieren"
+              },
+              "description": {
+                "en": "DSGVO Art. 33: report the personal data breach within 72 hours.",
+                "de": "DSGVO Art. 33: Die Datenpanne binnen 72 Stunden melden."
+              },
+              "effects": {
+                "compliance": -10,
+                "effort": 10,
+                "resources": -5
+              },
+              "outcome": {
+                "en": "The report is filed. The authority confirms receipt and expects a follow-up once the facts are clear.",
+                "de": "Die Meldung ist eingereicht. Die Behörde bestätigt den Eingang und erwartet eine Nachmeldung, sobald die Fakten klar sind."
+              },
+              "chance": 100,
+              "goto": ""
+            },
+            {
+              "id": "c-report-lka",
+              "icon": "👮",
+              "label": {
+                "en": "File a criminal complaint (LKA/ZAC)",
+                "de": "Strafanzeige erstatten (LKA/ZAC)"
+              },
+              "description": {
+                "en": "The LKA's Central Contact Point for Cybercrime opens an investigation.",
+                "de": "Die Zentrale Ansprechstelle Cybercrime des LKA nimmt Ermittlungen auf."
+              },
+              "effects": {
+                "compliance": -5,
+                "containment": 5,
+                "reputation": 5,
+                "effort": 10
+              },
+              "outcome": {
+                "en": "Two investigators arrive. They link Grey Vesper to an international investigation – and need access to your logs.",
+                "de": "Zwei Ermittler kommen. Sie ordnen Grey Vesper einem internationalen Verfahren zu – und brauchen Zugriff auf Ihre Logs."
+              },
+              "chance": 100,
+              "goto": ""
+            },
+            {
+              "id": "c-inform-affected",
+              "icon": "👥",
+              "label": {
+                "en": "Inform affected employees",
+                "de": "Betroffene Beschäftigte informieren"
+              },
+              "description": {
+                "en": "DSGVO Art. 34: warn staff whose personal data may have been stolen.",
+                "de": "DSGVO Art. 34: Beschäftigte warnen, deren Daten gestohlen sein könnten."
+              },
+              "effects": {
+                "compliance": -5,
+                "reputation": 5,
+                "effort": 10
+              },
+              "outcome": {
+                "en": "The works council welcomes the openness. Staff block cards and watch for phishing – but HR is flooded with questions.",
+                "de": "Der Betriebsrat begrüßt die Offenheit. Beschäftigte sperren Karten und achten auf Phishing – doch die Personalabteilung wird mit Fragen überflutet."
+              },
+              "chance": 100,
+              "goto": ""
+            }
+          ]
+        }
+      },
+      {
+        "id": "p-d-communication",
+        "type": "decision",
+        "title": {
+          "en": "Decision 5: Communication",
+          "de": "Entscheidung 5: Kommunikation"
+        },
+        "showTitle": true,
+        "notes": {
+          "en": "The press statement involves a dice roll – a single inaccurate claim can backfire. Ask: who approves external statements, and how fast?",
+          "de": "Bei der Pressemitteilung wird gewürfelt – eine einzige falsche Aussage kann nach hinten losgehen. Fragen Sie: Wer gibt externe Aussagen frei, und wie schnell?"
+        },
+        "timer": 300,
+        "condition": null,
+        "elements": [
+          {
+            "id": "e-d5-choices",
+            "kind": "choices",
+            "x": 4,
+            "y": 16,
+            "w": 62,
+            "h": 78,
+            "reveal": 0
+          },
+          {
+            "id": "e-d5-customer",
+            "kind": "inject",
+            "x": 69,
+            "y": 16,
+            "w": 27,
+            "h": 78,
+            "reveal": 0,
+            "channel": "email",
+            "severity": "warning",
+            "time": "07:48",
+            "from": {
+              "en": "Hanse Frischmarkt AG – Procurement",
+              "de": "Hanse Frischmarkt AG – Einkauf"
+            },
+            "to": {
+              "en": "NordWerk key account",
+              "de": "NordWerk Key Account"
+            },
+            "subject": {
+              "en": "Our deliveries and our data",
+              "de": "Unsere Lieferungen und unsere Daten"
+            },
+            "body": {
+              "en": "We learned about the attack from the press. Are our shipment and customer data affected?\n\nWe need a written statement by **12:00** – otherwise we activate our backup carrier.",
+              "de": "Wir haben aus der Presse von dem Angriff erfahren. Sind unsere Sendungs- und Kundendaten betroffen?\n\nWir benötigen bis **12:00 Uhr** eine schriftliche Stellungnahme – andernfalls beauftragen wir unseren Ersatzdienstleister."
+            }
+          }
+        ],
+        "decision": {
+          "prompt": {
+            "en": "Tue 08:00 – Press, customers and staff want answers. How do you communicate?",
+            "de": "Di 08:00 – Presse, Kunden und Belegschaft wollen Antworten. Wie kommunizieren Sie?"
+          },
+          "mode": "single",
+          "min": 1,
+          "max": 1,
+          "showEffects": "after",
+          "choices": [
+            {
+              "id": "c-press-proactive",
+              "icon": "📢",
+              "label": {
+                "en": "Proactive press statement",
+                "de": "Proaktive Pressemitteilung"
+              },
+              "description": {
+                "en": "Get ahead of the story with a statement and a press briefing at 10:00.",
+                "de": "Mit einer Mitteilung und einem Pressebriefing um 10:00 Uhr vor die Lage kommen."
+              },
+              "effects": {
+                "reputation": 15,
+                "effort": 10,
+                "compliance": -5
+              },
+              "outcome": {
+                "en": "The statement is factual and empathetic. Coverage shifts from “chaos” to “company fights back”.",
+                "de": "Die Mitteilung ist sachlich und empathisch. Die Berichterstattung dreht von „Chaos“ zu „Unternehmen wehrt sich“."
+              },
+              "chance": 70,
+              "goto": "",
+              "fail": {
+                "effects": {
+                  "reputation": -20,
+                  "compliance": 10,
+                  "effort": 10
+                },
+                "outcome": {
+                  "en": "The statement claims “no customer data affected” – hours later, forensics proves otherwise.",
+                  "de": "Die Mitteilung behauptet „keine Kundendaten betroffen“ – Stunden später belegt die Forensik das Gegenteil."
+                },
+                "goto": ""
+              }
+            },
+            {
+              "id": "c-inform-customers",
+              "icon": "📧",
+              "label": {
+                "en": "Inform key customers directly",
+                "de": "Schlüsselkunden direkt informieren"
+              },
+              "description": {
+                "en": "Personal calls and letters to the top 50 customers – no public statement yet.",
+                "de": "Persönliche Anrufe und Schreiben an die Top-50-Kunden – noch keine öffentliche Stellungnahme."
+              },
+              "effects": {
+                "reputation": 5,
+                "operations": 10,
+                "effort": 10
+              },
+              "outcome": {
+                "en": "Most key customers stay on board and reroute urgent shipments. The press keeps speculating.",
+                "de": "Die meisten Schlüsselkunden bleiben an Bord und leiten dringende Sendungen um. Die Presse spekuliert weiter."
+              },
+              "chance": 100,
+              "goto": ""
+            },
+            {
+              "id": "c-stay-silent",
+              "icon": "🤐",
+              "label": {
+                "en": "Stay silent for now",
+                "de": "Vorerst schweigen"
+              },
+              "description": {
+                "en": "No comment until the facts are clear. Avoids mistakes – and leaves a vacuum.",
+                "de": "Kein Kommentar, bis die Fakten klar sind. Vermeidet Fehler – und hinterlässt ein Vakuum."
+              },
+              "effects": {
+                "reputation": -25,
+                "compliance": 10,
+                "effort": -10
+              },
+              "outcome": {
+                "en": "Rumours fill the void: social media speaks of “total data loss”. Customers learn more from the press than from you.",
+                "de": "Gerüchte füllen das Vakuum: In sozialen Medien ist von „totalem Datenverlust“ die Rede. Kunden erfahren mehr aus der Presse als von Ihnen."
+              },
+              "chance": 100,
+              "goto": ""
+            },
+            {
+              "id": "c-crisis-hotline",
+              "icon": "☎️",
+              "label": {
+                "en": "Hotline and status page",
+                "de": "Hotline und Statusseite"
+              },
+              "description": {
+                "en": "Set up a crisis hotline and a regularly updated status page for customers and drivers.",
+                "de": "Krisenhotline und regelmäßig aktualisierte Statusseite für Kunden und Fahrer einrichten."
+              },
+              "effects": {
+                "reputation": 10,
+                "resources": -10,
+                "effort": 5,
+                "operations": 5
+              },
+              "outcome": {
+                "en": "Drivers and customers get reliable updates. 2,000 calls on day one – the hotline needs extra staff.",
+                "de": "Fahrer und Kunden erhalten verlässliche Informationen. 2.000 Anrufe am ersten Tag – die Hotline braucht zusätzliches Personal."
+              },
+              "chance": 100,
+              "goto": ""
+            }
+          ]
+        }
+      },
+      {
+        "id": "p-press-storm",
+        "type": "content",
+        "title": {
+          "en": "Tue 11:00 – Media storm",
+          "de": "Di 11:00 – Mediensturm"
+        },
+        "showTitle": true,
+        "notes": {
+          "en": "Appears if reputation fell below 50 or the team chose to stay silent. Ask: who is the spokesperson? What is the one message everybody should hear?",
+          "de": "Erscheint, wenn die Reputation unter 50 gefallen ist oder die Gruppe geschwiegen hat. Fragen Sie: Wer spricht für das Unternehmen? Was ist die eine Botschaft, die alle hören sollen?"
+        },
+        "timer": 0,
+        "condition": {
+          "mode": "any",
+          "rules": [
+            {
+              "type": "attr",
+              "attr": "reputation",
+              "op": "<",
+              "value": 50
+            },
+            {
+              "type": "choice",
+              "choice": "c-stay-silent",
+              "op": "chosen"
+            }
+          ]
+        },
+        "elements": [
+          {
+            "id": "e-storm-news",
+            "kind": "inject",
+            "x": 4,
+            "y": 16,
+            "w": 46,
+            "h": 46,
+            "reveal": 0,
+            "channel": "news",
+            "severity": "critical",
+            "time": "10:45",
+            "from": {
+              "en": "Nordkanal 24 (TV)",
+              "de": "Nordkanal 24 (TV)"
+            },
+            "to": {
+              "en": "Live ticker",
+              "de": "Liveticker"
+            },
+            "subject": {
+              "en": "Employee data on the darknet? Criticism of NordWerk grows",
+              "de": "Beschäftigtendaten im Darknet? Kritik an NordWerk wächst"
+            },
+            "body": {
+              "en": "Experts call the company's crisis communication “opaque”. Politicians ask whether NordWerk met its NIS2 obligations.",
+              "de": "Fachleute nennen die Krisenkommunikation des Unternehmens „intransparent“. Politiker fragen, ob NordWerk seine NIS2-Pflichten erfüllt hat."
+            }
+          },
+          {
+            "id": "e-storm-social",
+            "kind": "inject",
+            "x": 4,
+            "y": 66,
+            "w": 46,
+            "h": 28,
+            "reveal": 1,
+            "channel": "social",
+            "severity": "warning",
+            "time": "10:52",
+            "from": {
+              "en": "@supplychain_insider",
+              "de": "@supplychain_insider"
+            },
+            "to": {
+              "en": "Public",
+              "de": "Öffentlich"
+            },
+            "subject": {
+              "en": "#NordWerk",
+              "de": "#NordWerk"
+            },
+            "body": {
+              "en": "Hearing a big retail customer is moving its volume away from #NordWerk. Who's next? 📉",
+              "de": "Wie man hört, zieht ein großer Handelskunde sein Volumen von #NordWerk ab. Wer ist der Nächste? 📉"
+            }
+          },
+          {
+            "id": "e-storm-memo",
+            "kind": "inject",
+            "x": 54,
+            "y": 16,
+            "w": 42,
+            "h": 78,
+            "reveal": 2,
+            "channel": "memo",
+            "severity": "warning",
+            "time": "11:00",
+            "from": {
+              "en": "Works council",
+              "de": "Betriebsrat"
+            },
+            "to": {
+              "en": "Management & crisis team",
+              "de": "Geschäftsführung & Krisenstab"
+            },
+            "subject": {
+              "en": "Our colleagues' data",
+              "de": "Die Daten unserer Kolleginnen und Kollegen"
+            },
+            "body": {
+              "en": "Colleagues are worried about their bank details and ID copies. Many learned about it from the news.\n\nWe demand an information meeting **today** and a clear statement on what was stolen.",
+              "de": "Die Kolleginnen und Kollegen sorgen sich um ihre Bankdaten und Ausweiskopien. Viele haben es aus den Nachrichten erfahren.\n\nWir fordern **heute** eine Informationsveranstaltung und eine klare Aussage dazu, was gestohlen wurde."
+            }
+          }
+        ]
+      },
+      {
+        "id": "p-d-recovery",
+        "type": "decision",
+        "title": {
+          "en": "Decision 6: Recovery strategy",
+          "de": "Entscheidung 6: Wiederherstellungsstrategie"
+        },
+        "showTitle": true,
+        "notes": {
+          "en": "The quick restore involves a dice roll – the backup may contain the attacker's backdoor. Look for whether the team connects the AD compromise to the restore strategy.",
+          "de": "Bei der schnellen Wiederherstellung wird gewürfelt – das Backup kann die Hintertür des Angreifers enthalten. Achten Sie darauf, ob die Gruppe die AD-Kompromittierung mit der Wiederherstellung verknüpft."
+        },
+        "timer": 420,
+        "condition": null,
+        "elements": [
+          {
+            "id": "e-d6-choices",
+            "kind": "choices",
+            "x": 4,
+            "y": 16,
+            "w": 62,
+            "h": 78,
+            "reveal": 0
+          },
+          {
+            "id": "e-d6-admin",
+            "kind": "inject",
+            "x": 69,
+            "y": 16,
+            "w": 27,
+            "h": 78,
+            "reveal": 0,
+            "channel": "chat",
+            "severity": "warning",
+            "time": "12:40",
+            "from": {
+              "en": "Jonas Petersen (IT)",
+              "de": "Jonas Petersen (IT)"
+            },
+            "to": {
+              "en": "Crisis team",
+              "de": "Krisenstab"
+            },
+            "subject": {
+              "en": "Channel #recovery",
+              "de": "Kanal #recovery"
+            },
+            "body": {
+              "en": "Good news: the offline tapes from Saturday are **clean** ✅\n\nBad news: the attacker had domain admin rights for **3 weeks**. AD is compromised – restoring it from backup may bring them right back.",
+              "de": "Gute Nachricht: Die Offline-Bänder vom Samstag sind **sauber** ✅\n\nSchlechte Nachricht: Der Angreifer hatte seit **3 Wochen** Domain-Admin-Rechte. Das AD ist kompromittiert – ein Restore aus dem Backup holt ihn womöglich zurück."
+            }
+          }
+        ],
+        "decision": {
+          "prompt": {
+            "en": "Tue 13:00 – How do you bring NordWerk back online?",
+            "de": "Di 13:00 – Wie bringen Sie NordWerk wieder ans Netz?"
+          },
+          "mode": "single",
+          "min": 1,
+          "max": 1,
+          "showEffects": "after",
+          "choices": [
+            {
+              "id": "c-rebuild-ad",
+              "icon": "🏗️",
+              "label": {
+                "en": "Rebuild Active Directory from scratch",
+                "de": "Active Directory komplett neu aufbauen"
+              },
+              "description": {
+                "en": "New forest, new credentials, clean systems only. Thorough – and slow.",
+                "de": "Neuer Forest, neue Zugangsdaten, nur saubere Systeme. Gründlich – und langsam."
+              },
+              "effects": {
+                "containment": 25,
+                "operations": -10,
+                "resources": -20,
+                "effort": 20
+              },
+              "outcome": {
+                "en": "The attacker is locked out for good. Full operations will take another 5–7 days.",
+                "de": "Der Angreifer ist endgültig ausgesperrt. Bis zum Vollbetrieb vergehen noch 5–7 Tage."
+              },
+              "chance": 100,
+              "goto": ""
+            },
+            {
+              "id": "c-quick-restore",
+              "icon": "⚡",
+              "label": {
+                "en": "Restore last backup quickly",
+                "de": "Letztes Backup schnell zurückspielen"
+              },
+              "description": {
+                "en": "Restore Saturday's state including AD. Back in business within 24 hours – if the backup is clean.",
+                "de": "Den Stand vom Samstag inkl. AD zurückspielen. In 24 Stunden arbeitsfähig – wenn das Backup sauber ist."
+              },
+              "effects": {
+                "operations": 20,
+                "containment": -5,
+                "compliance": 10,
+                "effort": 5
+              },
+              "outcome": {
+                "en": "Systems come back fast – trucks roll again on Wednesday morning. Forensic evidence, however, is overwritten.",
+                "de": "Die Systeme sind schnell zurück – am Mittwochmorgen rollen die Lkw wieder. Forensische Spuren sind allerdings überschrieben."
+              },
+              "chance": 60,
+              "goto": "",
+              "fail": {
+                "effects": {
+                  "operations": -15,
+                  "containment": -25,
+                  "reputation": -10,
+                  "effort": 20,
+                  "exposure": 10
+                },
+                "outcome": {
+                  "en": "The backup contained the attacker's backdoor. Wed 03:00: Grey Vesper encrypts again – everything starts over.",
+                  "de": "Das Backup enthielt die Hintertür des Angreifers. Mi 03:00: Grey Vesper verschlüsselt erneut – alles beginnt von vorn."
+                },
+                "goto": ""
+              }
+            },
+            {
+              "id": "c-phased-restore",
+              "icon": "🧩",
+              "label": {
+                "en": "Phased restore with forensics",
+                "de": "Stufenweise Wiederherstellung mit Forensik"
+              },
+              "description": {
+                "en": "Critical systems first, each one checked for traces before it goes live.",
+                "de": "Kritische Systeme zuerst, jedes wird vor dem Start auf Spuren geprüft."
+              },
+              "effects": {
+                "containment": 15,
+                "operations": 10,
+                "resources": -10,
+                "effort": 15,
+                "exposure": -5
+              },
+              "outcome": {
+                "en": "WMS and customer portal are back within 48 hours. Forensics finds and closes a second backdoor.",
+                "de": "WMS und Kundenportal laufen nach 48 Stunden wieder. Die Forensik findet und schließt eine zweite Hintertür."
+              },
+              "chance": 100,
+              "goto": ""
+            },
+            {
+              "id": "c-paper-ops",
+              "icon": "📋",
+              "label": {
+                "en": "Paper processes first",
+                "de": "Erst auf Papierprozesse umstellen"
+              },
+              "description": {
+                "en": "Run the warehouses on printed picking lists and phones while IT restores without time pressure.",
+                "de": "Lager mit gedruckten Picklisten und Telefon betreiben, während die IT ohne Zeitdruck wiederherstellt."
+              },
+              "effects": {
+                "operations": 10,
+                "effort": 20,
+                "reputation": 5,
+                "resources": -5
+              },
+              "outcome": {
+                "en": "Throughput reaches 40 % of normal – enough for the most important customers. Staff improvise impressively, but it is exhausting.",
+                "de": "Der Durchsatz erreicht 40 % des Normalbetriebs – genug für die wichtigsten Kunden. Die Belegschaft improvisiert beeindruckend, aber es zehrt."
+              },
+              "chance": 100,
+              "goto": ""
+            }
+          ]
+        }
+      },
+      {
+        "id": "p-sitrep-2",
+        "type": "content",
+        "title": {
+          "en": "Situation report – Tue 18:00",
+          "de": "Lagebild – Di 18:00"
+        },
+        "showTitle": true,
+        "notes": {
+          "en": "Pause and compare with the first situation report. Ask: which decision moved the values most? What would you do differently with hindsight?",
+          "de": "Halten Sie inne und vergleichen Sie mit dem ersten Lagebild. Fragen Sie: Welche Entscheidung hat die Werte am stärksten verändert? Was würden Sie rückblickend anders machen?"
+        },
+        "timer": 0,
+        "condition": null,
+        "elements": [
+          {
+            "id": "e-sitrep2-radar",
+            "kind": "chart",
+            "x": 4,
+            "y": 16,
+            "w": 46,
+            "h": 78,
+            "reveal": 0,
+            "chart": "radar",
+            "attrs": [],
+            "includeHidden": false
+          },
+          {
+            "id": "e-sitrep2-cards",
+            "kind": "chart",
+            "x": 52,
+            "y": 16,
+            "w": 44,
+            "h": 58,
+            "reveal": 0,
+            "chart": "cards",
+            "attrs": [],
+            "includeHidden": false
+          },
+          {
+            "id": "e-sitrep2-text",
+            "kind": "text",
+            "x": 52,
+            "y": 78,
+            "w": 44,
+            "h": 16,
+            "reveal": 0,
+            "text": {
+              "en": "36 hours into the crisis: where do you stand – and what is your priority for tomorrow?",
+              "de": "36 Stunden nach Beginn der Krise: Wo stehen Sie – und was hat morgen Priorität?"
+            },
+            "style": {
+              "size": "s",
+              "align": "left",
+              "valign": "middle",
+              "font": "sans",
+              "box": "accent",
+              "color": ""
+            }
+          }
+        ]
+      },
+      {
+        "id": "p-debrief",
+        "type": "content",
+        "title": {
+          "en": "Debrief – how it unfolded",
+          "de": "Nachbesprechung – der Verlauf"
+        },
+        "showTitle": true,
+        "notes": {
+          "en": "The hidden value “Data exposure” is now revealed. Walk through the log decision by decision and connect each one to its effect on the timeline.",
+          "de": "Der verborgene Wert „Datenabfluss“ wird jetzt sichtbar. Gehen Sie das Protokoll Entscheidung für Entscheidung durch und verbinden Sie jede mit ihrer Wirkung im Verlauf."
+        },
+        "timer": 0,
+        "condition": null,
+        "elements": [
+          {
+            "id": "e-debrief-timeline",
+            "kind": "chart",
+            "x": 4,
+            "y": 16,
+            "w": 58,
+            "h": 62,
+            "reveal": 0,
+            "chart": "timeline",
+            "attrs": [],
+            "includeHidden": true
+          },
+          {
+            "id": "e-debrief-reveal",
+            "kind": "text",
+            "x": 4,
+            "y": 82,
+            "w": 58,
+            "h": 12,
+            "reveal": 1,
+            "text": {
+              "en": "Now revealed: 🕵️ **Data exposure** – hidden during play. How much did the attacker really take?",
+              "de": "Jetzt sichtbar: 🕵️ **Datenabfluss** – während des Spiels verborgen. Wie viel hat der Angreifer wirklich mitgenommen?"
+            },
+            "style": {
+              "size": "s",
+              "align": "left",
+              "valign": "middle",
+              "font": "sans",
+              "box": "accent",
+              "color": ""
+            }
+          },
+          {
+            "id": "e-debrief-log",
+            "kind": "chart",
+            "x": 66,
+            "y": 16,
+            "w": 30,
+            "h": 78,
+            "reveal": 0,
+            "chart": "log",
+            "attrs": [],
+            "includeHidden": false
+          }
+        ]
+      },
+      {
+        "id": "p-aar",
+        "type": "content",
+        "title": {
+          "en": "After-action review",
+          "de": "Auswertung (After-Action-Review)"
+        },
+        "showTitle": true,
+        "notes": {
+          "en": "Collect at least three concrete action items with an owner and a date. End on a positive note: what went well?",
+          "de": "Sammeln Sie mindestens drei konkrete Maßnahmen mit Verantwortlichen und Termin. Schließen Sie positiv ab: Was lief gut?"
+        },
+        "timer": 0,
+        "condition": null,
+        "elements": [
+          {
+            "id": "e-aar-questions",
+            "kind": "text",
+            "x": 4,
+            "y": 16,
+            "w": 56,
+            "h": 78,
+            "reveal": 0,
+            "text": {
+              "en": "## Discussion\n- Which decision was the hardest – and why?\n- What information did you miss most?\n- Was it clear who decides what?\n- Would we pay? Do we have a ransom policy?\n- Did we know our reporting deadlines (NIS2, DSGVO)?\n- When did we last test a full restore?\n- What will we change by next Monday?",
+              "de": "## Diskussion\n- Welche Entscheidung war am schwersten – und warum?\n- Welche Information hat am meisten gefehlt?\n- War klar, wer was entscheidet?\n- Würden wir zahlen? Gibt es eine Lösegeld-Richtlinie?\n- Kannten wir unsere Meldefristen (NIS2, DSGVO)?\n- Wann haben wir zuletzt eine komplette Wiederherstellung getestet?\n- Was ändern wir bis nächsten Montag?"
+            },
+            "style": {
+              "size": "m",
+              "align": "left",
+              "valign": "top",
+              "font": "sans",
+              "box": "card",
+              "color": ""
+            }
+          },
+          {
+            "id": "e-aar-takeaways",
+            "kind": "text",
+            "x": 64,
+            "y": 16,
+            "w": 32,
+            "h": 52,
+            "reveal": 0,
+            "text": {
+              "en": "## Key takeaways\n- Contain early – but preserve evidence\n- Know your deadlines: NIS2 24 h, DSGVO 72 h\n- Test the restore, not just the backup\n- Communicate early, honestly, consistently\n- Decide who decides – before the crisis",
+              "de": "## Kernbotschaften\n- Früh eindämmen – aber Spuren sichern\n- Fristen kennen: NIS2 24 h, DSGVO 72 h\n- Die Wiederherstellung testen, nicht nur das Backup\n- Früh, ehrlich und einheitlich kommunizieren\n- Vor der Krise klären, wer entscheidet"
+            },
+            "style": {
+              "size": "s",
+              "align": "left",
+              "valign": "top",
+              "font": "sans",
+              "box": "accent",
+              "color": ""
+            }
+          },
+          {
+            "id": "e-aar-thanks",
+            "kind": "text",
+            "x": 64,
+            "y": 72,
+            "w": 32,
+            "h": 22,
+            "reveal": 0,
+            "text": {
+              "en": "Thank you!",
+              "de": "Vielen Dank!"
+            },
+            "style": {
+              "size": "xl",
+              "align": "center",
+              "valign": "middle",
+              "font": "display",
+              "box": "none",
+              "color": ""
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "media": {
+    "ransom-note.svg": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAwIiBoZWlnaHQ9IjkwMCIgdmlld0JveD0iMCAwIDE2MDAgOTAwIj4KICA8ZGVmcz4KICAgIDxyYWRpYWxHcmFkaWVudCBpZD0iYmciIGN4PSI1MCUiIGN5PSI0MCUiIHI9Ijc1JSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMzYTA3MDciLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDcwMzAzIi8+CiAgICA8L3JhZGlhbEdyYWRpZW50PgogICAgPHBhdHRlcm4gaWQ9InNjYW4iIHdpZHRoPSI2IiBoZWlnaHQ9IjYiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICA8cmVjdCB3aWR0aD0iNiIgaGVpZ2h0PSIzIiBmaWxsPSIjZmZmZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDMiLz4KICAgIDwvcGF0dGVybj4KICA8L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjE2MDAiIGhlaWdodD0iOTAwIiBmaWxsPSJ1cmwoI2JnKSIvPgoKICA8IS0tIHRlcm1pbmFsIHdpbmRvdyAtLT4KICA8cmVjdCB4PSI3MCIgeT0iNTAiIHdpZHRoPSIxNDYwIiBoZWlnaHQ9IjgwMCIgcng9IjEyIiBmaWxsPSIjMGMwYTBhIiBzdHJva2U9IiM3YTE1MTUiIHN0cm9rZS13aWR0aD0iMyIvPgogIDxwYXRoIGQ9Ik03MCA2MiBhMTIgMTIgMCAwIDEgMTIgLTEyIGgxNDM2IGExMiAxMiAwIDAgMSAxMiAxMiB2MzggaC0xNDYwIHoiIGZpbGw9IiMxYzE3MTciLz4KICA8Y2lyY2xlIGN4PSIxMDQiIGN5PSI3NSIgcj0iOCIgZmlsbD0iI2ZmNWY1NiIvPgogIDxjaXJjbGUgY3g9IjEzMiIgY3k9Ijc1IiByPSI4IiBmaWxsPSIjZmZiZDJlIi8+CiAgPGNpcmNsZSBjeD0iMTYwIiBjeT0iNzUiIHI9IjgiIGZpbGw9IiMyN2M5M2YiLz4KICA8dGV4dCB4PSI4MDAiIHk9IjgzIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjIyIiBmaWxsPSIjOWI4ZjhmIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5WRVNQRVJfUkVBRE1FLnR4dDwvdGV4dD4KCiAgPCEtLSBlbWJsZW0gLS0+CiAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoODAwLDE3MCkiPgogICAgPHBvbHlnb24gcG9pbnRzPSIwLC01MCA0NCwtMjUgNDQsMjUgMCw1MCAtNDQsMjUgLTQ0LC0yNSIgZmlsbD0iIzFhMDYwNiIgc3Ryb2tlPSIjZmYzYjNiIiBzdHJva2Utd2lkdGg9IjQiLz4KICAgIDxwYXRoIGQ9Ik0tMjAsLTIwIEwwLDIyIEwyMCwtMjAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmM2IzYiIgc3Ryb2tlLXdpZHRoPSI4IiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8L2c+CiAgPHRleHQgeD0iODAwIiB5PSIyNTIiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiNmZjZiNmIiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGxldHRlci1zcGFjaW5nPSIxMiI+R1JFWSBWRVNQRVI8L3RleHQ+CgogIDwhLS0gaGVhZGxpbmUgLS0+CiAgPHRleHQgeD0iODAwIiB5PSIzMjAiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iNjIiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjZmYzYjNiIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBsZXR0ZXItc3BhY2luZz0iNCI+WU9VUiBGSUxFUyBBUkUgRU5DUllQVEVEPC90ZXh0PgogIDx0ZXh0IHg9IjgwMCIgeT0iMzY2IiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjM0IiBmaWxsPSIjZmY5YTlhIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBsZXR0ZXItc3BhY2luZz0iMiI+SUhSRSBEQVRFSUVOIFNJTkQgVkVSU0NITMOcU1NFTFQ8L3RleHQ+CiAgPGxpbmUgeDE9IjE1MCIgeTE9IjM5MiIgeDI9IjE0NTAiIHkyPSIzOTIiIHN0cm9rZT0iIzVhMTIxMiIgc3Ryb2tlLXdpZHRoPSIyIi8+CgogIDwhLS0gYm9keSAtLT4KICA8ZyBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjI2IiBmaWxsPSIjZDlkMmQyIj4KICAgIDx0ZXh0IHg9IjE1MCIgeT0iNDM2Ij4mZ3Q7IEFsbCBzZXJ2ZXJzLCBWTXMgYW5kIGJhY2t1cHMgb2YgTk9SRFdFUksgTE9HSVNUSUsgR01CSCBhcmUgZW5jcnlwdGVkLjwvdGV4dD4KICAgIDx0ZXh0IHg9IjE1MCIgeT0iNDc0Ij4mZ3Q7IFdlIGhhdmUgZG93bmxvYWRlZCA0ODAgR0Igb2YgeW91ciBkYXRhOiBIUiwgZmluYW5jZSwgY3VzdG9tZXJzLjwvdGV4dD4KICAgIDx0ZXh0IHg9IjE1MCIgeT0iNTEyIj4mZ3Q7IERvIG5vdCByZW5hbWUgZmlsZXMuIERvIG5vdCBjb250YWN0IHBvbGljZSBvciByZWNvdmVyeSBjb21wYW5pZXMuPC90ZXh0PgogICAgPHRleHQgeD0iMTUwIiB5PSI1NTAiPiZndDsgRm9sbG93IHRoZSBpbnN0cnVjdGlvbnMgYmVsb3cgb3IgbG9zZSBldmVyeXRoaW5nLjwvdGV4dD4KICA8L2c+CgogIDwhLS0gcHJpY2UgYm94IC0tPgogIDxyZWN0IHg9IjE1MCIgeT0iNTgyIiB3aWR0aD0iNjIwIiBoZWlnaHQ9IjE4MCIgZmlsbD0iIzE3MDYwNiIgc3Ryb2tlPSIjZmYzYjNiIiBzdHJva2Utd2lkdGg9IjIiLz4KICA8dGV4dCB4PSIxODAiIHk9IjYyNiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyNCIgZmlsbD0iI2ZmOGE4YSIgbGV0dGVyLXNwYWNpbmc9IjIiPlBSSUNFIC8gUFJFSVM8L3RleHQ+CiAgPHRleHQgeD0iMTgwIiB5PSI2OTYiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iNTYiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjZmZmZmZmIj4yLDUwMCwwMDAgVVNEPC90ZXh0PgogIDx0ZXh0IHg9IjE4MCIgeT0iNzQwIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjIyIiBmaWxsPSIjYjhhYWFhIj5wYXlhYmxlIGluIEJpdGNvaW4gKEJUQyk8L3RleHQ+CgogIDwhLS0gY291bnRkb3duIGJveCAtLT4KICA8cmVjdCB4PSI4MzAiIHk9IjU4MiIgd2lkdGg9IjYyMCIgaGVpZ2h0PSIxODAiIGZpbGw9IiMxNzA2MDYiIHN0cm9rZT0iI2ZmM2IzYiIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgPHRleHQgeD0iODYwIiB5PSI2MjYiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMjQiIGZpbGw9IiNmZjhhOGEiIGxldHRlci1zcGFjaW5nPSIyIj5USU1FIExFRlQgLyBSRVNUWkVJVDwvdGV4dD4KICA8dGV4dCB4PSI4NjAiIHk9IjcwNCIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSI3MiIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiNmZjNiM2IiPjcxOjU5OjEyPC90ZXh0PgogIDx0ZXh0IHg9Ijg2MCIgeT0iNzQwIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjIyIiBmaWxsPSIjYjhhYWFhIj50aGVuOiBwcmljZSB4MiArIGFsbCBkYXRhIHB1Ymxpc2hlZDwvdGV4dD4KCiAgPCEtLSBmb290ZXIgLS0+CiAgPHRleHQgeD0iODAwIiB5PSI4MTIiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMjIiIGZpbGw9IiM4ZjgzODMiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkNPTlRBQ1Q6IHZlc3BlcnE3eDRtMmtkLi4ubGFudGVybi5vbmlvbiAgwrcgIFlPVVIgSUQ6IE5XLTEyMDAtQTdGMzwvdGV4dD4KCiAgPHJlY3QgeD0iNzAiIHk9IjUwIiB3aWR0aD0iMTQ2MCIgaGVpZ2h0PSI4MDAiIHJ4PSIxMiIgZmlsbD0idXJsKCNzY2FuKSIvPgo8L3N2Zz4K",
+    "network-map.svg": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAwIiBoZWlnaHQ9IjkwMCIgdmlld0JveD0iMCAwIDE2MDAgOTAwIj4KICA8ZGVmcz4KICAgIDxwYXR0ZXJuIGlkPSJncmlkIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiPgogICAgICA8cGF0aCBkPSJNNDAgMCBIMCBWNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzE4MjMyZiIgc3Ryb2tlLXdpZHRoPSIxIi8+CiAgICA8L3BhdHRlcm4+CiAgICA8bWFya2VyIGlkPSJhcnJvdyIgdmlld0JveD0iMCAwIDEwIDEwIiByZWZYPSI4IiByZWZZPSI1IiBtYXJrZXJXaWR0aD0iNiIgbWFya2VySGVpZ2h0PSI2IiBvcmllbnQ9ImF1dG8iPgogICAgICA8cGF0aCBkPSJNMCAwIEwxMCA1IEwwIDEwIHoiIGZpbGw9IiNmZjRkNGQiLz4KICAgIDwvbWFya2VyPgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTYwMCIgaGVpZ2h0PSI5MDAiIGZpbGw9IiMwZDE0MWQiLz4KICA8cmVjdCB3aWR0aD0iMTYwMCIgaGVpZ2h0PSI5MDAiIGZpbGw9InVybCgjZ3JpZCkiLz4KCiAgPCEtLSBoZWFkaW5nIC0tPgogIDx0ZXh0IHg9IjYwIiB5PSI3MiIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyOCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiNjOWQ2ZTMiIGxldHRlci1zcGFjaW5nPSIyIj5OT1JEV0VSSyBMT0dJU1RJSyDCtyBJVDwvdGV4dD4KICA8dGV4dCB4PSI2MCIgeT0iMTA2IiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjIwIiBmaWxsPSIjN2Y5M2E4Ij5Nb24gLyBNbyAxMjowMCDCtyBhdHRhY2sgcGF0aCAvIEFuZ3JpZmZzd2VnPC90ZXh0PgoKICA8IS0tIEhRIGRhdGFjZW50ZXIgZnJhbWUgLS0+CiAgPHRleHQgeD0iNjgwIiB5PSIxMzAiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiM3ZjkzYTgiIGxldHRlci1zcGFjaW5nPSIxIj5IUSBIQU1CVVJHIMK3IERBVEFDRU5URVIgLyBSWjwvdGV4dD4KICA8cmVjdCB4PSI2ODAiIHk9IjE0NSIgd2lkdGg9IjQwMCIgaGVpZ2h0PSI2MTAiIHJ4PSIxNCIgZmlsbD0iIzEwMTkyMyIgc3Ryb2tlPSIjM2E0YTVjIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1kYXNoYXJyYXk9IjggNiIvPgoKICA8IS0tIFdBTiBsaW5rcyBIUSAtPiB3YXJlaG91c2VzIC0tPgogIDxnIHN0cm9rZS13aWR0aD0iMyIgZmlsbD0ibm9uZSI+CiAgICA8bGluZSB4MT0iMTA4MCIgeTE9IjQ1NSIgeDI9IjEyMDAiIHkyPSIxOTAiIHN0cm9rZT0iI2ZmNGQ0ZCIgc3Ryb2tlLWRhc2hhcnJheT0iMTAgNyIgbWFya2VyLWVuZD0idXJsKCNhcnJvdykiLz4KICAgIDxsaW5lIHgxPSIxMDgwIiB5MT0iNDU1IiB4Mj0iMTIwMCIgeTI9IjI5NSIgc3Ryb2tlPSIjZmY0ZDRkIiBzdHJva2UtZGFzaGFycmF5PSIxMCA3IiBtYXJrZXItZW5kPSJ1cmwoI2Fycm93KSIvPgogICAgPGxpbmUgeDE9IjEwODAiIHkxPSI0NTUiIHgyPSIxMjAwIiB5Mj0iNDAwIiBzdHJva2U9IiM4YTZhMWMiLz4KICAgIDxsaW5lIHgxPSIxMDgwIiB5MT0iNDU1IiB4Mj0iMTIwMCIgeTI9IjUwNSIgc3Ryb2tlPSIjOGE2YTFjIi8+CiAgICA8bGluZSB4MT0iMTA4MCIgeTE9IjQ1NSIgeDI9IjEyMDAiIHkyPSI2MTAiIHN0cm9rZT0iIzNhNGE1YyIvPgogICAgPGxpbmUgeDE9IjEwODAiIHkxPSI0NTUiIHgyPSIxMjAwIiB5Mj0iNzE1IiBzdHJva2U9IiMzYTRhNWMiLz4KICA8L2c+CgogIDwhLS0gZmlyZXdhbGwgLT4gcG9ydGFsIC0tPgogIDxsaW5lIHgxPSI0OTAiIHkxPSI0MjAiIHgyPSI1MDAiIHkyPSI1OTAiIHN0cm9rZT0iIzNhNGE1YyIgc3Ryb2tlLXdpZHRoPSIzIi8+CgogIDwhLS0gYXR0YWNrIHBhdGggLS0+CiAgPGcgc3Ryb2tlPSIjZmY0ZDRkIiBzdHJva2Utd2lkdGg9IjQiIGZpbGw9Im5vbmUiIHN0cm9rZS1kYXNoYXJyYXk9IjEyIDgiPgogICAgPGxpbmUgeDE9IjMyMCIgeTE9IjM4MCIgeDI9IjM5MiIgeTI9IjM4MCIgbWFya2VyLWVuZD0idXJsKCNhcnJvdykiLz4KICAgIDxwYXRoIGQ9Ik01ODAgMzgwIEMgNjUwIDM4MCwgNjUwIDI0MywgNzEyIDI0MyIgbWFya2VyLWVuZD0idXJsKCNhcnJvdykiLz4KICAgIDxwYXRoIGQ9Ik03MjAgMjcyIEMgNjk0IDI3MiwgNjk0IDM1MywgNzE0IDM1MyIgbWFya2VyLWVuZD0idXJsKCNhcnJvdykiLz4KICAgIDxwYXRoIGQ9Ik03MjAgMjcyIEMgNjg4IDI3MiwgNjg4IDQ2MywgNzE0IDQ2MyIgbWFya2VyLWVuZD0idXJsKCNhcnJvdykiLz4KICAgIDxwYXRoIGQ9Ik03MjAgMjcyIEMgNjg0IDI3MiwgNjg0IDU3MywgNzE0IDU3MyIgbWFya2VyLWVuZD0idXJsKCNhcnJvdykiLz4KICA8L2c+CgogIDwhLS0gZW50cnk6IHByb3ZpZGVyIFZQTiAtLT4KICA8dGV4dCB4PSI2MCIgeT0iMzE2IiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjE4IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iI2ZmNGQ0ZCIgbGV0dGVyLXNwYWNpbmc9IjEiPkVOVFJZIC8gRUlORkFMTFNUT1I8L3RleHQ+CiAgPHJlY3QgeD0iNjAiIHk9IjMzMCIgd2lkdGg9IjI2MCIgaGVpZ2h0PSIxMDAiIHJ4PSIxMCIgZmlsbD0iIzNhMTQxNiIgc3Ryb2tlPSIjZmY0ZDRkIiBzdHJva2Utd2lkdGg9IjMiLz4KICA8dGV4dCB4PSI4NCIgeT0iMzcwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIzMCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiNlNmVkZjMiPlZQTjwvdGV4dD4KICA8dGV4dCB4PSI4NCIgeT0iMzk4IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOCIgZmlsbD0iI2M4YjBiMCI+cHJvdmlkZXIgLyBEaWVuc3RsZWlzdGVyPC90ZXh0PgogIDx0ZXh0IHg9Ijg0IiB5PSI0MjAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE2IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iI2ZmN2E3YSI+bm8gTUZBIC8gb2huZSBNRkE8L3RleHQ+CgogIDwhLS0gZmlyZXdhbGwgLS0+CiAgPHJlY3QgeD0iNDAwIiB5PSIzNDAiIHdpZHRoPSIxODAiIGhlaWdodD0iODAiIHJ4PSIxMCIgZmlsbD0iIzE4MjEyYyIgc3Ryb2tlPSIjNWQ2YjdhIiBzdHJva2Utd2lkdGg9IjMiLz4KICA8dGV4dCB4PSI0OTAiIHk9IjM4OCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjQiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjZTZlZGYzIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5GaXJld2FsbDwvdGV4dD4KCiAgPCEtLSBjdXN0b21lciBwb3J0YWwgLS0+CiAgPHJlY3QgeD0iMzgwIiB5PSI1OTAiIHdpZHRoPSIyNDAiIGhlaWdodD0iMTAwIiByeD0iNDAiIGZpbGw9IiMzMzI3MGEiIHN0cm9rZT0iI2ZmYjAwMCIgc3Ryb2tlLXdpZHRoPSIzIi8+CiAgPHRleHQgeD0iNTAwIiB5PSI2MzQiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjI2IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iI2U2ZWRmMyIgdGV4dC1hbmNob3I9Im1pZGRsZSI+UG9ydGFsPC90ZXh0PgogIDx0ZXh0IHg9IjUwMCIgeT0iNjY0IiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOCIgZmlsbD0iI2M5Yjc4YSIgdGV4dC1hbmNob3I9Im1pZGRsZSI+Tm9yZFdlcmsgQ29ubmVjdDwvdGV4dD4KCiAgPCEtLSBIUSBkYXRhY2VudGVyIG5vZGVzIC0tPgogIDxnIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIj4KICAgIDxyZWN0IHg9IjcyMCIgeT0iMjAwIiB3aWR0aD0iMzIwIiBoZWlnaHQ9Ijg2IiByeD0iMTAiIGZpbGw9IiMzYTE0MTYiIHN0cm9rZT0iI2ZmNGQ0ZCIgc3Ryb2tlLXdpZHRoPSIzIi8+CiAgICA8dGV4dCB4PSI3NDUiIHk9IjIzOCIgZm9udC1zaXplPSIyNCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiNlNmVkZjMiPkRvbWFpbiBDb250cm9sbGVyPC90ZXh0PgogICAgPHRleHQgeD0iNzQ1IiB5PSIyNjYiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiNjOGIwYjAiPkFjdGl2ZSBEaXJlY3Rvcnk8L3RleHQ+CiAgICA8Y2lyY2xlIGN4PSIxMDEwIiBjeT0iMjQzIiByPSI5IiBmaWxsPSIjZmY0ZDRkIi8+CgogICAgPHJlY3QgeD0iNzIwIiB5PSIzMTAiIHdpZHRoPSIzMjAiIGhlaWdodD0iODYiIHJ4PSIxMCIgZmlsbD0iIzNhMTQxNiIgc3Ryb2tlPSIjZmY0ZDRkIiBzdHJva2Utd2lkdGg9IjMiLz4KICAgIDx0ZXh0IHg9Ijc0NSIgeT0iMzQ4IiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iI2U2ZWRmMyI+RVNYaTwvdGV4dD4KICAgIDx0ZXh0IHg9Ijc0NSIgeT0iMzc2IiBmb250LXNpemU9IjE4IiBmaWxsPSIjYzhiMGIwIj40MiBWTXM8L3RleHQ+CiAgICA8Y2lyY2xlIGN4PSIxMDEwIiBjeT0iMzUzIiByPSI5IiBmaWxsPSIjZmY0ZDRkIi8+CgogICAgPHJlY3QgeD0iNzIwIiB5PSI0MjAiIHdpZHRoPSIzMjAiIGhlaWdodD0iODYiIHJ4PSIxMCIgZmlsbD0iIzNhMTQxNiIgc3Ryb2tlPSIjZmY0ZDRkIiBzdHJva2Utd2lkdGg9IjMiLz4KICAgIDx0ZXh0IHg9Ijc0NSIgeT0iNDU4IiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iI2U2ZWRmMyI+RmlsZXNlcnZlcjwvdGV4dD4KICAgIDx0ZXh0IHg9Ijc0NSIgeT0iNDg2IiBmb250LXNpemU9IjE4IiBmaWxsPSIjYzhiMGIwIj5OVy1GUy0wMSAvIE5XLUZTLTAyPC90ZXh0PgogICAgPGNpcmNsZSBjeD0iMTAxMCIgY3k9IjQ2MyIgcj0iOSIgZmlsbD0iI2ZmNGQ0ZCIvPgoKICAgIDxyZWN0IHg9IjcyMCIgeT0iNTMwIiB3aWR0aD0iMzIwIiBoZWlnaHQ9Ijg2IiByeD0iMTAiIGZpbGw9IiMzYTE0MTYiIHN0cm9rZT0iI2ZmNGQ0ZCIgc3Ryb2tlLXdpZHRoPSIzIi8+CiAgICA8dGV4dCB4PSI3NDUiIHk9IjU2OCIgZm9udC1zaXplPSIyNCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiNlNmVkZjMiPldNUy1EQjwvdGV4dD4KICAgIDx0ZXh0IHg9Ijc0NSIgeT0iNTk2IiBmb250LXNpemU9IjE4IiBmaWxsPSIjYzhiMGIwIj5TUUw8L3RleHQ+CiAgICA8Y2lyY2xlIGN4PSIxMDEwIiBjeT0iNTczIiByPSI5IiBmaWxsPSIjZmY0ZDRkIi8+CgogICAgPHJlY3QgeD0iNzIwIiB5PSI2NDAiIHdpZHRoPSIzMjAiIGhlaWdodD0iODYiIHJ4PSIxMCIgZmlsbD0iIzMzMjcwYSIgc3Ryb2tlPSIjZmZiMDAwIiBzdHJva2Utd2lkdGg9IjMiLz4KICAgIDx0ZXh0IHg9Ijc0NSIgeT0iNjc4IiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iI2U2ZWRmMyI+QmFja3VwPC90ZXh0PgogICAgPHRleHQgeD0iNzQ1IiB5PSI3MDYiIGZvbnQtc2l6ZT0iMTgiIGZpbGw9IiNjOWI3OGEiPnRhcGVzIC8gQsOkbmRlcjogPzwvdGV4dD4KICAgIDxjaXJjbGUgY3g9IjEwMTAiIGN5PSI2ODMiIHI9IjkiIGZpbGw9IiNmZmIwMDAiLz4KICA8L2c+CgogIDwhLS0gd2FyZWhvdXNlcyAtLT4KICA8ZyBmb250LWZhbWlseT0ic2Fucy1zZXJpZiI+CiAgICA8cmVjdCB4PSIxMjAwIiB5PSIxNTAiIHdpZHRoPSIzMzAiIGhlaWdodD0iODAiIHJ4PSIxMCIgZmlsbD0iIzNhMTQxNiIgc3Ryb2tlPSIjZmY0ZDRkIiBzdHJva2Utd2lkdGg9IjMiLz4KICAgIDx0ZXh0IHg9IjEyMjUiIHk9IjE4NiIgZm9udC1zaXplPSIyNCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiNlNmVkZjMiPkhhbWJ1cmc8L3RleHQ+CiAgICA8dGV4dCB4PSIxMjI1IiB5PSIyMTQiIGZvbnQtc2l6ZT0iMTciIGZpbGw9IiNjOGIwYjAiPldNUyDCtyBMYWdlciAvIHdhcmVob3VzZTwvdGV4dD4KICAgIDxjaXJjbGUgY3g9IjE1MDAiIGN5PSIxOTAiIHI9IjkiIGZpbGw9IiNmZjRkNGQiLz4KCiAgICA8cmVjdCB4PSIxMjAwIiB5PSIyNTUiIHdpZHRoPSIzMzAiIGhlaWdodD0iODAiIHJ4PSIxMCIgZmlsbD0iIzNhMTQxNiIgc3Ryb2tlPSIjZmY0ZDRkIiBzdHJva2Utd2lkdGg9IjMiLz4KICAgIDx0ZXh0IHg9IjEyMjUiIHk9IjI5MSIgZm9udC1zaXplPSIyNCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiNlNmVkZjMiPkJyZW1lbjwvdGV4dD4KICAgIDx0ZXh0IHg9IjEyMjUiIHk9IjMxOSIgZm9udC1zaXplPSIxNyIgZmlsbD0iI2M4YjBiMCI+V01TIMK3IExhZ2VyIC8gd2FyZWhvdXNlPC90ZXh0PgogICAgPGNpcmNsZSBjeD0iMTUwMCIgY3k9IjI5NSIgcj0iOSIgZmlsbD0iI2ZmNGQ0ZCIvPgoKICAgIDxyZWN0IHg9IjEyMDAiIHk9IjM2MCIgd2lkdGg9IjMzMCIgaGVpZ2h0PSI4MCIgcng9IjEwIiBmaWxsPSIjMzMyNzBhIiBzdHJva2U9IiNmZmIwMDAiIHN0cm9rZS13aWR0aD0iMyIvPgogICAgPHRleHQgeD0iMTIyNSIgeT0iMzk2IiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iI2U2ZWRmMyI+SGFubm92ZXI8L3RleHQ+CiAgICA8dGV4dCB4PSIxMjI1IiB5PSI0MjQiIGZvbnQtc2l6ZT0iMTciIGZpbGw9IiNjOWI3OGEiPldNUyDCtyBMYWdlciAvIHdhcmVob3VzZTwvdGV4dD4KICAgIDxjaXJjbGUgY3g9IjE1MDAiIGN5PSI0MDAiIHI9IjkiIGZpbGw9IiNmZmIwMDAiLz4KCiAgICA8cmVjdCB4PSIxMjAwIiB5PSI0NjUiIHdpZHRoPSIzMzAiIGhlaWdodD0iODAiIHJ4PSIxMCIgZmlsbD0iIzMzMjcwYSIgc3Ryb2tlPSIjZmZiMDAwIiBzdHJva2Utd2lkdGg9IjMiLz4KICAgIDx0ZXh0IHg9IjEyMjUiIHk9IjUwMSIgZm9udC1zaXplPSIyNCIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IiNlNmVkZjMiPkRvcnRtdW5kPC90ZXh0PgogICAgPHRleHQgeD0iMTIyNSIgeT0iNTI5IiBmb250LXNpemU9IjE3IiBmaWxsPSIjYzliNzhhIj5XTVMgwrcgTGFnZXIgLyB3YXJlaG91c2U8L3RleHQ+CiAgICA8Y2lyY2xlIGN4PSIxNTAwIiBjeT0iNTA1IiByPSI5IiBmaWxsPSIjZmZiMDAwIi8+CgogICAgPHJlY3QgeD0iMTIwMCIgeT0iNTcwIiB3aWR0aD0iMzMwIiBoZWlnaHQ9IjgwIiByeD0iMTAiIGZpbGw9IiMxODIxMmMiIHN0cm9rZT0iIzVkNmI3YSIgc3Ryb2tlLXdpZHRoPSIzIi8+CiAgICA8dGV4dCB4PSIxMjI1IiB5PSI2MDYiIGZvbnQtc2l6ZT0iMjQiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjZTZlZGYzIj5MZWlwemlnPC90ZXh0PgogICAgPHRleHQgeD0iMTIyNSIgeT0iNjM0IiBmb250LXNpemU9IjE3IiBmaWxsPSIjOWZiMGMwIj5XTVMgwrcgTGFnZXIgLyB3YXJlaG91c2U8L3RleHQ+CiAgICA8Y2lyY2xlIGN4PSIxNTAwIiBjeT0iNjEwIiByPSI5IiBmaWxsPSIjNWQ2YjdhIi8+CgogICAgPHJlY3QgeD0iMTIwMCIgeT0iNjc1IiB3aWR0aD0iMzMwIiBoZWlnaHQ9IjgwIiByeD0iMTAiIGZpbGw9IiMxODIxMmMiIHN0cm9rZT0iIzVkNmI3YSIgc3Ryb2tlLXdpZHRoPSIzIi8+CiAgICA8dGV4dCB4PSIxMjI1IiB5PSI3MTEiIGZvbnQtc2l6ZT0iMjQiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjZTZlZGYzIj5Qb3puYcWEPC90ZXh0PgogICAgPHRleHQgeD0iMTIyNSIgeT0iNzM5IiBmb250LXNpemU9IjE3IiBmaWxsPSIjOWZiMGMwIj5XTVMgwrcgTGFnZXIgLyB3YXJlaG91c2U8L3RleHQ+CiAgICA8Y2lyY2xlIGN4PSIxNTAwIiBjeT0iNzE1IiByPSI5IiBmaWxsPSIjNWQ2YjdhIi8+CiAgPC9nPgoKICA8IS0tIGxlZ2VuZCAtLT4KICA8ZyBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMCIgZmlsbD0iI2M5ZDZlMyI+CiAgICA8cmVjdCB4PSI2MCIgeT0iODEyIiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHJ4PSI0IiBmaWxsPSIjM2ExNDE2IiBzdHJva2U9IiNmZjRkNGQiIHN0cm9rZS13aWR0aD0iMyIvPgogICAgPHRleHQgeD0iOTYiIHk9IjgzMiI+ZW5jcnlwdGVkIC8gdmVyc2NobMO8c3NlbHQ8L3RleHQ+CiAgICA8cmVjdCB4PSI0MjAiIHk9IjgxMiIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiByeD0iNCIgZmlsbD0iIzMzMjcwYSIgc3Ryb2tlPSIjZmZiMDAwIiBzdHJva2Utd2lkdGg9IjMiLz4KICAgIDx0ZXh0IHg9IjQ1NiIgeT0iODMyIj5zdXNwaWNpb3VzIC8gdmVyZMOkY2h0aWc8L3RleHQ+CiAgICA8cmVjdCB4PSI3ODAiIHk9IjgxMiIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiByeD0iNCIgZmlsbD0iIzE4MjEyYyIgc3Ryb2tlPSIjNWQ2YjdhIiBzdHJva2Utd2lkdGg9IjMiLz4KICAgIDx0ZXh0IHg9IjgxNiIgeT0iODMyIj51bmtub3duIC8gdW5rbGFyPC90ZXh0PgogICAgPGxpbmUgeDE9IjEwODAiIHkxPSI4MjQiIHgyPSIxMTUwIiB5Mj0iODI0IiBzdHJva2U9IiNmZjRkNGQiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWRhc2hhcnJheT0iMTIgOCIgbWFya2VyLWVuZD0idXJsKCNhcnJvdykiLz4KICAgIDx0ZXh0IHg9IjExNjYiIHk9IjgzMiI+YXR0YWNrIHBhdGggLyBBbmdyaWZmc3dlZzwvdGV4dD4KICA8L2c+Cjwvc3ZnPgo=",
+    "leak-site.svg": "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNjAwIiBoZWlnaHQ9IjkwMCIgdmlld0JveD0iMCAwIDE2MDAgOTAwIj4KICA8cmVjdCB3aWR0aD0iMTYwMCIgaGVpZ2h0PSI5MDAiIGZpbGw9IiMwYjBiMGUiLz4KCiAgPCEtLSBoZWFkZXIgLS0+CiAgPHJlY3Qgd2lkdGg9IjE2MDAiIGhlaWdodD0iOTAiIGZpbGw9IiMxNDE0MTgiLz4KICA8cmVjdCB5PSI5MCIgd2lkdGg9IjE2MDAiIGhlaWdodD0iMyIgZmlsbD0iI2IzMWQxZCIvPgogIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDc4LDQ1KSI+CiAgICA8cG9seWdvbiBwb2ludHM9IjAsLTI0IDIxLC0xMiAyMSwxMiAwLDI0IC0yMSwxMiAtMjEsLTEyIiBmaWxsPSJub25lIiBzdHJva2U9IiNmZjNiM2IiIHN0cm9rZS13aWR0aD0iMyIvPgogICAgPHBhdGggZD0iTS0xMCwtMTAgTDAsMTEgTDEwLC0xMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmYzYjNiIiBzdHJva2Utd2lkdGg9IjQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgogIDwvZz4KICA8dGV4dCB4PSIxMTgiIHk9IjU3IiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjM0IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iI2ZmM2IzYiIgbGV0dGVyLXNwYWNpbmc9IjMiPkdSRVkgVkVTUEVSPC90ZXh0PgogIDx0ZXh0IHg9IjM4MCIgeT0iNTciIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMzQiIGZpbGw9IiM3Nzc3N2YiPsK3IExFQUtTPC90ZXh0PgogIDx0ZXh0IHg9IjE1NDAiIHk9IjU1IiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjE4IiBmaWxsPSIjOGE4YTk0IiB0ZXh0LWFuY2hvcj0iZW5kIiBsZXR0ZXItc3BhY2luZz0iMiI+TkVXUyAgICBWSUNUSU1TICAgIFJVTEVTICAgIENPTlRBQ1Q8L3RleHQ+CgogIDwhLS0gbWFpbiB2aWN0aW0gY2FyZCAtLT4KICA8cmVjdCB4PSI2MCIgeT0iMTMwIiB3aWR0aD0iOTgwIiBoZWlnaHQ9IjYzMCIgcng9IjEwIiBmaWxsPSIjMTUxNTFiIiBzdHJva2U9IiMyYTJhMzMiIHN0cm9rZS13aWR0aD0iMiIvPgogIDxyZWN0IHg9IjkwIiB5PSIxNTAiIHdpZHRoPSI3OCIgaGVpZ2h0PSIzMCIgcng9IjE1IiBmaWxsPSIjYjMxZDFkIi8+CiAgPHRleHQgeD0iMTI5IiB5PSIxNzEiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE2IiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iI2ZmZmZmZiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+TkVXPC90ZXh0PgogIDx0ZXh0IHg9IjkwIiB5PSIyMzgiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjUyIiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iI2YyZjJmNSI+Tm9yZFdlcmsgTG9naXN0aWsgR21iSDwvdGV4dD4KICA8dGV4dCB4PSI5MCIgeT0iMjgwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIyMiIgZmlsbD0iIzhhOGE5NCI+SGFtYnVyZywgREUgIMK3ICBsb2dpc3RpY3MgJmFtcDsgd2FyZWhvdXNpbmcgIMK3ICAxLDIwMCBlbXBsb3llZXM8L3RleHQ+CgogIDx0ZXh0IHg9IjkwIiB5PSIzNDQiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMjAiIGZpbGw9IiNmZjVjNWMiIGxldHRlci1zcGFjaW5nPSIzIj5GVUxMIFBVQkxJQ0FUSU9OIElOPC90ZXh0PgogIDx0ZXh0IHg9IjkwIiB5PSI0MTYiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iNjQiIGZvbnQtd2VpZ2h0PSJib2xkIiBmaWxsPSIjZjJmMmY1Ij4wNGQgMjNoIDEybSAwN3M8L3RleHQ+CgogIDxyZWN0IHg9IjkwIiB5PSI0NDYiIHdpZHRoPSI5MjAiIGhlaWdodD0iMTgiIHJ4PSI5IiBmaWxsPSIjMmEyYTMzIi8+CiAgPHJlY3QgeD0iOTAiIHk9IjQ0NiIgd2lkdGg9IjQwIiBoZWlnaHQ9IjE4IiByeD0iOSIgZmlsbD0iI2ZmM2IzYiIvPgogIDx0ZXh0IHg9IjkwIiB5PSI0OTgiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMjAiIGZpbGw9IiM4YThhOTQiPnB1Ymxpc2hlZDogMiUgKHNhbXBsZSkgIMK3ICB0b3RhbDogNDgwIEdCPC90ZXh0PgoKICA8cmVjdCB4PSI5MCIgeT0iNTIyIiB3aWR0aD0iOTIwIiBoZWlnaHQ9IjIxMCIgcng9IjYiIGZpbGw9IiMwZTBlMTIiIHN0cm9rZT0iIzI0MjQyYyIvPgogIDxnIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMjAiPgogICAgPHRleHQgeD0iMTE0IiB5PSI1NjAiIGZpbGw9IiNmZjdhN2EiPlt4XSAvSFIvR2VoYWx0c2FicmVjaG51bmdfMjAyNi0wOS54bHN4PC90ZXh0PgogICAgPHRleHQgeD0iOTg2IiB5PSI1NjAiIGZpbGw9IiNmZjdhN2EiIHRleHQtYW5jaG9yPSJlbmQiPjEyIE1CPC90ZXh0PgogICAgPHRleHQgeD0iMTE0IiB5PSI1OTgiIGZpbGw9IiNmZjdhN2EiPlt4XSAvSFIvQXVzd2Vpc2tvcGllbl9TY2FuLnppcDwvdGV4dD4KICAgIDx0ZXh0IHg9Ijk4NiIgeT0iNTk4IiBmaWxsPSIjZmY3YTdhIiB0ZXh0LWFuY2hvcj0iZW5kIj4xLjQgR0I8L3RleHQ+CiAgICA8dGV4dCB4PSIxMTQiIHk9IjYzNiIgZmlsbD0iI2E1YTViMCI+WyBdIC9GaW5hbmNlL0Jhbmt2ZXJiaW5kdW5nZW5fTGllZmVyYW50ZW4uY3N2PC90ZXh0PgogICAgPHRleHQgeD0iOTg2IiB5PSI2MzYiIGZpbGw9IiNhNWE1YjAiIHRleHQtYW5jaG9yPSJlbmQiPjMgTUI8L3RleHQ+CiAgICA8dGV4dCB4PSIxMTQiIHk9IjY3NCIgZmlsbD0iI2E1YTViMCI+WyBdIC9TYWxlcy9LdW5kZW52ZXJ0cmFlZ2UvUmFobWVudmVydHJhZWdlLnppcDwvdGV4dD4KICAgIDx0ZXh0IHg9Ijk4NiIgeT0iNjc0IiBmaWxsPSIjYTVhNWIwIiB0ZXh0LWFuY2hvcj0iZW5kIj44NjAgTUI8L3RleHQ+CiAgICA8dGV4dCB4PSIxMTQiIHk9IjcxMiIgZmlsbD0iI2E1YTViMCI+WyBdIC9JVC9ud2Nvbm5lY3RfdXNlcnNfZHVtcC5zcWw8L3RleHQ+CiAgICA8dGV4dCB4PSI5ODYiIHk9IjcxMiIgZmlsbD0iI2E1YTViMCIgdGV4dC1hbmNob3I9ImVuZCI+OSBHQjwvdGV4dD4KICA8L2c+CgogIDwhLS0gb3RoZXIgdmljdGltcyAoY2Vuc29yZWQpIC0tPgogIDx0ZXh0IHg9IjEwODAiIHk9IjE2MCIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIyMCIgZmlsbD0iIzhhOGE5NCIgbGV0dGVyLXNwYWNpbmc9IjMiPk9USEVSIFZJQ1RJTVM8L3RleHQ+CiAgPGc+CiAgICA8cmVjdCB4PSIxMDgwIiB5PSIxODAiIHdpZHRoPSI0NjAiIGhlaWdodD0iMTAwIiByeD0iOCIgZmlsbD0iIzE1MTUxYiIgc3Ryb2tlPSIjMmEyYTMzIi8+CiAgICA8cmVjdCB4PSIxMTA1IiB5PSIyMDUiIHdpZHRoPSIyNTAiIGhlaWdodD0iMjIiIHJ4PSI0IiBmaWxsPSIjMzQzNDNlIi8+CiAgICA8cmVjdCB4PSIxMTA1IiB5PSIyNDAiIHdpZHRoPSIxNjAiIGhlaWdodD0iMTQiIHJ4PSI0IiBmaWxsPSIjMjYyNjJlIi8+CiAgICA8cmVjdCB4PSIxNDA1IiB5PSIyMTIiIHdpZHRoPSIxMTIiIGhlaWdodD0iMzAiIHJ4PSI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmZjNiM2IiIHN0cm9rZS13aWR0aD0iMiIvPgogICAgPHRleHQgeD0iMTQ2MSIgeT0iMjMzIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjE1IiBmaWxsPSIjZmY1YzVjIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5QVUJMSVNIRUQ8L3RleHQ+CgogICAgPHJlY3QgeD0iMTA4MCIgeT0iMjk1IiB3aWR0aD0iNDYwIiBoZWlnaHQ9IjEwMCIgcng9IjgiIGZpbGw9IiMxNTE1MWIiIHN0cm9rZT0iIzJhMmEzMyIvPgogICAgPHJlY3QgeD0iMTEwNSIgeT0iMzIwIiB3aWR0aD0iMjEwIiBoZWlnaHQ9IjIyIiByeD0iNCIgZmlsbD0iIzM0MzQzZSIvPgogICAgPHJlY3QgeD0iMTEwNSIgeT0iMzU1IiB3aWR0aD0iMTkwIiBoZWlnaHQ9IjE0IiByeD0iNCIgZmlsbD0iIzI2MjYyZSIvPgogICAgPHRleHQgeD0iMTUxNyIgeT0iMzQ4IiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjIyIiBmaWxsPSIjZmZiMDAwIiB0ZXh0LWFuY2hvcj0iZW5kIj4wMmQgMTFoPC90ZXh0PgoKICAgIDxyZWN0IHg9IjEwODAiIHk9IjQxMCIgd2lkdGg9IjQ2MCIgaGVpZ2h0PSIxMDAiIHJ4PSI4IiBmaWxsPSIjMTUxNTFiIiBzdHJva2U9IiMyYTJhMzMiLz4KICAgIDxyZWN0IHg9IjExMDUiIHk9IjQzNSIgd2lkdGg9IjI4MCIgaGVpZ2h0PSIyMiIgcng9IjQiIGZpbGw9IiMzNDM0M2UiLz4KICAgIDxyZWN0IHg9IjExMDUiIHk9IjQ3MCIgd2lkdGg9IjEzMCIgaGVpZ2h0PSIxNCIgcng9IjQiIGZpbGw9IiMyNjI2MmUiLz4KICAgIDxyZWN0IHg9IjE0MDUiIHk9IjQ0MiIgd2lkdGg9IjExMiIgaGVpZ2h0PSIzMCIgcng9IjQiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmM2IzYiIgc3Ryb2tlLXdpZHRoPSIyIi8+CiAgICA8dGV4dCB4PSIxNDYxIiB5PSI0NjMiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTUiIGZpbGw9IiNmZjVjNWMiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlBVQkxJU0hFRDwvdGV4dD4KCiAgICA8cmVjdCB4PSIxMDgwIiB5PSI1MjUiIHdpZHRoPSI0NjAiIGhlaWdodD0iMTAwIiByeD0iOCIgZmlsbD0iIzE1MTUxYiIgc3Ryb2tlPSIjMmEyYTMzIi8+CiAgICA8cmVjdCB4PSIxMTA1IiB5PSI1NTAiIHdpZHRoPSIyMzAiIGhlaWdodD0iMjIiIHJ4PSI0IiBmaWxsPSIjMzQzNDNlIi8+CiAgICA8cmVjdCB4PSIxMTA1IiB5PSI1ODUiIHdpZHRoPSIxNzAiIGhlaWdodD0iMTQiIHJ4PSI0IiBmaWxsPSIjMjYyNjJlIi8+CiAgICA8dGV4dCB4PSIxNTE3IiB5PSI1NzgiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMjIiIGZpbGw9IiNmZmIwMDAiIHRleHQtYW5jaG9yPSJlbmQiPjA2ZCAwMmg8L3RleHQ+CgogICAgPHJlY3QgeD0iMTA4MCIgeT0iNjQwIiB3aWR0aD0iNDYwIiBoZWlnaHQ9IjEwMCIgcng9IjgiIGZpbGw9IiMxNTE1MWIiIHN0cm9rZT0iIzJhMmEzMyIvPgogICAgPHJlY3QgeD0iMTEwNSIgeT0iNjY1IiB3aWR0aD0iMTkwIiBoZWlnaHQ9IjIyIiByeD0iNCIgZmlsbD0iIzM0MzQzZSIvPgogICAgPHJlY3QgeD0iMTEwNSIgeT0iNzAwIiB3aWR0aD0iMTUwIiBoZWlnaHQ9IjE0IiByeD0iNCIgZmlsbD0iIzI2MjYyZSIvPgogICAgPHJlY3QgeD0iMTQwNSIgeT0iNjcyIiB3aWR0aD0iMTEyIiBoZWlnaHQ9IjMwIiByeD0iNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmYzYjNiIiBzdHJva2Utd2lkdGg9IjIiLz4KICAgIDx0ZXh0IHg9IjE0NjEiIHk9IjY5MyIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxNSIgZmlsbD0iI2ZmNWM1YyIgdGV4dC1hbmNob3I9Im1pZGRsZSI+UFVCTElTSEVEPC90ZXh0PgogIDwvZz4KCiAgPCEtLSBmb290ZXIgLS0+CiAgPHJlY3QgeT0iODAwIiB3aWR0aD0iMTYwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiMxMDEwMTQiLz4KICA8dGV4dCB4PSI2MCIgeT0iODU2IiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjIwIiBmaWxsPSIjNzc3NzdmIj5Db250YWN0IHVzIGJlZm9yZSB0aGUgdGltZXIgZW5kcy4gWW91ciBkYXRhIOKAkyB5b3VyIGNob2ljZS48L3RleHQ+CiAgPHRleHQgeD0iMTU0MCIgeT0iODU2IiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjIwIiBmaWxsPSIjNTU1NTVkIiB0ZXh0LWFuY2hvcj0iZW5kIj5ncmV5dmVzcGVyLi4ub25pb248L3RleHQ+Cjwvc3ZnPgo="
+  }
+}

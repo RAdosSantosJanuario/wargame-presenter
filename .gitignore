@@ -1,0 +1,13 @@
+# local working data (wargames, uploaded images, recorded sessions)
+data/
+
+# Python
+__pycache__/
+*.pyc
+
+# editor / tooling
+.claude/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
