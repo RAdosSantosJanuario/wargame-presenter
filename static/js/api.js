@@ -1,8 +1,12 @@
 // Thin wrapper around the local JSON API (server.py).
+// The server rejects POST and PUT without Content-Type: application/json
+// (protection against forged requests from other web pages), so every write
+// sends it, even without a body.
 async function request(method, url, body) {
+  const write = method === 'POST' || method === 'PUT';
   const res = await fetch(url, {
     method,
-    headers: body !== undefined ? { 'Content-Type': 'application/json' } : undefined,
+    headers: write || body !== undefined ? { 'Content-Type': 'application/json' } : undefined,
     body: body !== undefined ? JSON.stringify(body) : undefined,
     cache: 'no-store',
   });

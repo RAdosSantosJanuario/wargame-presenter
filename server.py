@@ -12,6 +12,7 @@ from __future__ import annotations
 import argparse
 import base64
 import binascii
+import ipaddress
 import json
 import os
 import re
@@ -332,6 +333,31 @@ class Store:
         marker.write_text(now_iso(), encoding="utf-8")
 
 
+def host_name(value: str) -> str:
+    """Host header value without the port, lower case ("[::1]:8765" -> "::1")."""
+    value = value.strip().lower()
+    if value.startswith("["):
+        return value[1:value.find("]")] if "]" in value else value
+    if value.count(":") == 1:
+        return value.split(":", 1)[0]
+    return value
+
+
+def host_allowed(value: str, extra: set[str]) -> bool:
+    """Accept localhost, IP addresses and names given with --allow-host.
+
+    DNS rebinding needs a domain name that the attacker controls, so refusing
+    every other name in the Host header stops it."""
+    name = host_name(value)
+    if name == "localhost" or name in extra:
+        return True
+    try:
+        ipaddress.ip_address(name)
+        return True
+    except ValueError:
+        return False
+
+
 def decode_data_url(data_url: str):
     m = re.match(r"^data:([\w.+/-]+)?(;[^,]*)?,(.*)$", data_url or "", re.S)
     if not m:
@@ -348,6 +374,7 @@ def decode_data_url(data_url: str):
 class Handler(BaseHTTPRequestHandler):
     server_version = "WargamePresenter/1.0"
     store: Store = None  # set in main()
+    allowed_hosts: set[str] = set()  # extra host names from --allow-host
 
     # ---------- plumbing ----------
     def log_request(self, code="-", size="-"):  # only log failed requests
@@ -393,11 +420,30 @@ class Handler(BaseHTTPRequestHandler):
         ctype = MIME.get(path.suffix.lower(), "application/octet-stream")
         self._send(200, path.read_bytes(), ctype)
 
+    def _check_request(self, method: str):
+        """Block requests that a web page in the same browser could forge."""
+        host = self.headers.get("Host")
+        if host is not None and not host_allowed(host, self.allowed_hosts):
+            raise ApiError(403, "host not allowed")
+        if method in ("GET", "HEAD"):
+            return
+        # Browsers send Origin on cross-origin writes; it must be this server.
+        origin = self.headers.get("Origin")
+        if origin is not None and urlparse(origin).netloc.lower() != (host or "").strip().lower():
+            raise ApiError(403, "cross-origin request rejected")
+        # application/json is not a CORS "simple" content type, so a foreign
+        # page has to send a preflight first, and OPTIONS is not supported.
+        if method in ("POST", "PUT"):
+            ctype = (self.headers.get("Content-Type") or "").split(";", 1)[0].strip().lower()
+            if ctype != "application/json":
+                raise ApiError(415, "expected Content-Type: application/json")
+
     def _dispatch(self, method: str):
         url = urlparse(self.path)
         path = unquote(url.path)
         query = {k: v[0] for k, v in parse_qs(url.query).items()}
         try:
+            self._check_request(method)
             if path.startswith("/api/"):
                 return self._api(method, path[5:].strip("/").split("/"), query)
             if method in ("GET", "HEAD"):
@@ -509,11 +555,17 @@ def main():
     ap.add_argument("--port", type=int, default=8765)
     ap.add_argument("--data", default=str(ROOT / "data"), help="data folder (default ./data)")
     ap.add_argument("--no-browser", action="store_true", help="do not open the browser")
+    ap.add_argument("--allow-host", action="append", default=[], metavar="NAME",
+                    help="also accept this host name in requests, e.g. the laptop's name "
+                         "when using --host 0.0.0.0 (localhost and IP addresses always work)")
     args = ap.parse_args()
 
     store = Store(Path(args.data).resolve())
     store.seed_samples()
     Handler.store = store
+    Handler.allowed_hosts = {host_name(h) for h in args.allow_host if h.strip()}
+    if args.host not in ("0.0.0.0", "::", ""):
+        Handler.allowed_hosts.add(host_name(args.host))
 
     try:
         httpd = ThreadingHTTPServer((args.host, args.port), Handler)

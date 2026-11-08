@@ -60,6 +60,7 @@ network map and a hidden "data exposure" score. Press **Present** to try it, or 
 | `--data D:\exercise` | `./data` | Folder for wargames, images and sessions |
 | `--no-browser` | off | Don't open the browser automatically |
 | `--host 0.0.0.0` | `127.0.0.1` | Make it reachable from other devices (see [security notes](#security-notes)) |
+| `--allow-host laptop01` | none | Also accept this host name, e.g. when other devices open `http://laptop01:8765` (repeatable) |
 
 ## Features
 
@@ -265,6 +266,10 @@ No build step: edit a file and reload the page.
   same network can view *and change* your wargames. Only do that on a network you trust.
 - Uploaded files are limited to images and stored under `data/media/`. Requests with paths that try
   to leave the data folder are rejected.
+- **Other web pages in the same browser cannot use the API.** The server only answers requests whose
+  `Host` header is `localhost`, an IP address or a name given with `--allow-host`, which blocks
+  DNS rebinding. Writes from another origin are rejected, and POST/PUT must be sent as
+  `application/json`, so a page cannot slip in a "simple" cross-site request without a preflight.
 - The sample scenario and its company are fictional.
 
 ## Ideas and roadmap
